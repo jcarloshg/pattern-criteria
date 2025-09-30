@@ -6,34 +6,34 @@ This document describes the database design to support the use case: **Advanced 
 
 - **Product**
 
-  - uuid (PK)
-  - name
-  - description
-  - price
-  - rating
-  - availability
-  - brand_id (FK)
-  - category_id (FK)
+  - `uuid` (PK): `UUID`
+  - `name`: `String`
+  - `description`: `Text`
+  - `price`: `Decimal`
+  - `rating`: `Float`
+  - `availability`: `Boolean`
+  - `brand_id` (FK): `UUID`
+  - `category_id` (FK): `UUID`
 
 - **Category**
 
-  - uuid (PK)
-  - name
+  - `uuid` (PK): `UUID`
+  - `name`: `String`
 
 - **Brand**
 
-  - uuid (PK)
-  - name
+  - `uuid` (PK): `UUID`
+  - `name`: `String`
 
 - **Attribute**
 
-  - id (PK)
-  - name (e.g., color, size)
+  - `id` (PK): `Integer`
+  - `name`: `String` (e.g., color, size)
 
 - **ProductAttribute**
-  - product_id (FK)
-  - attribute_id (FK)
-  - value
+  - `product_id` (FK): `UUID`
+  - `attribute_id` (FK): `Integer`
+  - `value`: `String`
 
 ## Relationships
 
