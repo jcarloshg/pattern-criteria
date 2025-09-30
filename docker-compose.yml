@@ -14,7 +14,7 @@ services:
       - db-sql
 
   db-sql:
-    build: ./flash-cards-database
+    build: ./database
     container_name: db-sql
     ports:
       - 5432:5432
