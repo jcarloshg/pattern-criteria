@@ -1,0 +1,40 @@
+services:
+  db-sql:
+    container_name: db-sql
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=pattern_criteria_db
+    volumes:
+      - database-volume:/var/lib/postgresql/data
+
+  pdAdmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4
+    restart: always
+    depends_on:
+      - db-sql
+    ports:
+      - 8080:80
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=alumno@google.com
+      - PGADMIN_DEFAULT_PASSWORD=123456
+    user: "$UID:$GID"
+    volumes:
+      - ./pgadmin:/var/lib/pgadmin
+      - ./pgadmin:/certs/server.cert
+      - ./pgadmin:/certs/server.key
+      - ./pgadmin:/pgadmin4/servers.json
+
+volumes:
+  database-volume:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./../database-volume
+      o: bind

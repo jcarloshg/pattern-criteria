@@ -6,21 +6,22 @@ services:
     ports:
       - 3000:3000
     environment:
-      - POSTGRES_URL=postgresql://admin:123456@db-sql:5432/data_base_name
+      - POSTGRES_URL=postgresql://admin:123456@db-sql:5432/pattern_criteria_db
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=123456
-      - POSTGRES_DB=data_base_name
+      - POSTGRES_DB=pattern_criteria_db
     depends_on:
       - db-sql
 
   db-sql:
-    image: postgres:15.13
+    build: ./flash-cards-database
+    container_name: db-sql
     ports:
       - 5432:5432
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=123456
-      - POSTGRES_DB=data_base_name
+      - POSTGRES_DB=pattern_criteria_db
     volumes:
       - database-volume:/var/lib/postgresql/data
 
