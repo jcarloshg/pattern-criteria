@@ -1,26 +1,26 @@
 CREATE TABLE IF NOT EXISTS category (
-    uuid UUID PRIMARY KEY DEFAULT gen_random_uuid (),
+    uuid UUID PRIMARY KEY,
     name VARCHAR(255) NOT NULL
 );
 
 -- Brand Table
 
 CREATE TABLE IF NOT EXISTS brand (
-    uuid UUID PRIMARY KEY DEFAULT gen_random_uuid (),
+    uuid UUID PRIMARY KEY,
     name VARCHAR(255) NOT NULL
 );
 
 -- Attribute Table
 
 CREATE TABLE IF NOT EXISTS attribute (
-    uuid UUID PRIMARY KEY DEFAULT gen_random_uuid (),
+    uuid UUID PRIMARY KEY,
     name VARCHAR(100) NOT NULL
 );
 
 -- Product Table
 
 CREATE TABLE IF NOT EXISTS product (
-    uuid UUID PRIMARY KEY DEFAULT gen_random_uuid (),
+    uuid UUID PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     description TEXT,
     price NUMERIC(12, 2) NOT NULL,
@@ -36,11 +36,11 @@ CREATE TABLE IF NOT EXISTS product (
 
 CREATE TABLE IF NOT EXISTS product_attribute (
     product_id UUID NOT NULL,
-    attribute_id INTEGER NOT NULL,
+    attribute_id UUID NOT NULL,
     value VARCHAR(255) NOT NULL,
     PRIMARY KEY (product_id, attribute_id),
     CONSTRAINT fk_product FOREIGN KEY (product_id) REFERENCES product (uuid) ON DELETE CASCADE,
-    CONSTRAINT fk_attribute FOREIGN KEY (attribute_id) REFERENCES attribute (id) ON DELETE CASCADE
+    CONSTRAINT fk_attribute FOREIGN KEY (attribute_id) REFERENCES attribute (uuid) ON DELETE CASCADE
 );
 
 -- Indexes for performance
