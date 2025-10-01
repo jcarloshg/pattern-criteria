@@ -224,12 +224,19 @@ console.log(`productsPath: ${productsPath}`);
 const productsData = fs.readFileSync(productsPath, 'utf-8');
 const products = JSON.parse(productsData) as { products: any[] };
 
+console.log(`products: ${products.products.length}`);
+
 products.products.forEach((product: any) => {
+    product.availability = "TRUE"; // all products are available
     product.uuid = randomUUID();
     product.brand_id = brands[Math.floor(Math.random() * brands.length)].uuid;
     product.category_id = categories[Math.floor(Math.random() * categories.length)].uuid;
-    product.availability = "TRUE"; // all products are available
-    product.attributes = [];
+
+
+    // product.uuid = undefined
+    // product.brand_id = undefined
+    // product.category_id = undefined
+    // product.attributes = undefined
 
 
     // set attributes
@@ -254,7 +261,7 @@ products.products.forEach((product: any) => {
     });
 
 });
-fs.writeFileSync(productsPath, JSON.stringify(products, null, 2), 'utf-8');
+// fs.writeFileSync(productsPath, JSON.stringify(products, null, 2), 'utf-8');
 
 // ─────────────────────────────────────
 // ─────────────────────────────────────
@@ -332,4 +339,5 @@ ${productAttributeSqlInsert}
 console.log(`__dirname: ${__dirname}`);
 // database/
 const outputPath = path.join(__dirname, '../migrations/2025-09-30/02.insert-products.UP.sql');
+// const outputPath = path.join(__dirname, './insert.sql');
 fs.writeFileSync(outputPath, finalSqlScript, 'utf-8');
