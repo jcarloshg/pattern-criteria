@@ -226,51 +226,71 @@ const products = JSON.parse(productsData) as { products: any[] };
 
 console.log(`products: ${products.products.length}`);
 
+const products_v1: any[] = [];
+const products_v2: any[] = [];
+const products_v3: any[] = [];
+
 products.products.forEach((product: any) => {
-    product.availability = "TRUE"; // all products are available
-    product.uuid = randomUUID();
-    product.brand_id = brands[Math.floor(Math.random() * brands.length)].uuid;
-    product.category_id = categories[Math.floor(Math.random() * categories.length)].uuid;
-
-
-    // product.uuid = undefined
-    // product.brand_id = undefined
-    // product.category_id = undefined
-    // product.attributes = undefined
-
-
+    let product_v1 = { ...product };
+    product_v1.name = product.name + ' v1';
+    product_v1.availability = "TRUE"; // all products are available
+    product_v1.uuid = randomUUID();
+    product_v1.brand_id = brands[Math.floor(Math.random() * brands.length)].uuid;
+    product_v1.category_id = categories[Math.floor(Math.random() * categories.length)].uuid;
     // set attributes
     attributes.forEach(attribute => {
         const attributeValues = attribute.values;
         const value = attributeValues[Math.floor(Math.random() * attributeValues.length)];
-        if (!product.attributes) product.attributes = [];
-        product.attributes.push({
+        if (!product_v1.attributes) product_v1.attributes = [];
+        product_v1.attributes.push({
+            attribute_name: attribute.name,
+            attribute_id: attribute.uuid,
+            value
+        });
+    });
+    products_v1.push(product_v1);
+
+    let product_v2 = { ...product };
+    product_v2.name = product.name + ' v2';
+    product_v2.availability = "TRUE"; // all products are unavailable
+    product_v2.uuid = randomUUID();
+    product_v2.brand_id = brands[Math.floor(Math.random() * brands.length)].uuid;
+    product_v2.category_id = categories[Math.floor(Math.random() * categories.length)].uuid;
+    // set attributes
+    attributes.forEach(attribute => {
+        const attributeValues = attribute.values;
+        const value = attributeValues[Math.floor(Math.random() * attributeValues.length)];
+        if (!product_v2.attributes) product_v2.attributes = [];
+        product_v2.attributes.push({
             attribute_name: attribute.name,
             attribute_id: attribute.uuid,
             value
         });
     })
-    // const attributesLength = attributes.length;
-    // const numberOfAttributes = Math.floor(Math.random() * attributesLength) + 1; // at least one attribute
-    // const selectedAttributes = new Set<number>();
-    // while (selectedAttributes.size < numberOfAttributes) {
-    //     const randomIndex = Math.floor(Math.random() * attributesLength);
-    //     selectedAttributes.add(randomIndex);
-    // }
+    products_v2.push(product_v2);
 
-    // selectedAttributes.forEach(index => {
-    //     const attribute = attributes[index];
-    //     const attributeValues = attribute.values;
-    //     const value = attributeValues[Math.floor(Math.random() * attributeValues.length)];
-    //     if (!product.attributes) product.attributes = [];
-    //     product.attributes.push({
-    //         attribute_name: attribute.name,
-    //         attribute_id: attribute.uuid,
-    //         value
-    //     });
-    // });
+    let product_v3 = { ...product };
+    product_v3.name = product.name + ' v3';
+    product_v3.availability = "TRUE"; // all products are available
+    product_v3.uuid = randomUUID();
+    product_v3.brand_id = brands[Math.floor(Math.random() * brands.length)].uuid;
+    product_v3.category_id = categories[Math.floor(Math.random() * categories.length)].uuid;
+    // set attributes
+    attributes.forEach(attribute => {
+        const attributeValues = attribute.values;
+        const value = attributeValues[Math.floor(Math.random() * attributeValues.length)];
+        if (!product_v3.attributes) product_v3.attributes = [];
+        product_v3.attributes.push({
+            attribute_name: attribute.name,
+            attribute_id: attribute.uuid,
+            value
+        });
+    })
+    products_v3.push(product_v3);
 
 });
+
+products.products = [...products_v1, ...products_v2, ...products_v3];
 // fs.writeFileSync(productsPath, JSON.stringify(products, null, 2), 'utf-8');
 
 // ─────────────────────────────────────
