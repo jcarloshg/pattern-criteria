@@ -1,17 +1,5 @@
 import { uuid, z } from "zod";
 
-// export const ProductSchema = z.object({
-//     uuid: z.string().uuid(),
-//     name: z.string().max(255),
-//     description: z.string().optional(),
-//     price: z.number().refine(val => val >= 0, { message: "Price must be non-negative" }),
-//     rating: z.number().optional(),
-//     availability: z.boolean(),
-//     brand_id: z.string().uuid(),
-//     category_id: z.string().uuid(),
-// });
-
-
 // ─────────────────────────────────────
 // CREATE SCHEMAS
 // ─────────────────────────────────────
