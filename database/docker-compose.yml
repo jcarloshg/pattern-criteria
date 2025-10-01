@@ -1,6 +1,6 @@
 services:
-  db-sql:
-    container_name: db-sql
+  db-sql-in-database:
+    container_name: db-sql-in-database
     build:
       context: .
       dockerfile: Dockerfile
@@ -18,7 +18,7 @@ services:
     container_name: pgadmin4
     restart: always
     depends_on:
-      - db-sql
+      - db-sql-in-database
     ports:
       - 8080:80
     environment:
@@ -36,5 +36,5 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: ./../database-volume
+      device: ./../../database-volume
       o: bind

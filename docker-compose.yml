@@ -13,6 +13,24 @@ services:
     depends_on:
       - db-sql
 
+  pdAdmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4
+    restart: always
+    depends_on:
+      - db-sql
+    ports:
+      - 8080:80
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=alumno@google.com
+      - PGADMIN_DEFAULT_PASSWORD=123456
+    user: "$UID:$GID"
+    volumes:
+      - ./pgadmin:/var/lib/pgadmin
+      - ./pgadmin:/certs/server.cert
+      - ./pgadmin:/certs/server.key
+      - ./pgadmin:/pgadmin4/servers.json
+
   db-sql:
     build: ./database
     container_name: db-sql
