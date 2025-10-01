@@ -240,16 +240,7 @@ products.products.forEach((product: any) => {
 
 
     // set attributes
-    const attributesLength = attributes.length;
-    const numberOfAttributes = Math.floor(Math.random() * attributesLength) + 1; // at least one attribute
-    const selectedAttributes = new Set<number>();
-    while (selectedAttributes.size < numberOfAttributes) {
-        const randomIndex = Math.floor(Math.random() * attributesLength);
-        selectedAttributes.add(randomIndex);
-    }
-
-    selectedAttributes.forEach(index => {
-        const attribute = attributes[index];
+    attributes.forEach(attribute => {
         const attributeValues = attribute.values;
         const value = attributeValues[Math.floor(Math.random() * attributeValues.length)];
         if (!product.attributes) product.attributes = [];
@@ -258,7 +249,26 @@ products.products.forEach((product: any) => {
             attribute_id: attribute.uuid,
             value
         });
-    });
+    })
+    // const attributesLength = attributes.length;
+    // const numberOfAttributes = Math.floor(Math.random() * attributesLength) + 1; // at least one attribute
+    // const selectedAttributes = new Set<number>();
+    // while (selectedAttributes.size < numberOfAttributes) {
+    //     const randomIndex = Math.floor(Math.random() * attributesLength);
+    //     selectedAttributes.add(randomIndex);
+    // }
+
+    // selectedAttributes.forEach(index => {
+    //     const attribute = attributes[index];
+    //     const attributeValues = attribute.values;
+    //     const value = attributeValues[Math.floor(Math.random() * attributeValues.length)];
+    //     if (!product.attributes) product.attributes = [];
+    //     product.attributes.push({
+    //         attribute_name: attribute.name,
+    //         attribute_id: attribute.uuid,
+    //         value
+    //     });
+    // });
 
 });
 // fs.writeFileSync(productsPath, JSON.stringify(products, null, 2), 'utf-8');
