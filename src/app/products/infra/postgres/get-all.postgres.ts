@@ -14,7 +14,6 @@ export class GetAllProductsPostgres implements GetAllProductsRepository {
         const query = "SELECT * FROM product;"
         try {
             const result = await this.PostgresManager.runQuery(query);
-            console.log(`result.command: `, result.rows);
             return result.rows;
         } catch (error) {
             throw error;

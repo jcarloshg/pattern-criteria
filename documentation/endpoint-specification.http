@@ -6,4 +6,4 @@ GET http://localhost:3000/api/health
 
 
 ### Get all
-GET http://localhost:3000/api/products/v1
+GET http://localhost:3000/api/products/v1?name=Product%201&category=Category%20A&minPrice=10&maxPrice=50&inStock=true

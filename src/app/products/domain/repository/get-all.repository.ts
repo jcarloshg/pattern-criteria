@@ -1,4 +1,4 @@
-import { ReadAllRepository } from "@/app/shared/domain/repository/read-all.repository";
+import { ReadAllRepository } from "@/app/shared/domain/repository/crud/read-all.repository";
 import { ProductToRead } from "@/app/products/domain/models/product.model";
 
 export class GetAllProductsRepository implements ReadAllRepository<ProductToRead> {
