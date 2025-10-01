@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS brand (
 -- Attribute Table
 
 CREATE TABLE IF NOT EXISTS attribute (
-    id SERIAL PRIMARY KEY,
+    uuid UUID PRIMARY KEY DEFAULT gen_random_uuid (),
     name VARCHAR(100) NOT NULL
 );
 
