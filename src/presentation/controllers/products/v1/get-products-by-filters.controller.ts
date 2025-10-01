@@ -7,7 +7,7 @@ import { Request, Response } from "express";
  */
 export const getProductsByFilters = async (req: Request, res: Response) => {
     try {
-        console.log(`req: ${req}`);
+        console.log(`req:`, req.query);
         res.status(200).json({ message: "Products fetched successfully" });
     } catch (error) {
         console.error("Error fetching products by filters:", error);
