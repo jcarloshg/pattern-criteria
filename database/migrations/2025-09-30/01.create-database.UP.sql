@@ -49,15 +49,12 @@ CREATE TABLE IF NOT EXISTS product_attribute (
 
 -- Indexes for performance
 
-CREATE INDEX idx_product_price ON product (price);
+CREATE INDEX IF NOT EXISTS idx_product_price ON product (price);
 
-CREATE INDEX idx_product_rating ON product (rating);
+CREATE INDEX IF NOT EXISTS idx_product_rating ON product (rating);
 
-CREATE INDEX idx_product_category ON product (category_id);
+CREATE INDEX IF NOT EXISTS idx_product_category ON product (category_id);
 
-CREATE INDEX idx_product_brand ON product (brand_id);
+CREATE INDEX IF NOT EXISTS idx_product_brand ON product (brand_id);
 
-CREATE INDEX idx_productattribute_value ON product_attribute (value);
-
--- Optional: Full-text search index (PostgreSQL)
--- CREATE INDEX idx_product_fulltext ON product USING GIN (to_tsvector('english', name || ' ' || description));
+CREATE INDEX IF NOT EXISTS idx_productattribute_value ON product_attribute (value);
