@@ -1,0 +1,5 @@
+### home
+GET http://localhost:3000/api/
+
+### Health Check
+GET http://localhost:3000/api/health

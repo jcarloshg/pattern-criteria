@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import { enviromentVariables } from "@/app/infrastructure/utils/enviroment-variables";
 import { registerProductRoutesV1 } from "@/presentation/routes/products/products.v1.routes";
+import { registerHealthRoutes } from "./presentation/routes/helth/helth.routes";
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(
 // add routes here
 // ─────────────────────────────────────
 registerProductRoutesV1(app);
+registerHealthRoutes(app);
 
 // Start server
 const PORT = enviromentVariables.port;
