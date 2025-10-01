@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS pattern_criteria_db;
+CREATE DATABASE pattern_criteria_db;
 
-USE DATABASE pattern_criteria_db;
+-- Removed 'USE' statement for PostgreSQL compatibility
 
 CREATE TABLE IF NOT EXISTS category (
     uuid UUID PRIMARY KEY,
