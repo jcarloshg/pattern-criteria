@@ -1,30 +1,29 @@
--- Delete the database if it exists (run as superuser, outside transaction)
-DROP DATABASE IF EXISTS pattern_criteria_db;
+CREATE DATABASE IF NOT EXISTS pattern_criteria_db;
 
-CREATE DATABASE pattern_criteria_db;
+USE DATABASE pattern_criteria_db;
 
-CREATE TABLE category (
+CREATE TABLE IF NOT EXISTS category (
     uuid UUID PRIMARY KEY,
     name VARCHAR(255) NOT NULL
 );
 
 -- Brand Table
 
-CREATE TABLE brand (
+CREATE TABLE IF NOT EXISTS brand (
     uuid UUID PRIMARY KEY,
     name VARCHAR(255) NOT NULL
 );
 
 -- Attribute Table
 
-CREATE TABLE attribute (
+CREATE TABLE IF NOT EXISTS attribute (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL
 );
 
 -- Product Table
 
-CREATE TABLE product (
+CREATE TABLE IF NOT EXISTS product (
     uuid UUID PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     description TEXT,
@@ -39,7 +38,7 @@ CREATE TABLE product (
 
 -- ProductAttribute Table
 
-CREATE TABLE product_attribute (
+CREATE TABLE IF NOT EXISTS product_attribute (
     product_id UUID NOT NULL,
     attribute_id INTEGER NOT NULL,
     value VARCHAR(255) NOT NULL,
