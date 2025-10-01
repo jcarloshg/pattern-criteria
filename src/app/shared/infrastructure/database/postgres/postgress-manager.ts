@@ -36,3 +36,4 @@ class PostgresManager {
 }
 
 export const postgresManager = new PostgresManager();
+export type PostgresManagerType = typeof postgresManager;
