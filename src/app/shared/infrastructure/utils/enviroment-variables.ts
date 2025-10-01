@@ -2,7 +2,7 @@
 export interface AppConfig {
   port: number;
   nodeEnv: string;
-  dataBaseConfig: DataBaseConfig;
+  // dataBaseConfig: DataBaseConfig;
   jwt?: JWTConfig;
   cors: CORSConfig;
   POSTGRES_ENV: POSTGRES_ENV;
@@ -15,15 +15,15 @@ export interface POSTGRES_ENV {
   POSTGRES_PASSWORD: string;
 }
 
-export interface DataBaseConfig {
-  host: string;
-  port: number;
-  name: string;
-  username: string;
-  password: string;
-  ssl?: boolean;
-  maxConnections?: number;
-}
+// export interface DataBaseConfig {
+//   host: string;
+//   port: number;
+//   name: string;
+//   username: string;
+//   password: string;
+//   ssl?: boolean;
+//   maxConnections?: number;
+// }
 
 export interface JWTConfig {
   secret: string;
@@ -52,16 +52,16 @@ class EnviromentVariables {
         // ─────────────────────────────────────
         port: parseInt(process.env.PORT || "3000"),
         nodeEnv: process.env.NODE_ENV || "development",
-        dataBaseConfig: {
-          host: process.env.DB_HOST || "localhost",
-          port: parseInt(process.env.DB_PORT || "5432"),
-          // TODO: change default database name
-          name: process.env.DB_NAME || "app_db",
-          username: process.env.DB_USERNAME || "postgres",
-          password: process.env.DB_PASSWORD || "password",
-          ssl: process.env.DB_SSL === "true",
-          maxConnections: parseInt(process.env.DB_MAX_CONNECTIONS || "10"),
-        },
+        // dataBaseConfig: {
+        //   host: process.env.DB_HOST || "localhost",
+        //   port: parseInt(process.env.DB_PORT || "5432"),
+        //   // TODO: change default database name
+        //   name: process.env.DB_NAME || "app_db",
+        //   username: process.env.DB_USERNAME || "postgres",
+        //   password: process.env.DB_PASSWORD || "password",
+        //   ssl: process.env.DB_SSL === "true",
+        //   maxConnections: parseInt(process.env.DB_MAX_CONNECTIONS || "10"),
+        // },
         jwt: process.env.JWT_SECRET
           ? {
             secret: process.env.JWT_SECRET,
