@@ -1,16 +1,12 @@
-CREATE DATABASE pattern_criteria_db;
-
--- Removed 'USE' statement for PostgreSQL compatibility
-
 CREATE TABLE IF NOT EXISTS category (
-    uuid UUID PRIMARY KEY,
+    uuid UUID PRIMARY KEY DEFAULT gen_random_uuid (),
     name VARCHAR(255) NOT NULL
 );
 
 -- Brand Table
 
 CREATE TABLE IF NOT EXISTS brand (
-    uuid UUID PRIMARY KEY,
+    uuid UUID PRIMARY KEY DEFAULT gen_random_uuid (),
     name VARCHAR(255) NOT NULL
 );
 
@@ -24,7 +20,7 @@ CREATE TABLE IF NOT EXISTS attribute (
 -- Product Table
 
 CREATE TABLE IF NOT EXISTS product (
-    uuid UUID PRIMARY KEY,
+    uuid UUID PRIMARY KEY DEFAULT gen_random_uuid (),
     name VARCHAR(255) NOT NULL,
     description TEXT,
     price NUMERIC(12, 2) NOT NULL,

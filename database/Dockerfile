@@ -1,7 +1,7 @@
 FROM postgres:15.13
 
-COPY ./migrations/2025-09-30/01.create-database.UP.sql /docker-entrypoint-initdb.d/init.sql
-COPY ./migrations/2025-09-30/02.insert-products.UP.sql /docker-entrypoint-initdb.d/02.insert-products.UP.sql
+# COPY ./migrations/2025-09-30/01.create-database.UP.sql /docker-entrypoint-initdb.d/01.create-database.UP.sql
+# COPY ./migrations/2025-09-30/02.insert-products.UP.sql /docker-entrypoint-initdb.d/02.insert-products.UP.sql
 
 ENV POSTGRES_USER=admin
 ENV POSTGRES_PASSWORD=123456

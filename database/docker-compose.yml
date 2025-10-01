@@ -12,6 +12,8 @@ services:
       - POSTGRES_DB=pattern_criteria_db
     volumes:
       - database-volume:/var/lib/postgresql/data
+      - ./migrations/2025-09-30/01.create-database.UP.sql:/docker-entrypoint-initdb.d/01.create-database.UP.sql
+      - ./migrations/2025-09-30/02.insert-products.UP.sql:/docker-entrypoint-initdb.d/02.insert-products.UP.sql
 
   pdAdmin:
     image: dpage/pgadmin4
