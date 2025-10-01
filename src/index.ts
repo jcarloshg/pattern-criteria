@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { enviromentVariables } from "@/app/infrastructure/utils/enviroment-variables";
+import { enviromentVariables } from "@/app/shared/infrastructure/utils/enviroment-variables";
 import { registerProductRoutesV1 } from "@/presentation/routes/products/products.v1.routes";
 import { registerHealthRoutes } from "./presentation/routes/helth/helth.routes";
 
