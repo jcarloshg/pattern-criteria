@@ -10,6 +10,27 @@ export class GetAllProductsPostgres implements GetAllProductsRepository {
         private readonly PostgresManager: PostgresManagerType
     ) { }
 
+    // ─────────────────────────────────────
+    // main method
+    // ─────────────────────────────────────
+
+    public async run(criteria: Criteria): Promise<ProductToRead[]> {
+        const parameterizedQuery = this.buildParameterizedQuery(criteria);
+        try {
+            const result = await this.PostgresManager.runParameterizedQuery(
+                parameterizedQuery.query,
+                parameterizedQuery.parameters
+            );
+            return result.rows;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    // ─────────────────────────────────────
+    // auxiliary methods
+    // ─────────────────────────────────────
+
     private buildParameterizedQuery(criteria: Criteria): ParameterizedQuery {
 
         const propertiesMap: Map<string, string> = new Map<string, string>([
@@ -82,19 +103,6 @@ export class GetAllProductsPostgres implements GetAllProductsRepository {
             query: baseQuery,
             parameters: parameterizedWhere.parameters
         };
-    }
-
-    public async run(criteria: Criteria): Promise<ProductToRead[]> {
-        const parameterizedQuery = this.buildParameterizedQuery(criteria);
-        try {
-            const result = await this.PostgresManager.runParameterizedQuery(
-                parameterizedQuery.query,
-                parameterizedQuery.parameters
-            );
-            return result.rows;
-        } catch (error) {
-            throw error;
-        }
     }
 
 }

@@ -7,6 +7,7 @@ import { postgresManager } from "@/app/shared/infrastructure/database/postgres/p
 import { CriteriaError } from "@/app/shared/domain/errors/criteria.error";
 import { makeResponse } from "@/presentation/utils/make-response";
 import { CustomResponse } from "@/app/shared/domain/model/custom-response.model";
+import { GetTotalOfProductsPostgres } from "@/app/products/infra/postgres/get-total-of-products.postgress";
 
 export const getProductsByFilters = async (req: Request, res: Response) => {
     try {
@@ -14,10 +15,12 @@ export const getProductsByFilters = async (req: Request, res: Response) => {
         // init services
         const criteria = URLSearchParamsCriteriaParser.parse(req);
         const getAllProductsRepo = new GetAllProductsPostgres(postgresManager);
+        const getTotalOfProductsRepo = new GetTotalOfProductsPostgres(postgresManager);
 
         // init and run application
         const getAllProductsApplication = new GetAllProductsApplication(
-            getAllProductsRepo
+            getAllProductsRepo,
+            getTotalOfProductsRepo
         );
         const productsFound = await getAllProductsApplication.run({
             criteria,
