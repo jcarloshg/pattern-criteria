@@ -7,3 +7,10 @@ GET http://localhost:3000/api/health
 
 ### Get all
 GET http://localhost:3000/api/products/v1?name=Product%201&category=Category%20A&minPrice=10&maxPrice=50&inStock=true
+
+
+### Get all
+GET http://localhost:3000/api/products/v1?name=Product%201&category=Category%20A&minPrice=10&maxPrice=50&inStock=true
+
+### Get by 
+GET http://localhost:3000/api/products/v1?[0][field]=name&[0][operator]=EQUAL&[0][value]=rafa&[1][field]=surname&[1][operator]=EQUAL&[1][value]=gomez&orderBy=name&order=ASC
