@@ -33,6 +33,22 @@ class PostgresManager {
             if (client) client.release();
         }
     }
+
+    public async runParameterizedQuery(query: string, parameters: any[]): Promise<QueryResult<any>> {
+        let client: PoolClient | null = null;
+        try {
+            client = await this.pool.connect();
+            const result = await client.query(query, parameters);
+            return result;
+        } catch (error) {
+            console.error("Error executing parameterized query", error);
+            console.error("Query:", query);
+            console.error("Parameters:", parameters);
+            throw error;
+        } finally {
+            if (client) client.release();
+        }
+    }
 }
 
 export const postgresManager = new PostgresManager();

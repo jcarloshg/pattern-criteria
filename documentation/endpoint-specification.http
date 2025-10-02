@@ -9,3 +9,11 @@ GET http://localhost:3000/api/products/v1?[0][field]=brandName&[0][operator]=EQU
 
 ###
 GET http://localhost:3000/api/products/v1?%5B0%5D%5Bfield%5D=brandName&%5B0%5D%5Boperator%5D=EQUAL&%5B0%5D%5Bvalue%5D=Puma&%5B0%5D%5Bfield%5D=price&%5B0%5D%5Boperator%5D=LT&%5B0%5D%5Bvalue%5D=10
+
+
+### 
+GET http://localhost:3000/api/products/v1?%5B0%5D%5Bfield%5D=name&%5B0%5D%5Boperator%5D=CONTAINS&%5B0%5D%5Bvalue%5D=Travel&%5B0%5D%5Bfield%5D=price&%5B0%5D%5Boperator%5D=LT&%5B0%5D%5Bvalue%5D=10
+
+
+### 
+GET http://localhost:3000/api/products/v1?%5B0%5D%5Bfield%5D=name&%5B0%5D%5Boperator%5D=CONTAINS&%5B0%5D%5Bvalue%5D=Travel&%5B0%5D%5Bfield%5D=price&%5B0%5D%5Boperator%5D=GT&%5B0%5D%5Bvalue%5D=10

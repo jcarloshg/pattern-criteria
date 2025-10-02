@@ -2,7 +2,7 @@ import { postgresManager, PostgresManagerType } from "@/app/shared/infrastructur
 import { ProductToRead } from "@/app/products/domain/models/product.model";
 import { GetAllProductsRepository } from "@/app/products/domain/repository/get-all-products.repository";
 import { Criteria } from "@/app/shared/domain/repository/criteria/criteria.criteria";
-import { CriteriaParserSql } from "@/app/shared/infrastructure/criteria/creteria-parser-sql.criteria";
+import { CriteriaParserSql, ParameterizedQuery } from "@/app/shared/infrastructure/criteria/creteria-parser-sql.criteria";
 
 export class GetAllProductsPostgres implements GetAllProductsRepository {
 
@@ -12,7 +12,7 @@ export class GetAllProductsPostgres implements GetAllProductsRepository {
         this.PostgresManager = postgresManager;
     }
 
-    private buildQuery(criteria: Criteria): string {
+    private buildParameterizedQuery(criteria: Criteria): ParameterizedQuery {
 
         const propertiesMap: Map<string, string> = new Map<string, string>([
             ["uuid", "product.uuid"],
@@ -27,10 +27,10 @@ export class GetAllProductsPostgres implements GetAllProductsRepository {
         ]);
 
         const criteriaParser = new CriteriaParserSql(criteria);
-        const whereClause = criteriaParser.getWhereClause(propertiesMap);
+        const parameterizedWhere = criteriaParser.getParameterizedWhereClause(propertiesMap);
 
 
-        const query = `
+        const baseQuery = `
         SELECT
             product.uuid as uuid,
             product.name as name,
@@ -67,22 +67,29 @@ export class GetAllProductsPostgres implements GetAllProductsRepository {
             JOIN brand ON product.brand_id = brand.uuid
             JOIN category ON product.category_id = category.uuid
 
-        ${whereClause}
+        ${parameterizedWhere.query}
 
         GROUP BY
             product.uuid,
             brand.uuid,
             category.uuid;
-        `
+        `;
 
-        return query;
+        return {
+            query: baseQuery,
+            parameters: parameterizedWhere.parameters
+        };
     }
 
     public async run(criteria: Criteria): Promise<ProductToRead[]> {
-        const query = this.buildQuery(criteria);
-        console.log(`query: `, query);
+        const parameterizedQuery = this.buildParameterizedQuery(criteria);
+        console.log(`query: `, parameterizedQuery.query);
+        console.log(`parameters: `, parameterizedQuery.parameters);
         try {
-            const result = await this.PostgresManager.runQuery(query);
+            const result = await this.PostgresManager.runParameterizedQuery(
+                parameterizedQuery.query, 
+                parameterizedQuery.parameters
+            );
             return result.rows;
         } catch (error) {
             throw error;

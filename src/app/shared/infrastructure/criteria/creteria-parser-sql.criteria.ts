@@ -1,4 +1,9 @@
-import { Criteria } from "@/app/shared/domain/repository/criteria/criteria.criteria";
+import { Criteria, Operator } from "@/app/shared/domain/repository/criteria/criteria.criteria";
+
+export interface ParameterizedQuery {
+    query: string;
+    parameters: any[];
+}
 
 export class CriteriaParserSql {
     public readonly criteria: Criteria;
@@ -7,22 +12,50 @@ export class CriteriaParserSql {
         this.criteria = criteria;
     }
 
-    public getWhereClause(propertiesMap: Map<string, string>): string {
+    public getParameterizedWhereClause(propertiesMap: Map<string, string>): ParameterizedQuery {
         const { filters } = this.criteria;
+        const parameters: any[] = [];
+        let parameterIndex = 1;
 
         const whereClauses = filters
-            .map(
-                (filter) => {
-                    const column = propertiesMap.get(filter.field);
-                    if (!column) return undefined;
-                    return `${column} ${filter.operator} '${filter.value}'`
+            .map((filter) => {
+                const column = propertiesMap.get(filter.field);
+                if (!column) return undefined;
+
+                const sqlOperator = this.mapOperatorToSQL(filter.operator);
+
+                if (filter.operator === Operator.CONTAINS) {
+                    parameters.push(`%${filter.value}%`);
+                    return `lower(${column}) LIKE lower($${parameterIndex++})`;
+                } else if (filter.operator === Operator.NOT_CONTAINS) {
+                    parameters.push(`%${filter.value}%`);
+                    return `lower(${column}) NOT LIKE lower($${parameterIndex++})`;
+                } else {
+                    parameters.push(filter.value);
+                    return `${column} ${sqlOperator} $${parameterIndex++}`;
                 }
-            )
+            })
             .filter((clause) => clause !== undefined)
             .join(" AND ");
 
-        return whereClauses.length > 0 ? `WHERE ${whereClauses}` : "";
+        const whereClause = whereClauses.length > 0 ? `WHERE ${whereClauses}` : "";
+
+        return {
+            query: whereClause,
+            parameters: parameters
+        };
     }
 
+    private mapOperatorToSQL(operator: Operator): string {
+        const operatorMap: Record<Operator, string> = {
+            [Operator.EQUAL]: "=",
+            [Operator.NOT_EQUAL]: "!=",
+            [Operator.GT]: ">",
+            [Operator.LT]: "<",
+            [Operator.CONTAINS]: "LIKE", // This will be handled specially
+            [Operator.NOT_CONTAINS]: "NOT LIKE", // This will be handled specially
+        };
 
+        return operatorMap[operator];
+    }
 }
