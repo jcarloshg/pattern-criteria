@@ -30,8 +30,8 @@ export class CustomResponse<T = undefined> {
         return new CustomResponse(400, userMessage, undefined);
     }
 
-    static notFound(message: string = "Resource not found"): CustomResponse<null> {
-        return new CustomResponse<null>(404, message, null);
+    static notFound(message: string = "Resource not found"): CustomResponse {
+        return new CustomResponse(404, message, undefined);
     }
 
     // ============================================================

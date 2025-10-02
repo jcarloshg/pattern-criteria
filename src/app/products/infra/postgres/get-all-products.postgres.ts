@@ -27,6 +27,7 @@ export class GetAllProductsPostgres implements GetAllProductsRepository {
         const criteriaParser = new ParserPostgreSql(criteria);
         const parameterizedWhere = criteriaParser.getParameterizedWhereClause(propertiesMap);
         const order = criteriaParser.getOrderByClause(propertiesMap);
+        const pagination = criteriaParser.getPaginationClause(propertiesMap);
 
         const baseQuery = `
         SELECT
@@ -73,8 +74,9 @@ export class GetAllProductsPostgres implements GetAllProductsRepository {
             category.uuid
 
         ${order}
-        ;
-        `;
+
+        ${pagination}
+        ;`;
 
         return {
             query: baseQuery,

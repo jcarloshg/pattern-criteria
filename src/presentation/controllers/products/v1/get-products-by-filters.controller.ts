@@ -4,30 +4,37 @@ import { GetAllProductsApplication } from "@/app/products/application/get-all-pr
 import { URLSearchParamsCriteriaParser } from "@/app/shared/infrastructure/criteria/urlsearchparams-criteria-parser";
 import { GetAllProductsPostgres } from "@/app/products/infra/postgres/get-all-products.postgres";
 import { postgresManager } from "@/app/shared/infrastructure/database/postgres/postgress-manager";
+import { CriteriaError } from "@/app/shared/domain/errors/criteria.error";
+import { makeResponse } from "@/presentation/utils/make-response";
+import { CustomResponse } from "@/app/shared/domain/model/custom-response.model";
 
 export const getProductsByFilters = async (req: Request, res: Response) => {
     try {
-        // ─────────────────────────────────────
-        // init services
-        // ─────────────────────────────────────
-        const criteria = URLSearchParamsCriteriaParser.parse(req);
-        const getAllProductsRepository = new GetAllProductsPostgres(postgresManager);
 
-        // ─────────────────────────────────────
+        // init services
+        const criteria = URLSearchParamsCriteriaParser.parse(req);
+        console.log(`criteria: `, criteria);
+        const getAllProductsRepo = new GetAllProductsPostgres(postgresManager);
+
         // init and run application
-        // ─────────────────────────────────────
         const getAllProductsApplication = new GetAllProductsApplication(
-            getAllProductsRepository
+            getAllProductsRepo
         );
         const productsFound = await getAllProductsApplication.run({
             criteria,
         });
 
-        res
-            .status(200)
-            .json({ message: "Products fetched successfully", data: productsFound });
+        // send response
+        makeResponse(res, productsFound);
+        return
+
     } catch (error) {
         console.error("Error fetching products by filters:", error);
-        res.status(500).json({ message: "Internal server error" });
+        if (error instanceof CriteriaError) {
+            makeResponse(res, CriteriaError.getCustomResponse(error));
+            return
+        }
+        makeResponse(res, CustomResponse.internalServerError());
+        return
     }
 };

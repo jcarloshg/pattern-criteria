@@ -68,4 +68,14 @@ export class ParserPostgreSql {
 
         return `ORDER BY ${orderClauses}`;
     }
+
+    public getPaginationClause(propertiesMap: Map<string, string>): string {
+        const { pagination } = this.criteria;
+        if (!pagination) return "";
+
+        const limit = pagination.pageSize;
+        const offset = (pagination.page - 1) * pagination.pageSize;
+
+        return `LIMIT ${limit} OFFSET ${offset}`;
+    }
 }
