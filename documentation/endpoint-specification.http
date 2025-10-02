@@ -4,6 +4,9 @@ GET http://localhost:3000/api/
 ### Health Check
 GET http://localhost:3000/api/health
 
+### Get all
+GET http://localhost:3000/api/products/v1
+
 ### Get by 
 GET http://localhost:3000/api/products/v1?[0][field]=brandName&[0][operator]=EQUAL&[0][value]=Puma&orderBy=price&order=ASC
 

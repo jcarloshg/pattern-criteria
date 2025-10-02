@@ -54,8 +54,12 @@ export class URLSearchParamsCriteriaParser {
     }
 
     private static pagination(searchParams: URLSearchParams): Pagination {
-        const page = searchParams.get('page') || 'NaN';
-        const pageSize = searchParams.get('pageSize') || 'NaN';
-        return Pagination.fromPrimitives(page, pageSize);
+
+        const page = searchParams.get('page');
+        const pageSize = searchParams.get('pageSize');
+
+        if (!page && !pageSize) return new Pagination();
+
+        return Pagination.fromPrimitives(page || 'NaN', pageSize || 'NaN');
     }
 }
