@@ -62,7 +62,7 @@ export class ParserPostgreSql {
 
     public getOrderByClause(propertiesMap: Map<string, string>): string {
         const { orders } = this.criteria;
-        if (!orders || orders.orderBy === "NONE") return "";
+        if (!orders || orders.order === "NONE") return "";
 
         const orderClauses = `${propertiesMap.get(orders.orderBy)} ${orders.order}`;
 
