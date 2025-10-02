@@ -13,7 +13,6 @@ export const getProductsByFilters = async (req: Request, res: Response) => {
 
         // init services
         const criteria = URLSearchParamsCriteriaParser.parse(req);
-        console.log(`criteria: `, criteria);
         const getAllProductsRepo = new GetAllProductsPostgres(postgresManager);
 
         // init and run application
