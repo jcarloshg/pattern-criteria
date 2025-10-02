@@ -29,7 +29,6 @@ export class GetAllProductsPostgres implements GetAllProductsRepository {
         const criteriaParser = new CriteriaParserSql(criteria);
         const parameterizedWhere = criteriaParser.getParameterizedWhereClause(propertiesMap);
 
-
         const baseQuery = `
         SELECT
             product.uuid as uuid,
@@ -83,11 +82,9 @@ export class GetAllProductsPostgres implements GetAllProductsRepository {
 
     public async run(criteria: Criteria): Promise<ProductToRead[]> {
         const parameterizedQuery = this.buildParameterizedQuery(criteria);
-        console.log(`query: `, parameterizedQuery.query);
-        console.log(`parameters: `, parameterizedQuery.parameters);
         try {
             const result = await this.PostgresManager.runParameterizedQuery(
-                parameterizedQuery.query, 
+                parameterizedQuery.query,
                 parameterizedQuery.parameters
             );
             return result.rows;
