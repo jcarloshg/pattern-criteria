@@ -2,7 +2,7 @@ import { postgresManager, PostgresManagerType } from "@/app/shared/infrastructur
 import { ProductToRead } from "@/app/products/domain/models/product.model";
 import { GetAllProductsRepository } from "@/app/products/domain/repository/get-all-products.repository";
 import { Criteria } from "@/app/shared/domain/repository/criteria/criteria.criteria";
-import { CriteriaParserSql, ParameterizedQuery } from "@/app/shared/infrastructure/criteria/creteria-parser-sql.criteria";
+import { ParserPostgreSql, ParameterizedQuery } from "@/app/shared/infrastructure/criteria/parser-postgre-sql.criteria";
 
 export class GetAllProductsPostgres implements GetAllProductsRepository {
 
@@ -24,7 +24,7 @@ export class GetAllProductsPostgres implements GetAllProductsRepository {
             ["attributeValue", "product_attribute.value"],
         ]);
 
-        const criteriaParser = new CriteriaParserSql(criteria);
+        const criteriaParser = new ParserPostgreSql(criteria);
         const parameterizedWhere = criteriaParser.getParameterizedWhereClause(propertiesMap);
         const order = criteriaParser.getOrderByClause(propertiesMap);
 

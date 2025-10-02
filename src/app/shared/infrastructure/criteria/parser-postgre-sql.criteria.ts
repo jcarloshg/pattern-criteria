@@ -6,7 +6,7 @@ export interface ParameterizedQuery {
     parameters: any[];
 }
 
-export class CriteriaParserSql {
+export class ParserPostgreSql {
     public readonly criteria: Criteria;
 
     constructor(criteria: Criteria) {
