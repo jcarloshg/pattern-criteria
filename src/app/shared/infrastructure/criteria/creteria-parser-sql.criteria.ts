@@ -1,4 +1,4 @@
-import { Criteria, Operator } from "@/app/shared/domain/repository/criteria/criteria.criteria";
+import { Criteria, Operator, Order } from "@/app/shared/domain/repository/criteria/criteria.criteria";
 
 export interface ParameterizedQuery {
     query: string;
@@ -57,5 +57,14 @@ export class CriteriaParserSql {
         };
 
         return operatorMap[operator];
+    }
+
+    public getOrderByClause(propertiesMap: Map<string, string>): string {
+        const { orders } = this.criteria;
+        if (!orders || orders.orderBy === "NONE") return "";
+
+        const orderClauses = `${propertiesMap.get(orders.orderBy)} ${orders.order}`;
+
+        return `ORDER BY ${orderClauses}`;
     }
 }

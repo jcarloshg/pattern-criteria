@@ -6,8 +6,8 @@ export class GetAllProductsApplication {
 
     private readonly GetAllProductsRepository: GetAllProductsRepository;
 
-    constructor() {
-        this.GetAllProductsRepository = new GetAllProductsPostgres();
+    constructor(getAllProductsRepository: GetAllProductsRepository) {
+        this.GetAllProductsRepository = getAllProductsRepository;
     }
 
     public async run(req: GetAllProductsRequest): Promise<any> {

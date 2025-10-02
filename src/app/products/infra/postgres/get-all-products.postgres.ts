@@ -6,11 +6,9 @@ import { CriteriaParserSql, ParameterizedQuery } from "@/app/shared/infrastructu
 
 export class GetAllProductsPostgres implements GetAllProductsRepository {
 
-    private readonly PostgresManager: PostgresManagerType;
-
-    constructor() {
-        this.PostgresManager = postgresManager;
-    }
+    constructor(
+        private readonly PostgresManager: PostgresManagerType
+    ) { }
 
     private buildParameterizedQuery(criteria: Criteria): ParameterizedQuery {
 
@@ -28,6 +26,7 @@ export class GetAllProductsPostgres implements GetAllProductsRepository {
 
         const criteriaParser = new CriteriaParserSql(criteria);
         const parameterizedWhere = criteriaParser.getParameterizedWhereClause(propertiesMap);
+        const order = criteriaParser.getOrderByClause(propertiesMap);
 
         const baseQuery = `
         SELECT
@@ -71,7 +70,10 @@ export class GetAllProductsPostgres implements GetAllProductsRepository {
         GROUP BY
             product.uuid,
             brand.uuid,
-            category.uuid;
+            category.uuid
+
+        ${order}
+        ;
         `;
 
         return {
@@ -92,15 +94,5 @@ export class GetAllProductsPostgres implements GetAllProductsRepository {
             throw error;
         }
     }
-
-    // public async run(): Promise<ProductToRead[]> {
-    //     const query = "SELECT * FROM product;"
-    //     try {
-    //         const result = await this.PostgresManager.runQuery(query);
-    //         return result.rows;
-    //     } catch (error) {
-    //         throw error;
-    //     }
-    // }
 
 }
