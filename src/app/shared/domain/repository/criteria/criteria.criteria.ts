@@ -1,8 +1,8 @@
 import { CriteriaError } from "../../errors/criteria.error";
 
 export class Criteria {
-    private filters: Filter[] = [];
-    private orders: Order;
+    public filters: Filter[];
+    public orders: Order;
     constructor(filters: Filter[], orders: Order) {
         this.filters = filters;
         this.orders = orders;
@@ -18,7 +18,6 @@ export enum Operator {
     NOT_CONTAINS = "NOT_CONTAINS",
 }
 
-
 export type FiltersPrimitives = {
     field: string;
     operator: string;
@@ -26,9 +25,9 @@ export type FiltersPrimitives = {
 };
 
 export class Filter {
-    private field: string;
-    private operator: Operator;
-    private value: string;
+    public field: string;
+    public operator: Operator;
+    public value: string;
 
     constructor(field: string, operator: Operator, value: string) {
         this.field = field;
@@ -38,13 +37,15 @@ export class Filter {
 
     public static fromPrimitives(primitives: FiltersPrimitives): Filter {
         try {
-            return new Filter(
-                primitives.field,
-                primitives.operator as Operator,
-                primitives.value
-            );
+
+            const operatorKey = primitives.operator as keyof typeof Operator;
+            const op = Operator[operatorKey];
+            if (op === undefined)
+                throw new CriteriaError(`Unknown operator: ${primitives.operator}`);
+
+            return new Filter(primitives.field, op, primitives.value);
         } catch (error) {
-            throw new CriteriaError(error);
+            throw new CriteriaError("Invalid filter primitives");
         }
     }
 }
@@ -58,7 +59,7 @@ export enum OrderType {
 export type OrderPrimitives = {
     orderBy: string;
     order: string;
-}
+};
 
 export class Order {
     private orderBy: string;
@@ -70,10 +71,7 @@ export class Order {
 
     static fromPrimitives(primitives: OrderPrimitives): Order {
         try {
-            return new Order(
-                primitives.orderBy,
-                primitives.order as OrderType
-            );
+            return new Order(primitives.orderBy, primitives.order as OrderType);
         } catch (error) {
             throw new CriteriaError(error);
         }

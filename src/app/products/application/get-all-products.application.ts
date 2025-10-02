@@ -1,5 +1,5 @@
-import { GetAllProductsRepository } from "@/app/products/domain/repository/get-all.repository";
-import { GetAllProductsPostgres } from "../infra/postgres/get-all.postgres";
+import { GetAllProductsRepository } from "@/app/products/domain/repository/get-all-products.repository";
+import { GetAllProductsPostgres } from "../infra/postgres/get-all-products.postgres";
 import { Criteria } from "@/app/shared/domain/repository/criteria/criteria.criteria";
 
 export class GetAllProductsApplication {
@@ -12,12 +12,12 @@ export class GetAllProductsApplication {
 
     public async run(req: GetAllProductsRequest): Promise<any> {
         try {
-            const products = await this.GetAllProductsRepository.run();
+            const { criteria } = req;
+            const products = await this.GetAllProductsRepository.run(criteria);
             return products;
         } catch (error) {
             return []
         }
-
     }
 }
 
