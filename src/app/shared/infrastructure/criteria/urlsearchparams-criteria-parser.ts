@@ -3,9 +3,21 @@ import { Request } from "express";
 import { Criteria } from "@/app/shared/domain/repository/criteria/criteria.criteria";
 import { Filter, FiltersPrimitives } from "@/app/shared/domain/repository/criteria/filter.criteria";
 import { Order } from "@/app/shared/domain/repository/criteria/order.criteria";
+import { Pagination } from "@/app/shared/domain/repository/criteria/pagination.criteria";
 
 
 export class URLSearchParamsCriteriaParser {
+
+    public static parse(req: Request): any {
+
+        const searchParams = new URLSearchParams(req.url);
+        const filters = this.getFilters(searchParams);
+        const order = this.getOrder(searchParams);
+        const pagination = this.pagination(searchParams);
+
+        const criteria = new Criteria(filters, order, pagination);
+        return criteria;
+    }
 
     private static getFilters(searchParams: URLSearchParams): Filter[] {
 
@@ -41,13 +53,9 @@ export class URLSearchParamsCriteriaParser {
         return Order.fromPrimitives({ orderBy, order });
     }
 
-    public static parse(req: Request): any {
-
-        const searchParams = new URLSearchParams(req.url);
-        const filters = this.getFilters(searchParams);
-        const order = this.getOrder(searchParams);
-
-        const criteria = new Criteria(filters, order);
-        return criteria;
+    private static pagination(searchParams: URLSearchParams): Pagination {
+        const page = searchParams.get('page') || 'NaN';
+        const pageSize = searchParams.get('pageSize') || 'NaN';
+        return Pagination.fromPrimitives(page, pageSize);
     }
 }

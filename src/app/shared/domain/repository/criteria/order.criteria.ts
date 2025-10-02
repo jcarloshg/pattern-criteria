@@ -12,8 +12,10 @@ export type OrderPrimitives = {
 };
 
 export class Order {
+
     public orderBy: string;
     public order: OrderType;
+
     constructor(orderBy: string, order: OrderType) {
         this.orderBy = orderBy;
         this.order = order;
