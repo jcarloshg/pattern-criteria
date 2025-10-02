@@ -1,5 +1,9 @@
 import { Request } from "express";
-import { Criteria, Filter, FiltersPrimitives, Order } from "@/app/shared/domain/repository/criteria/criteria.criteria";
+
+import { Criteria } from "@/app/shared/domain/repository/criteria/criteria.criteria";
+import { Filter, FiltersPrimitives } from "@/app/shared/domain/repository/criteria/filter.criteria";
+import { Order } from "@/app/shared/domain/repository/criteria/order.criteria";
+
 
 export class URLSearchParamsCriteriaParser {
 

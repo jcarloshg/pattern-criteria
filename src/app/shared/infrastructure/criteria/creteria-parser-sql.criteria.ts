@@ -1,4 +1,5 @@
-import { Criteria, Operator, Order } from "@/app/shared/domain/repository/criteria/criteria.criteria";
+import { Criteria } from "@/app/shared/domain/repository/criteria/criteria.criteria";
+import { Operator } from "@/app/shared/domain/repository/criteria/filter.criteria";
 
 export interface ParameterizedQuery {
     query: string;
