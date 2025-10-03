@@ -11,16 +11,20 @@ export class CriteriaCursorToSql {
     private readonly _criteria: CriteriaCursor;
     private _selectBody: string;
     private _fromBody: string;
+    private _groupByBody: string | undefined;
     private _operatorSql: Record<Operator, string>;
 
     constructor(
         criteria: CriteriaCursor,
         select_body: string,
-        from_body: string
+        from_body: string,
+        group_by_body?: string
     ) {
         this._criteria = criteria;
         this._selectBody = select_body;
         this._fromBody = from_body;
+        this._groupByBody = group_by_body;
+
         this._operatorSql = {
             [Operator.EQUAL]: "=",
             [Operator.NOT_EQUAL]: "!=",
@@ -37,17 +41,16 @@ export class CriteriaCursorToSql {
         const limitBody: string = this._criteria.pagination.pageSize.toString();
 
         const queryArray: string[] = [
-            "SELECT",
-            this._selectBody,
-            "FROM",
-            this._fromBody,
-            "WHERE",
-            whereBody.query,
-            "ORDER BY",
-            orderBody,
-            "LIMIT",
-            limitBody,
-        ];
+            "SELECT", this._selectBody,
+            "FROM", this._fromBody,
+        ]
+
+        queryArray.push("WHERE", whereBody.query);
+
+        if (this._groupByBody) queryArray.push("GROUP BY", this._groupByBody);
+
+        queryArray.push("ORDER BY", orderBody);
+        queryArray.push("LIMIT", limitBody);
 
         const query = queryArray.join(" ");
 

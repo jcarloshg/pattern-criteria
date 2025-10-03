@@ -137,4 +137,39 @@ describe("criteria-cursor-to-sql.test", () => {
             "SELECT * FROM product WHERE price < $1 ORDER BY price DESC LIMIT 10"
         );
     });
+
+    it("should get query with group by", () => {
+        const paginationCursor = new PaginationCursor();
+        const orderCursor = new OrderCursor("100", "price", OrderCursorType.DESC);
+        const criteriaCursor = new CriteriaCursor(
+            [],
+            paginationCursor,
+            orderCursor
+        );
+
+        const selectBody = "*";
+        const fromBody = "product";
+        const groupByBody = "category";
+
+        const propertiesMap: Map<string, string> = new Map<string, string>([
+            ["price", "price"],
+        ]);
+
+        const criteria = new CriteriaCursorToSql(
+            criteriaCursor,
+            selectBody,
+            fromBody,
+            groupByBody
+        );
+        const querySql = criteria.toSql(propertiesMap);
+
+        expect(querySql).toBeDefined();
+        expect(querySql.parameters.length).toEqual(1);
+        expect(querySql.parameters).toEqual(["100"]);
+        expect(querySql.query).toBe(
+            "SELECT * FROM product WHERE price < $1 GROUP BY category ORDER BY price DESC LIMIT 10"
+        );
+    });
+
+
 });

@@ -76,10 +76,17 @@ export class GetProductsByCursorPostgres implements GetAllProductsByCursorReposi
             JOIN category ON product.category_id = category.uuid
         `;
 
+        const groupByBody = `
+            product.uuid,
+            brand.uuid,
+            category.uuid
+        `;
+
         const criteriaCursorToSql = new CriteriaCursorToSql(
             criteria,
             selectBody,
-            fromBody
+            fromBody,
+            groupByBody
         );
 
         const parameterizedQuery = criteriaCursorToSql.toSql(propertiesMap);

@@ -54,6 +54,8 @@ export class GetProductsByCursorApplication {
             return CustomResponse.ok(resp, "Products fetched successfully");
 
         } catch (error) {
+            const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+            console.error('Error in GetProductsByCursorApplication:', errorMessage);
             return CustomResponse.badRequest("Error fetching products");
         }
 

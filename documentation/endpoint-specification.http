@@ -28,4 +28,4 @@ GET http://localhost:3000/api/products/v1?%5B0%5D%5Bfield%5D=name&%5B0%5D%5Boper
 ## Cursor-based Pagination
 
 ### 
-GET http://localhost:3000/api/products/v1/cursor?&value=20
+GET http://localhost:3000/api/products/v1/cursor?&value=20&cursor=price&direction=ASC
