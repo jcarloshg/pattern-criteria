@@ -45,16 +45,24 @@ export class GetProductsByCursorApplication {
                     criteriaOrder.cursor,
                     criteriaOrder.direction
                 );
-                if (value.length === 0) return CustomResponse.badRequest("No data found");
+                if (value.length === 0) {
+                    return CustomResponse.badRequest("No data found");
+                }
                 criteriaOrder.value = value;
             }
 
             const products = await this.GetAllProductsRepository.run(criteria);
+            if (products.length === 0) {
+                return CustomResponse.badRequest("No data found");
+            }
+
+            const lastProduct = products[products.length - 1];
+            const value = String(lastProduct[criteriaOrder.cursor as keyof typeof lastProduct]);
 
             const resp: GetProductsByCursorResponse = {
                 data: products,
                 cursor: {
-                    value: criteriaOrder.value,
+                    value: value,
                     direction: criteriaOrder.direction,
                     pageSize: criteriaPagination.pageSize,
                 },
