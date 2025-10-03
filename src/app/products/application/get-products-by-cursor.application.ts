@@ -3,9 +3,9 @@ import {
     GetAllProductsByCursorRepository,
     GetAllProductsRepository,
 } from "@/app/products/domain/repository/get-all-products.repository";
-import { GetTotalOfProductsRepository } from "@/app/products/domain/repository/get-total-of-products.repository";
 import { CustomResponse } from "@/app/shared/domain/model/custom-response.model";
 import { CriteriaCursor } from "@/app/shared/domain/repository/criteria-cursor/criteria-cursor.criteria-cursor";
+import { GetValueRepository } from "@/app/products/domain/repository/get-value.repository";
 
 export interface GetProductsByCursorRequest {
     criteria: CriteriaCursor;
@@ -22,11 +22,14 @@ export interface GetProductsByCursorResponse {
 
 export class GetProductsByCursorApplication {
     private readonly GetAllProductsRepository: GetAllProductsByCursorRepository;
+    private readonly GetValueRepository: GetValueRepository;
 
     constructor(
-        GetAllProductsRepository: GetAllProductsByCursorRepository
+        GetAllProductsRepository: GetAllProductsByCursorRepository,
+        GetValueRepository: GetValueRepository
     ) {
         this.GetAllProductsRepository = GetAllProductsRepository;
+        this.GetValueRepository = GetValueRepository;
     }
 
     public async run(
@@ -38,7 +41,12 @@ export class GetProductsByCursorApplication {
             const criteriaPagination = criteria.pagination;
 
             if (criteriaOrder.value === "") {
-                
+                const value = await this.GetValueRepository.run(
+                    criteriaOrder.cursor,
+                    criteriaOrder.direction
+                );
+                if (value.length === 0) return CustomResponse.badRequest("No data found");
+                criteriaOrder.value = value;
             }
 
             const products = await this.GetAllProductsRepository.run(criteria);

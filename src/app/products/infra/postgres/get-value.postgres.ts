@@ -11,9 +11,9 @@ export class GetValuePostgres implements GetValueRepository {
         const query = `SELECT ${column} FROM product ORDER BY ${column} ${direction} LIMIT 1;`;
         try {
             const response = await this.PostgresManager.runQuery(query);
-            console.log(`Response from Postgres: `, response);
             const rows = response.rows;
-            return rows[0][column];
+            if (rows.length === 0) throw new Error("No data found");
+            return rows[0][column] as string;
         } catch (error) {
             console.error("Error in GetValuePostgres:", error);
             throw new Error("Error fetching value");

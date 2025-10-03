@@ -1,8 +1,11 @@
-// Application configuration interface
+import * as dotenv from "dotenv";
+dotenv.config({
+  path: `.env.${process.env.NODE_ENV || "development"}.local`,
+});
+
 export interface AppConfig {
   port: number;
   nodeEnv: string;
-  // dataBaseConfig: DataBaseConfig;
   jwt?: JWTConfig;
   cors: CORSConfig;
   POSTGRES_ENV: POSTGRES_ENV;
@@ -14,16 +17,6 @@ export interface POSTGRES_ENV {
   POSTGRES_USER: string;
   POSTGRES_PASSWORD: string;
 }
-
-// export interface DataBaseConfig {
-//   host: string;
-//   port: number;
-//   name: string;
-//   username: string;
-//   password: string;
-//   ssl?: boolean;
-//   maxConnections?: number;
-// }
 
 export interface JWTConfig {
   secret: string;
