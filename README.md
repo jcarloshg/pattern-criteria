@@ -17,6 +17,9 @@ A robust Node.js API built with TypeScript that implements the **Criteria Patter
   - [📐 Standard Criteria Pattern](#-standard-criteria-pattern)
   - [🔄 Cursor-Based Criteria Pattern](#-cursor-based-criteria-pattern)
   - [🎁 Benefits of This Implementation](#-benefits-of-this-implementation)
+- [🗂️ ToDo / improvements](#️-todo--improvements)
+  - [🧩 About Criteria Pattern](#-about-criteria-pattern)
+  - [🏛️ About Hexagonal Architecture](#️-about-hexagonal-architecture)
 - [🗄️ Database Structure](#️-database-structure)
   - [⭐ Key Features](#-key-features)
 - [🏛️ Hexagonal Architecture](#️-hexagonal-architecture)
@@ -41,19 +44,7 @@ A robust Node.js API built with TypeScript that implements the **Criteria Patter
   - [📋 Response Format](#-response-format)
 - [🧪 Testing](#-testing)
   - [▶️ Running Tests](#️-running-tests)
-  - [📁 Test Structure](#-test-structure)
-  - [📝 Example Test Scenarios](#-example-test-scenarios)
-  - [🏷️ Test Categories](#️-test-categories)
-    - [🎯 1. Application Layer Tests](#-1-application-layer-tests)
-    - [🔌 2. Infrastructure Layer Tests](#-2-infrastructure-layer-tests)
-    - [🔍 3. Criteria Pattern Tests](#-3-criteria-pattern-tests)
 - [🛠️ Development](#️-development)
-  - [Prerequisites](#prerequisites)
-  - [Available Scripts](#available-scripts)
-  - [Packages](#packages)
-    - [Production Dependencies](#production-dependencies)
-    - [Development Dependencies](#development-dependencies)
-    - [Key Package Highlights](#key-package-highlights)
 
 ## 🎯 Main Use Case
 
@@ -140,6 +131,23 @@ class OrderCursor {
 - **🔄 Composability**: Filters can be combined dynamically
 - **📝 Type Safety**: Full TypeScript support with validation
 - **🏗️ Maintainability**: Clear separation of query logic from data access
+
+## 🗂️ ToDo / improvements
+
+### 🧩 About Criteria Pattern
+
+- 🔗 Connection to _ElasticSearch_
+- 🛠️ _CriteriaParseSql_ enhancement to work with _join_ in _SQL_
+  - ⚙️ for the moment there are simple implementations
+    - 📝 [CriteriaCursorToSql](src/app/shared/infrastructure/criteria/criteria-cursor-to-sql.ts)
+    - 📝 [ParserPostgreSql](src/app/shared/infrastructure/criteria/parser-postgre-sql.criteria.ts)
+
+### 🏛️ About Hexagonal Architecture
+
+- 🔄 Adding Cross-Cutting Concerns
+- 📦 Adding _EvenBust Service_ as _AmazomSQS_
+- 📊 Adding _Architecture Documentation_
+  - ADR (Architecture Decision Records): Document architectural decisions
 
 ## 🗄️ Database Structure
 
