@@ -18,9 +18,9 @@ export class UrlsearchToCriteriaCursor {
     }
 
     private static _getOrder(searchParams: URLSearchParams): OrderCursor {
-        const value = searchParams.get("orderBy") || "";
+        const value = searchParams.get("value") || "";
         const cursor = searchParams.get("cursor") || "";
-        const direction = searchParams.get("order") || "NONE";
+        const direction = searchParams.get("direction") || "";
         return OrderCursor.fromPrimitives(value, cursor, direction);
     }
 

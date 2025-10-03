@@ -19,15 +19,19 @@ export class OrderCursor {
     ): OrderCursor {
         try {
             if (value.length === 0) {
-                throw new CriteriaError("value is required");
+                throw new CriteriaError("[value] is required");
             }
 
             if (cursor.length === 0) {
-                throw new CriteriaError("cursor is required");
+                throw new CriteriaError("[cursor] is required");
+            }
+
+            if (direction.length === 0) {
+                throw new CriteriaError("[direction] is required");
             }
 
             if (!(direction in OrderCursorType)) {
-                throw new CriteriaError("Invalid direction");
+                throw new CriteriaError("[direction] is invalid");
             }
 
             return new OrderCursor(value, cursor, direction as OrderCursorType);
