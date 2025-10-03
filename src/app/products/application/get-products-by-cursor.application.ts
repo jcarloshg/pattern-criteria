@@ -38,9 +38,12 @@ export class GetProductsByCursorApplication {
 
             const { criteria } = req;
 
+            const products = await this.GetAllProductsRepository.run(criteria);
+            const productsTotal = await this.GetTotalOfProductsRepository.run();
+
 
             const resp: GetProductsByCursorResponse = {
-                data: [],
+                data: products,
                 cursor: {
                     value: "",
                     direction: "ASC",
