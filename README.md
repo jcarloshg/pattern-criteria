@@ -11,13 +11,37 @@ A robust Node.js API built with TypeScript that implements the **Criteria Patter
 ## 📋 Table of Contents
 
 - [🎯 Main Use Case](#-main-use-case)
+  - [Problem Description](#problem-description)
+  - [Solution Overview](#solution-overview)
 - [🔍 Criteria Pattern Implementation](#-criteria-pattern-implementation)
+  - [Standard Criteria Pattern](#standard-criteria-pattern)
+  - [Cursor-Based Criteria Pattern](#cursor-based-criteria-pattern)
+  - [Benefits of This Implementation](#benefits-of-this-implementation)
 - [🗄️ Database Structure](#️-database-structure)
+  - [Key Features](#key-features)
 - [🏛️ Hexagonal Architecture](#️-hexagonal-architecture)
+  - [Architecture Benefits](#architecture-benefits)
 - [🐳 Docker Setup](#-docker-setup)
+  - [Services Architecture](#services-architecture)
+  - [Quick Start](#quick-start)
+  - [Service Details](#service-details)
+  - [Environment Configuration](#environment-configuration)
 - [🚀 API Usage Examples](#-api-usage-examples)
+  - [Base URL](#base-url)
+  - [Health Check](#health-check)
+  - [Basic Product Retrieval](#basic-product-retrieval)
+  - [Advanced Filtering Examples](#advanced-filtering-examples)
+  - [Cursor-Based Pagination](#cursor-based-pagination)
+  - [Available Operators](#available-operators)
+  - [Response Format](#response-format)
 - [🧪 Testing](#-testing)
+  - [Test Structure](#test-structure)
+  - [Test Categories](#test-categories)
+  - [Running Tests](#running-tests)
+  - [Example Test Scenarios](#example-test-scenarios)
 - [🛠️ Development](#️-development)
+  - [Prerequisites](#prerequisites)
+  - [Available Scripts](#available-scripts)
 
 ## 🎯 Main Use Case
 
@@ -26,6 +50,7 @@ A robust Node.js API built with TypeScript that implements the **Criteria Patter
 Modern e-commerce applications require sophisticated search capabilities that go beyond simple text matching. Users need to filter products by multiple criteria simultaneously while maintaining good performance and user experience.
 
 **Key Challenges:**
+
 - **Complex Query Building**: Traditional approaches lead to complex, hard-to-maintain SQL queries
 - **Dynamic Filtering**: Supporting various filter combinations without code duplication
 - **Performance**: Optimizing queries for large product catalogs
@@ -53,25 +78,25 @@ The **Criteria Pattern** is a design pattern that encapsulates query logic in a 
 ```typescript
 // Core Classes
 class Criteria {
-    public filters: Filter[];
-    public orders: Order;
-    public pagination: Pagination;
+  public filters: Filter[];
+  public orders: Order;
+  public pagination: Pagination;
 }
 
 class Filter {
-    public field: string;
-    public operator: Operator; // =, !=, >, <, CONTAINS, NOT_CONTAINS
-    public value: string;
+  public field: string;
+  public operator: Operator; // =, !=, >, <, CONTAINS, NOT_CONTAINS
+  public value: string;
 }
 
 class Order {
-    public orderBy: string;
-    public orderType: OrderType; // ASC, DESC
+  public orderBy: string;
+  public orderType: OrderType; // ASC, DESC
 }
 
 class Pagination {
-    public page: number;
-    public pageSize: number;
+  public page: number;
+  public pageSize: number;
 }
 ```
 
@@ -80,19 +105,19 @@ class Pagination {
 ```typescript
 // Enhanced for cursor-based pagination
 class CriteriaCursor {
-    public filters: FilterCursor[];
-    public pagination: PaginationCursor;
-    public order: OrderCursor;
+  public filters: FilterCursor[];
+  public pagination: PaginationCursor;
+  public order: OrderCursor;
 }
 
 class PaginationCursor {
-    public pageSize: number;
+  public pageSize: number;
 }
 
 class OrderCursor {
-    public value: string;      // cursor value
-    public cursor: string;     // field to cursor by
-    public direction: OrderCursorType; // ASC, DESC
+  public value: string; // cursor value
+  public cursor: string; // field to cursor by
+  public direction: OrderCursorType; // ASC, DESC
 }
 ```
 
@@ -107,6 +132,8 @@ class OrderCursor {
 ## 🗄️ Database Structure
 
 The database follows a normalized structure optimized for search operations:
+
+- [migrations folder](database/migrations)
 
 ```sql
 -- Core Tables
@@ -213,13 +240,18 @@ The project uses Docker Compose for easy development setup with three services:
 
 ### Quick Start
 
+- [docker-compose](docker-compose.yml)
+- [Dockerfile](Dockerfile)
+
 1. **Clone the repository**
+
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/jcarloshg/pattern-criteria.git
    cd pattern-criteria
    ```
 
 2. **Start services with Docker Compose**
+
    ```bash
    docker-compose up -d
    ```
@@ -231,33 +263,28 @@ The project uses Docker Compose for easy development setup with three services:
 
 ### Service Details
 
-| Service | Port | Purpose | Credentials |
-|---------|------|---------|-------------|
-| **Backend** | 3000 | Node.js API server | - |
-| **PostgreSQL** | 5432 | Database server | `admin:123456` |
-| **pgAdmin** | 8080 | Database management UI | `alumno@google.com:123456` |
-
-### Environment Configuration
-
-The Docker setup includes:
-- **Hot Reload**: Source code changes are reflected immediately
-- **Database Migrations**: Automatic schema creation and data seeding
-- **Network Isolation**: Services communicate through Docker network
-- **Volume Persistence**: Database data persists between container restarts
+| Service        | Port | Purpose                | Credentials                |
+| -------------- | ---- | ---------------------- | -------------------------- |
+| **Backend**    | 3000 | Node.js API server     | -                          |
+| **PostgreSQL** | 5432 | Database server        | `admin:123456`             |
+| **pgAdmin**    | 8080 | Database management UI | `alumno@google.com:123456` |
 
 ## 🚀 API Usage Examples
 
 ### Base URL
+
 ```
 http://localhost:3000/api/products/v1
 ```
 
 ### Health Check
+
 ```http
 GET http://localhost:3000/api/health
 ```
 
 ### Basic Product Retrieval
+
 ```http
 # Get all products (with default pagination)
 GET http://localhost:3000/api/products/v1
@@ -269,21 +296,25 @@ GET http://localhost:3000/api/products/v1?page=1&pageSize=10
 ### Advanced Filtering Examples
 
 #### 1. Filter by Brand
+
 ```http
 GET http://localhost:3000/api/products/v1?[0][field]=brandName&[0][operator]=EQUAL&[0][value]=Puma
 ```
 
 #### 2. Filter by Price Range
+
 ```http
 GET http://localhost:3000/api/products/v1?[0][field]=price&[0][operator]=GT&[0][value]=50&[1][field]=price&[1][operator]=LT&[1][value]=200
 ```
 
 #### 3. Text Search with Sorting
+
 ```http
 GET http://localhost:3000/api/products/v1?[0][field]=name&[0][operator]=CONTAINS&[0][value]=Travel&orderBy=price&order=ASC
 ```
 
 #### 4. Complex Multi-Filter Query
+
 ```http
 GET http://localhost:3000/api/products/v1?[0][field]=brandName&[0][operator]=EQUAL&[0][value]=Nike&[1][field]=price&[1][operator]=GT&[1][value]=100&[2][field]=availability&[2][operator]=EQUAL&[2][value]=true&orderBy=rating&order=DESC&page=1&pageSize=5
 ```
@@ -291,24 +322,26 @@ GET http://localhost:3000/api/products/v1?[0][field]=brandName&[0][operator]=EQU
 ### Cursor-Based Pagination
 
 #### 1. Initial Request
+
 ```http
 GET http://localhost:3000/api/products/v1/cursor?cursor=name&direction=ASC&pageSize=10
 ```
 
 #### 2. Next Page Request
+
 ```http
 GET http://localhost:3000/api/products/v1/cursor?value=<cursor_value>&cursor=name&direction=ASC&pageSize=10
 ```
 
 ### Available Operators
 
-| Operator | Description | Example |
-|----------|-------------|---------|
-| `EQUAL` | Exact match | `brandName = "Nike"` |
-| `NOT_EQUAL` | Not equal | `availability != false` |
-| `GT` | Greater than | `price > 100` |
-| `LT` | Less than | `rating < 4.0` |
-| `CONTAINS` | Text contains | `name CONTAINS "Travel"` |
+| Operator       | Description          | Example                                   |
+| -------------- | -------------------- | ----------------------------------------- |
+| `EQUAL`        | Exact match          | `brandName = "Nike"`                      |
+| `NOT_EQUAL`    | Not equal            | `availability != false`                   |
+| `GT`           | Greater than         | `price > 100`                             |
+| `LT`           | Less than            | `rating < 4.0`                            |
+| `CONTAINS`     | Text contains        | `name CONTAINS "Travel"`                  |
 | `NOT_CONTAINS` | Text doesn't contain | `description NOT_CONTAINS "discontinued"` |
 
 ### Response Format
@@ -344,9 +377,25 @@ GET http://localhost:3000/api/products/v1/cursor?value=<cursor_value>&cursor=nam
 
 ## 🧪 Testing
 
+### Running Tests
+
+- copy [.env.template](./.env.template) as `.env.test.local`
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm run jest
+
+# Run specific test file
+npm test -- get-products-by-cursor.application.test.ts
+```
+
 The project includes comprehensive tests covering different layers of the architecture:
 
 ### Test Structure
+
 ```
 test/
 └── src/
@@ -364,49 +413,6 @@ test/
     │               └── urlsearch-to-criteria-cursor.test.ts
 ```
 
-### Test Categories
-
-#### 1. **Application Layer Tests**
-- **Purpose**: Test business logic and use cases
-- **Example**: `get-products-by-cursor.application.test.ts`
-- **Coverage**: End-to-end cursor pagination flow
-- **Approach**: Integration tests with real database connections
-
-#### 2. **Infrastructure Layer Tests**
-- **Purpose**: Test data access and external integrations
-- **Example**: `get-value.postgres.test.ts`
-- **Coverage**: PostgreSQL repository implementations
-- **Approach**: Database integration tests
-
-#### 3. **Criteria Pattern Tests**
-- **Purpose**: Test query building and URL parsing
-- **Examples**: 
-  - `criteria-cursor-to-sql.test.ts` - SQL generation from criteria
-  - `urlsearch-to-criteria-cursor.test.ts` - URL parameter parsing
-- **Coverage**: Query logic validation
-- **Approach**: Unit tests with mocked dependencies
-
-### Running Tests
-
-```bash
-# Run all tests
-npm test
-
-# Run tests in watch mode
-npm run jest
-
-# Run specific test file
-npm test -- get-products-by-cursor.application.test.ts
-```
-
-### Test Configuration
-
-The project uses **Jest** as the testing framework with:
-- **TypeScript Support**: Direct `.ts` file execution
-- **Path Mapping**: Same aliases as production code
-- **Database Integration**: Real PostgreSQL connections for integration tests
-- **Async Testing**: Full support for async/await patterns
-
 ### Example Test Scenarios
 
 1. **Cursor Pagination Flow**: Tests complete pagination cycle with multiple requests
@@ -414,9 +420,35 @@ The project uses **Jest** as the testing framework with:
 3. **URL Parameter Parsing**: Tests conversion of query strings to criteria objects
 4. **Repository Integration**: Tests database operations with real data
 
+### Test Categories
+
+#### 1. **Application Layer Tests**
+
+- **Purpose**: Test business logic and use cases
+- **Example**: `get-products-by-cursor.application.test.ts`
+- **Coverage**: End-to-end cursor pagination flow
+- **Approach**: Integration tests with real database connections
+
+#### 2. **Infrastructure Layer Tests**
+
+- **Purpose**: Test data access and external integrations
+- **Example**: `get-value.postgres.test.ts`
+- **Coverage**: PostgreSQL repository implementations
+- **Approach**: Database integration tests
+
+#### 3. **Criteria Pattern Tests**
+
+- **Purpose**: Test query building and URL parsing
+- **Examples**:
+  - `criteria-cursor-to-sql.test.ts` - SQL generation from criteria
+  - `urlsearch-to-criteria-cursor.test.ts` - URL parameter parsing
+- **Coverage**: Query logic validation
+- **Approach**: Unit tests with mocked dependencies
+
 ## 🛠️ Development
 
 ### Prerequisites
+
 - **Node.js**: 20.19.4 or higher
 - **Docker**: For containerized development
 - **PostgreSQL**: 15.13 (via Docker)
@@ -440,12 +472,8 @@ npm test                 # Run test suite
 npm run jest            # Run tests in watch mode
 ```
 
-### Project Configuration
+### Packages
 
-- **TypeScript**: Configured with path mapping for clean imports
-- **Environment Variables**: Managed through Docker Compose
-- **ESLint/Prettier**: Code formatting and linting (optional)
-- **Nodemon**: Hot reload during development
 
 ---
 
