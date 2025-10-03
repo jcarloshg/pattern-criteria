@@ -18,9 +18,6 @@ export class OrderCursor {
         direction: string
     ): OrderCursor {
         try {
-            if (value.length === 0) {
-                throw new CriteriaError("[value] is required");
-            }
 
             if (cursor.length === 0) {
                 throw new CriteriaError("[cursor] is required");

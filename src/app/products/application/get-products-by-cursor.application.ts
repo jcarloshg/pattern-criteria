@@ -34,11 +34,15 @@ export class GetProductsByCursorApplication {
     ): Promise<CustomResponse<GetProductsByCursorResponse | undefined>> {
         try {
             const { criteria } = req;
+            const criteriaOrder = criteria.order;
+            const criteriaPagination = criteria.pagination;
+
+            if (criteriaOrder.value === "") {
+                
+            }
 
             const products = await this.GetAllProductsRepository.run(criteria);
 
-            const criteriaOrder = criteria.order;
-            const criteriaPagination = criteria.pagination;
             const resp: GetProductsByCursorResponse = {
                 data: products,
                 cursor: {
