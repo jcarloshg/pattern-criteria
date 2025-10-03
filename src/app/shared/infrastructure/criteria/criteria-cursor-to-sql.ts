@@ -37,18 +37,15 @@ export class CriteriaCursorToSql {
         const orderBody: string = this._getOrderByBody(propertiesMap);
         const limitBody: string = this._criteria.pagination.pageSize.toString();
 
-        const query = `
-            SELECT
-                ${this._selectBody}
-            FROM
-                ${this._fromBody}
-            WHERE
-                ${whereBody}
-            ORDER BY
-                ${orderBody}
-            LIMIT
-                ${limitBody}
-        `;
+        const queryArray: string[] = [
+            "SELECT", this._selectBody,
+            "FROM", this._fromBody,
+            "WHERE", whereBody,
+            "ORDER BY", orderBody,
+            "LIMIT", limitBody,
+        ];
+
+        const query = queryArray.join(" ");
 
         return {
             query,
