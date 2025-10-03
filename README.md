@@ -11,42 +11,42 @@ A robust Node.js API built with TypeScript that implements the **Criteria Patter
 ## 📋 Table of Contents
 
 - [🎯 Main Use Case](#-main-use-case)
-  - [Problem Description](#problem-description)
-  - [Solution Overview](#solution-overview)
+  - [❗ Problem Description](#-problem-description)
+  - [✅ Solution Overview](#-solution-overview)
 - [🔍 Criteria Pattern Implementation](#-criteria-pattern-implementation)
-  - [Standard Criteria Pattern](#standard-criteria-pattern)
-  - [Cursor-Based Criteria Pattern](#cursor-based-criteria-pattern)
-  - [Benefits of This Implementation](#benefits-of-this-implementation)
+  - [📐 Standard Criteria Pattern](#-standard-criteria-pattern)
+  - [🔄 Cursor-Based Criteria Pattern](#-cursor-based-criteria-pattern)
+  - [🎁 Benefits of This Implementation](#-benefits-of-this-implementation)
 - [🗄️ Database Structure](#️-database-structure)
-  - [Key Features](#key-features)
+  - [⭐ Key Features](#-key-features)
 - [🏛️ Hexagonal Architecture](#️-hexagonal-architecture)
-  - [Architecture Benefits](#architecture-benefits)
+  - [💡 Architecture Benefits](#-architecture-benefits)
 - [🐳 Docker Setup](#-docker-setup)
-  - [Services Architecture](#services-architecture)
-  - [Quick Start](#quick-start)
-  - [Service Details](#service-details)
+  - [🏗️ Services Architecture](#️-services-architecture)
+  - [⚡ Quick Start](#-quick-start)
+  - [📊 Service Details](#-service-details)
 - [🚀 API Usage Examples](#-api-usage-examples)
-  - [Base URL](#base-url)
-  - [Health Check](#health-check)
-  - [Basic Product Retrieval](#basic-product-retrieval)
-  - [Advanced Filtering Examples](#advanced-filtering-examples)
-    - [1. Filter by Brand](#1-filter-by-brand)
-    - [2. Filter by Price Range](#2-filter-by-price-range)
-    - [3. Text Search with Sorting](#3-text-search-with-sorting)
-    - [4. Complex Multi-Filter Query](#4-complex-multi-filter-query)
-  - [Cursor-Based Pagination](#cursor-based-pagination)
-    - [1. Initial Request](#1-initial-request)
-    - [2. Next Page Request](#2-next-page-request)
-  - [Available Operators](#available-operators)
-  - [Response Format](#response-format)
+  - [🌐 Base URL](#-base-url)
+  - [❤️ Health Check](#️-health-check)
+  - [📦 Basic Product Retrieval](#-basic-product-retrieval)
+  - [🔧 Advanced Filtering Examples](#-advanced-filtering-examples)
+    - [🏷️ 1. Filter by Brand](#️-1-filter-by-brand)
+    - [💰 2. Filter by Price Range](#-2-filter-by-price-range)
+    - [🔍 3. Text Search with Sorting](#-3-text-search-with-sorting)
+    - [⚙️ 4. Complex Multi-Filter Query](#️-4-complex-multi-filter-query)
+  - [📄 Cursor-Based Pagination](#-cursor-based-pagination)
+    - [🎬 1. Initial Request](#-1-initial-request)
+    - [➡️ 2. Next Page Request](#️-2-next-page-request)
+  - [🔤 Available Operators](#-available-operators)
+  - [📋 Response Format](#-response-format)
 - [🧪 Testing](#-testing)
-  - [Running Tests](#running-tests)
-  - [Test Structure](#test-structure)
-  - [Example Test Scenarios](#example-test-scenarios)
-  - [Test Categories](#test-categories)
-    - [1. Application Layer Tests](#1-application-layer-tests)
-    - [2. Infrastructure Layer Tests](#2-infrastructure-layer-tests)
-    - [3. Criteria Pattern Tests](#3-criteria-pattern-tests)
+  - [▶️ Running Tests](#️-running-tests)
+  - [📁 Test Structure](#-test-structure)
+  - [📝 Example Test Scenarios](#-example-test-scenarios)
+  - [🏷️ Test Categories](#️-test-categories)
+    - [🎯 1. Application Layer Tests](#-1-application-layer-tests)
+    - [🔌 2. Infrastructure Layer Tests](#-2-infrastructure-layer-tests)
+    - [🔍 3. Criteria Pattern Tests](#-3-criteria-pattern-tests)
 - [🛠️ Development](#️-development)
   - [Prerequisites](#prerequisites)
   - [Available Scripts](#available-scripts)
@@ -57,19 +57,19 @@ A robust Node.js API built with TypeScript that implements the **Criteria Patter
 
 ## 🎯 Main Use Case
 
-### Problem Description
+### ❗ Problem Description
 
 Modern e-commerce applications require sophisticated search capabilities that go beyond simple text matching. Users need to filter products by multiple criteria simultaneously while maintaining good performance and user experience.
 
-**Key Challenges:**
+**🚨 Key Challenges:**
 
-- **Complex Query Building**: Traditional approaches lead to complex, hard-to-maintain SQL queries
-- **Dynamic Filtering**: Supporting various filter combinations without code duplication
-- **Performance**: Optimizing queries for large product catalogs
-- **Scalability**: Handling high query volumes efficiently
-- **Pagination**: Implementing both offset-based and cursor-based pagination
+- **🧩 Complex Query Building**: Traditional approaches lead to complex, hard-to-maintain SQL queries
+- **🔀 Dynamic Filtering**: Supporting various filter combinations without code duplication
+- **⚡ Performance**: Optimizing queries for large product catalogs
+- **📈 Scalability**: Handling high query volumes efficiently
+- **📑 Pagination**: Implementing both offset-based and cursor-based pagination
 
-### Solution Overview
+### ✅ Solution Overview
 
 This project implements an **Advanced Product Search System** that allows users to:
 
@@ -85,7 +85,7 @@ This project implements an **Advanced Product Search System** that allows users 
 
 The **Criteria Pattern** is a design pattern that encapsulates query logic in a reusable, composable way. This project implements two variations:
 
-### Standard Criteria Pattern
+### 📐 Standard Criteria Pattern
 
 ```typescript
 // Core Classes
@@ -112,7 +112,7 @@ class Pagination {
 }
 ```
 
-### Cursor-Based Criteria Pattern
+### 🔄 Cursor-Based Criteria Pattern
 
 ```typescript
 // Enhanced for cursor-based pagination
@@ -133,7 +133,7 @@ class OrderCursor {
 }
 ```
 
-### Benefits of This Implementation
+### 🎁 Benefits of This Implementation
 
 - **🔧 Reusability**: Criteria objects can be reused across different repositories
 - **🧪 Testability**: Easy to test query logic in isolation
@@ -182,7 +182,7 @@ The database follows a normalized structure optimized for search operations:
             └─────────────────┘
 ```
 
-### Key Features
+### ⭐ Key Features
 
 - **🔍 Optimized Indexes**: Price and rating fields are indexed for fast filtering
 - **🔗 Foreign Key Constraints**: Ensure data integrity with cascading deletes
@@ -225,7 +225,7 @@ src/
     └── middleware/
 ```
 
-### Architecture Benefits
+### 💡 Architecture Benefits
 
 - **🎯 Domain Isolation**: Business logic is independent of external concerns
 - **🔌 Dependency Inversion**: Infrastructure depends on domain, not vice versa
@@ -237,7 +237,7 @@ src/
 
 The project uses Docker Compose for easy development setup with three services:
 
-### Services Architecture
+### 🏗️ Services Architecture
 
 ```yaml
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
@@ -250,52 +250,52 @@ The project uses Docker Compose for easy development setup with three services:
 └─────────────────┘    └─────────────────┘    └─────────────────┘
 ```
 
-### Quick Start
+### ⚡ Quick Start
 
 - [docker-compose](docker-compose.yml)
 - [Dockerfile](Dockerfile)
 
-1. **Clone the repository**
+1. **📥 Clone the repository**
 
    ```bash
    git clone https://github.com/jcarloshg/pattern-criteria.git
    cd pattern-criteria
    ```
 
-2. **Start services with Docker Compose**
+2. **🚀 Start services with Docker Compose**
 
    ```bash
    docker-compose up -d
    ```
 
-3. **Verify services are running**
+3. **✅ Verify services are running**
    ```bash
    docker-compose ps
    ```
 
-### Service Details
+### 📊 Service Details
 
-| Service        | Port | Purpose                | Credentials                |
-| -------------- | ---- | ---------------------- | -------------------------- |
-| **Backend**    | 3000 | Node.js API server     | -                          |
-| **PostgreSQL** | 5432 | Database server        | `admin:123456`             |
-| **pgAdmin**    | 8080 | Database management UI | `alumno@google.com:123456` |
+| Service        | Port | Purpose                | Credentials                | Icon |
+| -------------- | ---- | ---------------------- | -------------------------- | ---- |
+| **Backend**    | 3000 | Node.js API server     | -                          | 🖥️   |
+| **PostgreSQL** | 5432 | Database server        | `admin:123456`             | 🐘   |
+| **pgAdmin**    | 8080 | Database management UI | `alumno@google.com:123456` | 🔧   |
 
 ## 🚀 API Usage Examples
 
-### Base URL
+### 🌐 Base URL
 
 ```
 http://localhost:3000/api/products/v1
 ```
 
-### Health Check
+### ❤️ Health Check
 
 ```http
 GET http://localhost:3000/api/health
 ```
 
-### Basic Product Retrieval
+### 📦 Basic Product Retrieval
 
 ```http
 # Get all products (with default pagination)
@@ -305,58 +305,58 @@ GET http://localhost:3000/api/products/v1
 GET http://localhost:3000/api/products/v1?page=1&pageSize=10
 ```
 
-### Advanced Filtering Examples
+### 🔧 Advanced Filtering Examples
 
-#### 1. Filter by Brand
+#### 🏷️ 1. Filter by Brand
 
 ```http
 GET http://localhost:3000/api/products/v1?[0][field]=brandName&[0][operator]=EQUAL&[0][value]=Puma
 ```
 
-#### 2. Filter by Price Range
+#### 💰 2. Filter by Price Range
 
 ```http
 GET http://localhost:3000/api/products/v1?[0][field]=price&[0][operator]=GT&[0][value]=50&[1][field]=price&[1][operator]=LT&[1][value]=200
 ```
 
-#### 3. Text Search with Sorting
+#### 🔍 3. Text Search with Sorting
 
 ```http
 GET http://localhost:3000/api/products/v1?[0][field]=name&[0][operator]=CONTAINS&[0][value]=Travel&orderBy=price&order=ASC
 ```
 
-#### 4. Complex Multi-Filter Query
+#### ⚙️ 4. Complex Multi-Filter Query
 
 ```http
 GET http://localhost:3000/api/products/v1?[0][field]=brandName&[0][operator]=EQUAL&[0][value]=Nike&[1][field]=price&[1][operator]=GT&[1][value]=100&[2][field]=availability&[2][operator]=EQUAL&[2][value]=true&orderBy=rating&order=DESC&page=1&pageSize=5
 ```
 
-### Cursor-Based Pagination
+### 📄 Cursor-Based Pagination
 
-#### 1. Initial Request
+#### 🎬 1. Initial Request
 
 ```http
 GET http://localhost:3000/api/products/v1/cursor?cursor=name&direction=ASC&pageSize=10
 ```
 
-#### 2. Next Page Request
+#### ➡️ 2. Next Page Request
 
 ```http
 GET http://localhost:3000/api/products/v1/cursor?value=<cursor_value>&cursor=name&direction=ASC&pageSize=10
 ```
 
-### Available Operators
+### 🔤 Available Operators
 
-| Operator       | Description          | Example                                   |
-| -------------- | -------------------- | ----------------------------------------- |
-| `EQUAL`        | Exact match          | `brandName = "Nike"`                      |
-| `NOT_EQUAL`    | Not equal            | `availability != false`                   |
-| `GT`           | Greater than         | `price > 100`                             |
-| `LT`           | Less than            | `rating < 4.0`                            |
-| `CONTAINS`     | Text contains        | `name CONTAINS "Travel"`                  |
-| `NOT_CONTAINS` | Text doesn't contain | `description NOT_CONTAINS "discontinued"` |
+| Operator       | Description          | Example                                   | Icon |
+| -------------- | -------------------- | ----------------------------------------- | ---- |
+| `EQUAL`        | Exact match          | `brandName = "Nike"`                      | ✅   |
+| `NOT_EQUAL`    | Not equal            | `availability != false`                   | ❌   |
+| `GT`           | Greater than         | `price > 100`                             | ⬆️   |
+| `LT`           | Less than            | `rating < 4.0`                            | ⬇️   |
+| `CONTAINS`     | Text contains        | `name CONTAINS "Travel"`                  | 🔍   |
+| `NOT_CONTAINS` | Text doesn't contain | `description NOT_CONTAINS "discontinued"` | 🚫   |
 
-### Response Format
+### 📋 Response Format
 
 ```json
 {
@@ -389,9 +389,9 @@ GET http://localhost:3000/api/products/v1/cursor?value=<cursor_value>&cursor=nam
 
 ## 🧪 Testing
 
-### Running Tests
+### ▶️ Running Tests
 
-- copy [.env.template](./.env.template) as `.env.test.local`
+- 📋 copy [.env.template](./.env.template) as `.env.test.local`
 
 ```bash
 # Run all tests
@@ -406,7 +406,7 @@ npm test -- get-products-by-cursor.application.test.ts
 
 The project includes comprehensive tests covering different layers of the architecture:
 
-### Test Structure
+### 📁 Test Structure
 
 ```
 test/
@@ -425,94 +425,94 @@ test/
     │               └── urlsearch-to-criteria-cursor.test.ts
 ```
 
-### Example Test Scenarios
+### 📝 Example Test Scenarios
 
-1. **Cursor Pagination Flow**: Tests complete pagination cycle with multiple requests
-2. **SQL Query Generation**: Validates criteria conversion to parameterized SQL
-3. **URL Parameter Parsing**: Tests conversion of query strings to criteria objects
-4. **Repository Integration**: Tests database operations with real data
+1. **🔄 Cursor Pagination Flow**: Tests complete pagination cycle with multiple requests
+2. **🗃️ SQL Query Generation**: Validates criteria conversion to parameterized SQL
+3. **🔗 URL Parameter Parsing**: Tests conversion of query strings to criteria objects
+4. **💾 Repository Integration**: Tests database operations with real data
 
-### Test Categories
+### 🏷️ Test Categories
 
-#### 1. **Application Layer Tests**
+#### 🎯 1. **Application Layer Tests**
 
-- **Purpose**: Test business logic and use cases
-- **Example**: `get-products-by-cursor.application.test.ts`
-- **Coverage**: End-to-end cursor pagination flow
-- **Approach**: Integration tests with real database connections
+- **🎪 Purpose**: Test business logic and use cases
+- **📄 Example**: `get-products-by-cursor.application.test.ts`
+- **📊 Coverage**: End-to-end cursor pagination flow
+- **🔧 Approach**: Integration tests with real database connections
 
-#### 2. **Infrastructure Layer Tests**
+#### 🔌 2. **Infrastructure Layer Tests**
 
-- **Purpose**: Test data access and external integrations
-- **Example**: `get-value.postgres.test.ts`
-- **Coverage**: PostgreSQL repository implementations
-- **Approach**: Database integration tests
+- **🎪 Purpose**: Test data access and external integrations
+- **📄 Example**: `get-value.postgres.test.ts`
+- **📊 Coverage**: PostgreSQL repository implementations
+- **🔧 Approach**: Database integration tests
 
-#### 3. **Criteria Pattern Tests**
+#### 🔍 3. **Criteria Pattern Tests**
 
-- **Purpose**: Test query building and URL parsing
-- **Examples**:
+- **🎪 Purpose**: Test query building and URL parsing
+- **📄 Examples**:
   - `criteria-cursor-to-sql.test.ts` - SQL generation from criteria
   - `urlsearch-to-criteria-cursor.test.ts` - URL parameter parsing
-- **Coverage**: Query logic validation
-- **Approach**: Unit tests with mocked dependencies
+- **📊 Coverage**: Query logic validation
+- **🔧 Approach**: Unit tests with mocked dependencies
 
 ## 🛠️ Development
 
-### Prerequisites
+### 📋 Prerequisites
 
-- **Node.js**: 20.19.4 or higher
-- **Docker**: For containerized development
-- **PostgreSQL**: 15.13 (via Docker)
+- **📗 Node.js**: 20.19.4 or higher
+- **🐳 Docker**: For containerized development
+- **🐘 PostgreSQL**: 15.13 (via Docker)
 
-### Available Scripts
+### 📜 Available Scripts
 
 ```bash
-# Development
+# 🚀 Development
 npm run dev              # Start development server with hot reload
 npm run dev:docker       # Start for Docker environment
 
-# Building
+# 🏗️ Building
 npm run build            # Compile TypeScript to JavaScript
 npm run clean            # Remove compiled files
 
-# Database
+# 🗄️ Database
 npm run generate-sql-scripts  # Generate database scripts
 
-# Testing
+# 🧪 Testing
 npm test                 # Run test suite
 npm run jest            # Run tests in watch mode
 ```
 
-### Packages
+### 📦 Packages
 
-#### Production Dependencies
+#### 🚀 Production Dependencies
 
-| Package     | Version | Purpose                                       |
-| ----------- | ------- | --------------------------------------------- |
-| **express** | ^5.1.0  | Fast, unopinionated web framework for Node.js |
-| **cors**    | ^2.8.5  | Cross-Origin Resource Sharing middleware      |
-| **dotenv**  | ^17.2.3 | Environment variables loader                  |
-| **pg**      | ^8.16.3 | PostgreSQL client for Node.js                 |
-| **zod**     | ^4.1.11 | TypeScript-first schema validation library    |
+| Package     | Version | Purpose                                       | Icon |
+| ----------- | ------- | --------------------------------------------- | ---- |
+| **express** | ^5.1.0  | Fast, unopinionated web framework for Node.js | ⚡   |
+| **cors**    | ^2.8.5  | Cross-Origin Resource Sharing middleware      | 🌐   |
+| **dotenv**  | ^17.2.3 | Environment variables loader                  | 🔑   |
+| **pg**      | ^8.16.3 | PostgreSQL client for Node.js                 | 🐘   |
+| **zod**     | ^4.1.11 | TypeScript-first schema validation library    | 🛡️   |
 
-#### Development Dependencies
+#### 🛠️ Development Dependencies
 
-| Package            | Version | Purpose                                 |
-| ------------------ | ------- | --------------------------------------- |
-| **@types/cors**    | ^2.8.19 | TypeScript definitions for cors         |
-| **@types/express** | ^5.0.3  | TypeScript definitions for Express      |
-| **@types/jest**    | ^30.0.0 | TypeScript definitions for Jest         |
-| **@types/node**    | ^24.6.0 | TypeScript definitions for Node.js      |
-| **@types/pg**      | ^8.15.5 | TypeScript definitions for pg           |
-| **@types/uuid**    | ^10.0.0 | TypeScript definitions for UUID         |
-| **jest**           | ^30.2.0 | JavaScript testing framework            |
-| **nodemon**        | ^3.1.10 | Development server with auto-restart    |
-| **ts-jest**        | ^29.4.4 | Jest transformer for TypeScript         |
-| **ts-node**        | ^10.9.2 | TypeScript execution engine for Node.js |
-| **tsconfig-paths** | ^4.2.0  | Path mapping support for TypeScript     |
+| Package            | Version | Purpose                                 | Icon |
+| ------------------ | ------- | --------------------------------------- | ---- |
+| **@types/cors**    | ^2.8.19 | TypeScript definitions for cors         | 📝   |
+| **@types/express** | ^5.0.3  | TypeScript definitions for Express      | 📝   |
+| **@types/jest**    | ^30.0.0 | TypeScript definitions for Jest         | 📝   |
+| **@types/node**    | ^24.6.0 | TypeScript definitions for Node.js      | 📝   |
+| **@types/pg**      | ^8.15.5 | TypeScript definitions for pg           | 📝   |
+| **@types/uuid**    | ^10.0.0 | TypeScript definitions for UUID         | 📝   |
+| **jest**           | ^30.2.0 | JavaScript testing framework            | 🧪   |
+| **nodemon**        | ^3.1.10 | Development server with auto-restart    | 🔄   |
+| **ts-jest**        | ^29.4.4 | Jest transformer for TypeScript         | 🔧   |
+| **ts-node**        | ^10.9.2 | TypeScript execution engine for Node.js | ⚡   |
+| **tsconfig-paths** | ^4.2.0  | Path mapping support for TypeScript     | 🗺️   |
 
-#### Key Package Highlights
+#### 🌟 Key Package Highlights
 
 - **🚀 Express 5.1.0**: Latest version with improved performance and modern features
 - **🔒 Zod 4.1.11**: Powerful schema validation for API endpoints and data models
