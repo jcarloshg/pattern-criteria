@@ -25,23 +25,35 @@ A robust Node.js API built with TypeScript that implements the **Criteria Patter
   - [Services Architecture](#services-architecture)
   - [Quick Start](#quick-start)
   - [Service Details](#service-details)
-  - [Environment Configuration](#environment-configuration)
 - [🚀 API Usage Examples](#-api-usage-examples)
   - [Base URL](#base-url)
   - [Health Check](#health-check)
   - [Basic Product Retrieval](#basic-product-retrieval)
   - [Advanced Filtering Examples](#advanced-filtering-examples)
+    - [1. Filter by Brand](#1-filter-by-brand)
+    - [2. Filter by Price Range](#2-filter-by-price-range)
+    - [3. Text Search with Sorting](#3-text-search-with-sorting)
+    - [4. Complex Multi-Filter Query](#4-complex-multi-filter-query)
   - [Cursor-Based Pagination](#cursor-based-pagination)
+    - [1. Initial Request](#1-initial-request)
+    - [2. Next Page Request](#2-next-page-request)
   - [Available Operators](#available-operators)
   - [Response Format](#response-format)
 - [🧪 Testing](#-testing)
-  - [Test Structure](#test-structure)
-  - [Test Categories](#test-categories)
   - [Running Tests](#running-tests)
+  - [Test Structure](#test-structure)
   - [Example Test Scenarios](#example-test-scenarios)
+  - [Test Categories](#test-categories)
+    - [1. Application Layer Tests](#1-application-layer-tests)
+    - [2. Infrastructure Layer Tests](#2-infrastructure-layer-tests)
+    - [3. Criteria Pattern Tests](#3-criteria-pattern-tests)
 - [🛠️ Development](#️-development)
   - [Prerequisites](#prerequisites)
   - [Available Scripts](#available-scripts)
+  - [Packages](#packages)
+    - [Production Dependencies](#production-dependencies)
+    - [Development Dependencies](#development-dependencies)
+    - [Key Package Highlights](#key-package-highlights)
 
 ## 🎯 Main Use Case
 
@@ -474,6 +486,39 @@ npm run jest            # Run tests in watch mode
 
 ### Packages
 
+#### Production Dependencies
+
+| Package     | Version | Purpose                                       |
+| ----------- | ------- | --------------------------------------------- |
+| **express** | ^5.1.0  | Fast, unopinionated web framework for Node.js |
+| **cors**    | ^2.8.5  | Cross-Origin Resource Sharing middleware      |
+| **dotenv**  | ^17.2.3 | Environment variables loader                  |
+| **pg**      | ^8.16.3 | PostgreSQL client for Node.js                 |
+| **zod**     | ^4.1.11 | TypeScript-first schema validation library    |
+
+#### Development Dependencies
+
+| Package            | Version | Purpose                                 |
+| ------------------ | ------- | --------------------------------------- |
+| **@types/cors**    | ^2.8.19 | TypeScript definitions for cors         |
+| **@types/express** | ^5.0.3  | TypeScript definitions for Express      |
+| **@types/jest**    | ^30.0.0 | TypeScript definitions for Jest         |
+| **@types/node**    | ^24.6.0 | TypeScript definitions for Node.js      |
+| **@types/pg**      | ^8.15.5 | TypeScript definitions for pg           |
+| **@types/uuid**    | ^10.0.0 | TypeScript definitions for UUID         |
+| **jest**           | ^30.2.0 | JavaScript testing framework            |
+| **nodemon**        | ^3.1.10 | Development server with auto-restart    |
+| **ts-jest**        | ^29.4.4 | Jest transformer for TypeScript         |
+| **ts-node**        | ^10.9.2 | TypeScript execution engine for Node.js |
+| **tsconfig-paths** | ^4.2.0  | Path mapping support for TypeScript     |
+
+#### Key Package Highlights
+
+- **🚀 Express 5.1.0**: Latest version with improved performance and modern features
+- **🔒 Zod 4.1.11**: Powerful schema validation for API endpoints and data models
+- **🐘 PostgreSQL 8.16.3**: Robust database client with connection pooling
+- **🧪 Jest 30.2.0**: Modern testing framework with TypeScript support
+- **⚡ Nodemon**: Development server with hot-reload capabilities
 
 ---
 
