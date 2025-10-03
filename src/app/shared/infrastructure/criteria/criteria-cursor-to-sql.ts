@@ -32,28 +32,34 @@ export class CriteriaCursorToSql {
     }
 
     public toSql(propertiesMap: Map<string, string>): ParameterizedQuery {
-
-        const whereBody: string = this._getWhereBody(propertiesMap);
+        const whereBody = this._getWhereBody(propertiesMap);
         const orderBody: string = this._getOrderByBody(propertiesMap);
         const limitBody: string = this._criteria.pagination.pageSize.toString();
 
         const queryArray: string[] = [
-            "SELECT", this._selectBody,
-            "FROM", this._fromBody,
-            "WHERE", whereBody,
-            "ORDER BY", orderBody,
-            "LIMIT", limitBody,
+            "SELECT",
+            this._selectBody,
+            "FROM",
+            this._fromBody,
+            "WHERE",
+            whereBody.query,
+            "ORDER BY",
+            orderBody,
+            "LIMIT",
+            limitBody,
         ];
 
         const query = queryArray.join(" ");
 
         return {
             query,
-            parameters: [],
+            parameters: whereBody.parameters,
         };
     }
 
-    private _getWhereBody(propertiesMap: Map<string, string>): string {
+    private _getWhereBody(
+        propertiesMap: Map<string, string>
+    ): ParameterizedQuery {
         const { filters, order } = this._criteria;
         const parameters: any[] = [];
         let parameterIndex = 1;
@@ -84,7 +90,7 @@ export class CriteriaCursorToSql {
         // ─────────────────────────────────────
         // Handle cursor-based pagination
         // ─────────────────────────────────────
-        parameters.push(order.cursor);
+        parameters.push(order.value);
         const whereCursors =
             order.direction === OrderCursorType.ASC
                 ? `${propertiesMap.get(order.cursor)} > $${parameterIndex++}`
@@ -95,12 +101,16 @@ export class CriteriaCursorToSql {
         // ─────────────────────────────────────
         const whereQuery = [...whereFilters, whereCursors].join(" AND ");
 
-        return whereQuery;
+        return {
+            query: whereQuery,
+            parameters,
+        };
     }
 
     private _getOrderByBody(propertiesMap: Map<string, string>): string {
         const { order } = this._criteria;
-        const orderClauses = `${propertiesMap.get(order.cursor)} ${order.direction}`;
+        const orderClauses = `${propertiesMap.get(order.cursor)} ${order.direction
+            }`;
         return orderClauses;
     }
 }
