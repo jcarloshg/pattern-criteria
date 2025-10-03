@@ -1,11 +1,13 @@
 import { Express, Router } from "express";
 
 import { getProductsByFilters } from "@/presentation/controllers/products/v1/get-products-by-filters.controller";
+import { getProductsByCursor } from "@/presentation/controllers/products/v1/get-products-by-cursor.controller";
 
 export const registerProductRoutesV1 = (app: Express) => {
     const router = Router();
 
     router.get("/", getProductsByFilters);
+    router.get("/cursor", getProductsByCursor);
 
     app.use("/api/products/v1", router);
 };

@@ -8,7 +8,7 @@ import { Pagination } from "@/app/shared/domain/repository/criteria/pagination.c
 
 export class URLSearchParamsCriteriaParser {
 
-    public static parse(req: Request): any {
+    public static parse(req: Request): Criteria {
 
         const searchParams = new URLSearchParams(req.url);
         const filters = this.getFilters(searchParams);
