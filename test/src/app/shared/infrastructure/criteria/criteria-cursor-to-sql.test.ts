@@ -7,7 +7,6 @@ import { CriteriaCursorToSql } from "@/app/shared/infrastructure/criteria/criter
 describe("criteria-cursor-to-sql.test", () => {
     it("should convert criteria to SQL query", () => { });
 
-    // const filterCursor = new FilterCursor();
     const paginationCursor = new PaginationCursor();
     const orderCursor = new OrderCursor("price", OrderCursorType.ASC);
     const criteriaCursor = new CriteriaCursor([], paginationCursor, orderCursor);
@@ -16,15 +15,7 @@ describe("criteria-cursor-to-sql.test", () => {
     const fromBody = "product";
 
     const propertiesMap: Map<string, string> = new Map<string, string>([
-        ["uuid", "product.uuid"],
-        ["name", "product.name"],
-        ["description", "product.description"],
-        ["availability", "product.availability"],
-        ["price", "product.price"],
-        ["rating", "product.rating"],
-        ["brandName", "brand.name"],
-        ["categoryName", "category.name"],
-        ["attributeValue", "product_attribute.value"],
+        ["price", "price"],
     ]);
 
     const criteria = new CriteriaCursorToSql(
@@ -33,8 +24,7 @@ describe("criteria-cursor-to-sql.test", () => {
         fromBody
     );
     const querySql = criteria.toSql(propertiesMap);
+    const queryString = querySql.query;
 
-    console.log(`querySql: `, querySql);
-
-    expect(querySql).toBe("SELECT * FROM product WHERE id = 1");
+    expect(queryString).toBe("SELECT * FROM product WHERE price > $1 ORDER BY price ASC LIMIT 10");
 });

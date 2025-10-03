@@ -6,10 +6,22 @@ export enum OrderCursorType {
 }
 
 export class OrderCursor {
-    constructor(public cursor: string, public direction: OrderCursorType) { }
+    constructor(
+        public value: string,
+        public cursor: string,
+        public direction: OrderCursorType
+    ) { }
 
-    public static fromPrimitives(cursor: string, direction: string): OrderCursor {
+    public static fromPrimitives(
+        value: string,
+        cursor: string,
+        direction: string
+    ): OrderCursor {
         try {
+            if (value.length === 0) {
+                throw new CriteriaError("value is required");
+            }
+
             if (cursor.length === 0) {
                 throw new CriteriaError("cursor is required");
             }
@@ -18,7 +30,7 @@ export class OrderCursor {
                 throw new CriteriaError("Invalid direction");
             }
 
-            return new OrderCursor(cursor, direction as OrderCursorType);
+            return new OrderCursor(value, cursor, direction as OrderCursorType);
         } catch (error) {
             throw new CriteriaError(error);
         }
