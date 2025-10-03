@@ -16,15 +16,9 @@ export const getProductsByCursor = async (req: Request, res: Response) => {
         const criteriaCursor = UrlsearchToCriteriaCursor.parse(searchParams);
         // external services
         const getAllProductsRepo = new GetProductsByCursorPostgres(postgresManager);
-        const getTotalOfProductsRepo = new GetTotalOfProductsPostgres(
-            postgresManager
-        );
 
         // init use case
-        const useCase = new GetProductsByCursorApplication(
-            getAllProductsRepo,
-            getTotalOfProductsRepo
-        );
+        const useCase = new GetProductsByCursorApplication(getAllProductsRepo);
         const result = await useCase.run({ criteria: criteriaCursor });
 
         // send response
