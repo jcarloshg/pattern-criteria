@@ -1,1 +1,452 @@
-# This is a Templete Project with Nodejs and TypeScript
+# 🏗️ Pattern-Criteria - Product Search API
+
+[![Node.js](https://img.shields.io/badge/Node.js-20.19.4-green.svg)](https://nodejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg)](https://www.typescriptlang.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15.13-336791.svg)](https://www.postgresql.org/)
+[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED.svg)](https://www.docker.com/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+A robust Node.js API built with TypeScript that implements the **Criteria Pattern** for advanced product search with multiple filters, pagination, and cursor-based navigation. The project follows **Hexagonal Architecture** principles to ensure clean code separation and maintainability.
+
+## 📋 Table of Contents
+
+- [🎯 Main Use Case](#-main-use-case)
+- [🔍 Criteria Pattern Implementation](#-criteria-pattern-implementation)
+- [🗄️ Database Structure](#️-database-structure)
+- [🏛️ Hexagonal Architecture](#️-hexagonal-architecture)
+- [🐳 Docker Setup](#-docker-setup)
+- [🚀 API Usage Examples](#-api-usage-examples)
+- [🧪 Testing](#-testing)
+- [🛠️ Development](#️-development)
+
+## 🎯 Main Use Case
+
+### Problem Description
+
+Modern e-commerce applications require sophisticated search capabilities that go beyond simple text matching. Users need to filter products by multiple criteria simultaneously while maintaining good performance and user experience.
+
+**Key Challenges:**
+- **Complex Query Building**: Traditional approaches lead to complex, hard-to-maintain SQL queries
+- **Dynamic Filtering**: Supporting various filter combinations without code duplication
+- **Performance**: Optimizing queries for large product catalogs
+- **Scalability**: Handling high query volumes efficiently
+- **Pagination**: Implementing both offset-based and cursor-based pagination
+
+### Solution Overview
+
+This project implements an **Advanced Product Search System** that allows users to:
+
+- 🗂️ **Category Filtering**: Search by product categories (electronics, clothing, etc.)
+- 💲 **Price Range**: Filter by minimum and maximum price limits
+- 🏷️ **Brand Selection**: Filter by preferred brands
+- ⭐ **Rating-based**: Select products based on user ratings
+- 🛠️ **Attribute Filtering**: Apply additional filters (color, size, availability)
+- 📊 **Flexible Pagination**: Support both offset-based and cursor-based pagination
+- 🔍 **Text Search**: Search by product name with CONTAINS operators
+
+## 🔍 Criteria Pattern Implementation
+
+The **Criteria Pattern** is a design pattern that encapsulates query logic in a reusable, composable way. This project implements two variations:
+
+### Standard Criteria Pattern
+
+```typescript
+// Core Classes
+class Criteria {
+    public filters: Filter[];
+    public orders: Order;
+    public pagination: Pagination;
+}
+
+class Filter {
+    public field: string;
+    public operator: Operator; // =, !=, >, <, CONTAINS, NOT_CONTAINS
+    public value: string;
+}
+
+class Order {
+    public orderBy: string;
+    public orderType: OrderType; // ASC, DESC
+}
+
+class Pagination {
+    public page: number;
+    public pageSize: number;
+}
+```
+
+### Cursor-Based Criteria Pattern
+
+```typescript
+// Enhanced for cursor-based pagination
+class CriteriaCursor {
+    public filters: FilterCursor[];
+    public pagination: PaginationCursor;
+    public order: OrderCursor;
+}
+
+class PaginationCursor {
+    public pageSize: number;
+}
+
+class OrderCursor {
+    public value: string;      // cursor value
+    public cursor: string;     // field to cursor by
+    public direction: OrderCursorType; // ASC, DESC
+}
+```
+
+### Benefits of This Implementation
+
+- **🔧 Reusability**: Criteria objects can be reused across different repositories
+- **🧪 Testability**: Easy to test query logic in isolation
+- **🔄 Composability**: Filters can be combined dynamically
+- **📝 Type Safety**: Full TypeScript support with validation
+- **🏗️ Maintainability**: Clear separation of query logic from data access
+
+## 🗄️ Database Structure
+
+The database follows a normalized structure optimized for search operations:
+
+```sql
+-- Core Tables
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│   Category  │    │    Brand    │    │  Attribute  │
+│             │    │             │    │             │
+│ uuid (PK)   │    │ uuid (PK)   │    │ uuid (PK)   │
+│ name        │    │ name        │    │ name        │
+└─────────────┘    └─────────────┘    └─────────────┘
+       │                   │                   │
+       │                   │                   │
+       └───────┐   ┌───────┘                   │
+               │   │                           │
+            ┌─────────────┐                    │
+            │   Product   │                    │
+            │             │                    │
+            │ uuid (PK)   │                    │
+            │ name        │                    │
+            │ description │                    │
+            │ price       │◄───── indexed      │
+            │ rating      │◄───── indexed      │
+            │ availability│                    │
+            │ brand_id    │                    │
+            │ category_id │                    │
+            └─────────────┘                    │
+                   │                           │
+                   │                           │
+            ┌─────────────────┐                │
+            │ ProductAttribute│◄───────────────┘
+            │                 │
+            │ product_id (FK) │
+            │ attribute_id(FK)│
+            │ value           │
+            └─────────────────┘
+```
+
+### Key Features
+
+- **🔍 Optimized Indexes**: Price and rating fields are indexed for fast filtering
+- **🔗 Foreign Key Constraints**: Ensure data integrity with cascading deletes
+- **📊 Flexible Attributes**: ProductAttribute table allows dynamic product properties
+- **🏷️ Normalized Design**: Separate tables for categories and brands reduce redundancy
+
+## 🏛️ Hexagonal Architecture
+
+The project implements Hexagonal Architecture (Ports and Adapters) for clean separation of concerns:
+
+```
+src/
+├── app/                           # Application Core
+│   ├── products/
+│   │   ├── application/           # Use Cases
+│   │   │   ├── get-all-products.application.ts
+│   │   │   └── get-products-by-cursor.application.ts
+│   │   ├── domain/                # Business Logic
+│   │   │   ├── models/
+│   │   │   │   └── product.model.ts
+│   │   │   └── repository/        # Repository Interfaces (Ports)
+│   │   │       ├── get-all-products.repository.ts
+│   │   │       └── get-total-of-products.repository.ts
+│   │   └── infra/                 # Infrastructure (Adapters)
+│   │       └── postgres/
+│   │           ├── get-all-products.postgres.ts
+│   │           └── get-products-by-cursor.postgres.ts
+│   └── shared/                    # Shared Domain Logic
+│       ├── domain/
+│       │   ├── repository/
+│       │   │   ├── criteria/      # Criteria Pattern Implementation
+│       │   │   └── criteria-cursor/
+│       │   └── errors/
+│       └── infrastructure/
+│           ├── criteria/          # Criteria Parsers
+│           └── database/
+└── presentation/                  # External Interface
+    ├── controllers/
+    ├── routes/
+    └── middleware/
+```
+
+### Architecture Benefits
+
+- **🎯 Domain Isolation**: Business logic is independent of external concerns
+- **🔌 Dependency Inversion**: Infrastructure depends on domain, not vice versa
+- **🧪 Testability**: Easy to mock external dependencies
+- **🔄 Flexibility**: Easy to swap implementations (e.g., database providers)
+- **📦 Modularity**: Clear boundaries between layers
+
+## 🐳 Docker Setup
+
+The project uses Docker Compose for easy development setup with three services:
+
+### Services Architecture
+
+```yaml
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│    Backend      │    │   PostgreSQL    │    │    pgAdmin      │
+│   (Node.js)     │    │   Database      │    │   (Web UI)      │
+│                 │    │                 │    │                 │
+│ Port: 3000      │◄──►│ Port: 5432      │    │ Port: 8080      │
+│                 │    │                 │    │                 │
+│ Volume: ./src   │    │ Volume: ./data  │    │ Volume: ./pgadmin│
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+```
+
+### Quick Start
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd pattern-criteria
+   ```
+
+2. **Start services with Docker Compose**
+   ```bash
+   docker-compose up -d
+   ```
+
+3. **Verify services are running**
+   ```bash
+   docker-compose ps
+   ```
+
+### Service Details
+
+| Service | Port | Purpose | Credentials |
+|---------|------|---------|-------------|
+| **Backend** | 3000 | Node.js API server | - |
+| **PostgreSQL** | 5432 | Database server | `admin:123456` |
+| **pgAdmin** | 8080 | Database management UI | `alumno@google.com:123456` |
+
+### Environment Configuration
+
+The Docker setup includes:
+- **Hot Reload**: Source code changes are reflected immediately
+- **Database Migrations**: Automatic schema creation and data seeding
+- **Network Isolation**: Services communicate through Docker network
+- **Volume Persistence**: Database data persists between container restarts
+
+## 🚀 API Usage Examples
+
+### Base URL
+```
+http://localhost:3000/api/products/v1
+```
+
+### Health Check
+```http
+GET http://localhost:3000/api/health
+```
+
+### Basic Product Retrieval
+```http
+# Get all products (with default pagination)
+GET http://localhost:3000/api/products/v1
+
+# Get products with pagination
+GET http://localhost:3000/api/products/v1?page=1&pageSize=10
+```
+
+### Advanced Filtering Examples
+
+#### 1. Filter by Brand
+```http
+GET http://localhost:3000/api/products/v1?[0][field]=brandName&[0][operator]=EQUAL&[0][value]=Puma
+```
+
+#### 2. Filter by Price Range
+```http
+GET http://localhost:3000/api/products/v1?[0][field]=price&[0][operator]=GT&[0][value]=50&[1][field]=price&[1][operator]=LT&[1][value]=200
+```
+
+#### 3. Text Search with Sorting
+```http
+GET http://localhost:3000/api/products/v1?[0][field]=name&[0][operator]=CONTAINS&[0][value]=Travel&orderBy=price&order=ASC
+```
+
+#### 4. Complex Multi-Filter Query
+```http
+GET http://localhost:3000/api/products/v1?[0][field]=brandName&[0][operator]=EQUAL&[0][value]=Nike&[1][field]=price&[1][operator]=GT&[1][value]=100&[2][field]=availability&[2][operator]=EQUAL&[2][value]=true&orderBy=rating&order=DESC&page=1&pageSize=5
+```
+
+### Cursor-Based Pagination
+
+#### 1. Initial Request
+```http
+GET http://localhost:3000/api/products/v1/cursor?cursor=name&direction=ASC&pageSize=10
+```
+
+#### 2. Next Page Request
+```http
+GET http://localhost:3000/api/products/v1/cursor?value=<cursor_value>&cursor=name&direction=ASC&pageSize=10
+```
+
+### Available Operators
+
+| Operator | Description | Example |
+|----------|-------------|---------|
+| `EQUAL` | Exact match | `brandName = "Nike"` |
+| `NOT_EQUAL` | Not equal | `availability != false` |
+| `GT` | Greater than | `price > 100` |
+| `LT` | Less than | `rating < 4.0` |
+| `CONTAINS` | Text contains | `name CONTAINS "Travel"` |
+| `NOT_CONTAINS` | Text doesn't contain | `description NOT_CONTAINS "discontinued"` |
+
+### Response Format
+
+```json
+{
+  "statusCode": 200,
+  "message": "Products retrieved successfully",
+  "data": {
+    "data": [
+      {
+        "uuid": "product-uuid",
+        "name": "Product Name",
+        "description": "Product Description",
+        "price": 99.99,
+        "rating": 4.5,
+        "availability": true,
+        "brand": {
+          "uuid": "brand-uuid",
+          "name": "Brand Name"
+        },
+        "category": {
+          "uuid": "category-uuid",
+          "name": "Category Name"
+        }
+      }
+    ],
+    "total": 150,
+    "totalPages": 15
+  }
+}
+```
+
+## 🧪 Testing
+
+The project includes comprehensive tests covering different layers of the architecture:
+
+### Test Structure
+```
+test/
+└── src/
+    ├── app/
+    │   ├── products/
+    │   │   ├── application/
+    │   │   │   └── get-products-by-cursor.application.test.ts
+    │   │   └── infra/
+    │   │       └── postgres/
+    │   │           └── get-value.postgres.test.ts
+    │   └── shared/
+    │       └── infrastructure/
+    │           └── criteria/
+    │               ├── criteria-cursor-to-sql.test.ts
+    │               └── urlsearch-to-criteria-cursor.test.ts
+```
+
+### Test Categories
+
+#### 1. **Application Layer Tests**
+- **Purpose**: Test business logic and use cases
+- **Example**: `get-products-by-cursor.application.test.ts`
+- **Coverage**: End-to-end cursor pagination flow
+- **Approach**: Integration tests with real database connections
+
+#### 2. **Infrastructure Layer Tests**
+- **Purpose**: Test data access and external integrations
+- **Example**: `get-value.postgres.test.ts`
+- **Coverage**: PostgreSQL repository implementations
+- **Approach**: Database integration tests
+
+#### 3. **Criteria Pattern Tests**
+- **Purpose**: Test query building and URL parsing
+- **Examples**: 
+  - `criteria-cursor-to-sql.test.ts` - SQL generation from criteria
+  - `urlsearch-to-criteria-cursor.test.ts` - URL parameter parsing
+- **Coverage**: Query logic validation
+- **Approach**: Unit tests with mocked dependencies
+
+### Running Tests
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm run jest
+
+# Run specific test file
+npm test -- get-products-by-cursor.application.test.ts
+```
+
+### Test Configuration
+
+The project uses **Jest** as the testing framework with:
+- **TypeScript Support**: Direct `.ts` file execution
+- **Path Mapping**: Same aliases as production code
+- **Database Integration**: Real PostgreSQL connections for integration tests
+- **Async Testing**: Full support for async/await patterns
+
+### Example Test Scenarios
+
+1. **Cursor Pagination Flow**: Tests complete pagination cycle with multiple requests
+2. **SQL Query Generation**: Validates criteria conversion to parameterized SQL
+3. **URL Parameter Parsing**: Tests conversion of query strings to criteria objects
+4. **Repository Integration**: Tests database operations with real data
+
+## 🛠️ Development
+
+### Prerequisites
+- **Node.js**: 20.19.4 or higher
+- **Docker**: For containerized development
+- **PostgreSQL**: 15.13 (via Docker)
+
+### Available Scripts
+
+```bash
+# Development
+npm run dev              # Start development server with hot reload
+npm run dev:docker       # Start for Docker environment
+
+# Building
+npm run build            # Compile TypeScript to JavaScript
+npm run clean            # Remove compiled files
+
+# Database
+npm run generate-sql-scripts  # Generate database scripts
+
+# Testing
+npm test                 # Run test suite
+npm run jest            # Run tests in watch mode
+```
+
+### Project Configuration
+
+- **TypeScript**: Configured with path mapping for clean imports
+- **Environment Variables**: Managed through Docker Compose
+- **ESLint/Prettier**: Code formatting and linting (optional)
+- **Nodemon**: Hot reload during development
+
+---
+
+**Built with ❤️ by Jose Carlos HG** | [View on GitHub](https://github.com/jcarloshg/pattern-criteria)
