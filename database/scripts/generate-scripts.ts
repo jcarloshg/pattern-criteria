@@ -219,79 +219,42 @@ export const categories: Category[] = [
 // ─────────────────────────────────────
 // add UUIDs to products and rewrite file
 // ─────────────────────────────────────
-const productsPath = path.join(__dirname, 'products.json');
-console.log(`productsPath: ${productsPath}`);
-const productsData = fs.readFileSync(productsPath, 'utf-8');
-const products = JSON.parse(productsData) as { products: any[] };
 
-console.log(`products: ${products.products.length}`);
+const productsPath_01 = path.join(__dirname, 'products_01.json');
+const productsData_01 = fs.readFileSync(productsPath_01, 'utf-8');
+const products_01 = JSON.parse(productsData_01);
 
-const products_v1: any[] = [];
-const products_v2: any[] = [];
-const products_v3: any[] = [];
+const productsPath_02 = path.join(__dirname, 'products_02.json');
+const productsData_02 = fs.readFileSync(productsPath_02, 'utf-8');
+const products_02 = JSON.parse(productsData_02);
 
-products.products.forEach((product: any) => {
-    let product_v1 = { ...product };
-    product_v1.name = product.name + ' v1';
-    product_v1.availability = "TRUE"; // all products are available
-    product_v1.uuid = randomUUID();
-    product_v1.brand_id = brands[Math.floor(Math.random() * brands.length)].uuid;
-    product_v1.category_id = categories[Math.floor(Math.random() * categories.length)].uuid;
+console.log(`productsPath_01: ${productsPath_01}`);
+console.log(`productsPath_02: ${productsPath_02}`);
+
+const allProducts = [...products_01, ...products_02];
+console.log(`allProducts: `, allProducts.length);
+
+allProducts.forEach((product: any) => {
+    product.availability = "TRUE"; // all products are unavailable
+    product.uuid = randomUUID();
+    product.brand_id = brands[Math.floor(Math.random() * brands.length)].uuid;
+    product.category_id = categories[Math.floor(Math.random() * categories.length)].uuid;
     // set attributes
     attributes.forEach(attribute => {
         const attributeValues = attribute.values;
         const value = attributeValues[Math.floor(Math.random() * attributeValues.length)];
-        if (!product_v1.attributes) product_v1.attributes = [];
-        product_v1.attributes.push({
-            attribute_name: attribute.name,
-            attribute_id: attribute.uuid,
-            value
-        });
-    });
-    products_v1.push(product_v1);
-
-    let product_v2 = { ...product };
-    product_v2.name = product.name + ' v2';
-    product_v2.availability = "TRUE"; // all products are unavailable
-    product_v2.uuid = randomUUID();
-    product_v2.brand_id = brands[Math.floor(Math.random() * brands.length)].uuid;
-    product_v2.category_id = categories[Math.floor(Math.random() * categories.length)].uuid;
-    // set attributes
-    attributes.forEach(attribute => {
-        const attributeValues = attribute.values;
-        const value = attributeValues[Math.floor(Math.random() * attributeValues.length)];
-        if (!product_v2.attributes) product_v2.attributes = [];
-        product_v2.attributes.push({
+        if (!product.attributes) product.attributes = [];
+        product.attributes.push({
             attribute_name: attribute.name,
             attribute_id: attribute.uuid,
             value
         });
     })
-    products_v2.push(product_v2);
-
-    let product_v3 = { ...product };
-    product_v3.name = product.name + ' v3';
-    product_v3.availability = "TRUE"; // all products are available
-    product_v3.uuid = randomUUID();
-    product_v3.brand_id = brands[Math.floor(Math.random() * brands.length)].uuid;
-    product_v3.category_id = categories[Math.floor(Math.random() * categories.length)].uuid;
-    // set attributes
-    attributes.forEach(attribute => {
-        const attributeValues = attribute.values;
-        const value = attributeValues[Math.floor(Math.random() * attributeValues.length)];
-        if (!product_v3.attributes) product_v3.attributes = [];
-        product_v3.attributes.push({
-            attribute_name: attribute.name,
-            attribute_id: attribute.uuid,
-            value
-        });
-    })
-    products_v3.push(product_v3);
-
 });
 
-products.products = [...products_v1, ...products_v2, ...products_v3];
-// fs.writeFileSync(productsPath, JSON.stringify(products, null, 2), 'utf-8');
+const newProductsPath = path.join(__dirname, 'new_products.json');
+fs.writeFileSync(newProductsPath, JSON.stringify(allProducts), 'utf-8');
+
 
 // ─────────────────────────────────────
 // ─────────────────────────────────────
@@ -325,14 +288,14 @@ const attributeSqlInsert = attributeSqlInsertValuesInitial + attributeSqlInsertV
 // product
 // ─────────────────────────────────────
 const productSqlInsertValuesInitial = `INSERT INTO product (uuid, name, description, price, rating, availability, brand_id, category_id) VALUES `;
-const productSqlInsertValues = products.products.map(product => `('${product.uuid}', '${product.name.replace(/'/g, "''")}', '${product.description.replace(/'/g, "''")}', ${product.price}, ${product.rating}, ${product.availability}, '${product.brand_id}', '${product.category_id}')`).join(', \n');
+const productSqlInsertValues = allProducts.map(product => `('${product.uuid}', '${product.name.replace(/'/g, "''")}', '${product.description.replace(/'/g, "''")}', ${product.price}, ${product.rating}, ${product.availability}, '${product.brand_id}', '${product.category_id}')`).join(', \n');
 const productSqlInsert = productSqlInsertValuesInitial + productSqlInsertValues + ';';
 
 // ─────────────────────────────────────
 // product_attributes
 // ─────────────────────────────────────
 const productAttributeSqlInsertValuesInitial = `INSERT INTO product_attribute (product_id, attribute_id, value) VALUES `;
-const productAttributeSqlInsertValues = products.products.flatMap(product =>
+const productAttributeSqlInsertValues = allProducts.flatMap(product =>
     product.attributes?.map((attr: any) => `('${product.uuid}', '${attr.attribute_id}', '${attr.value}')`) || []
 ).join(', \n');
 const productAttributeSqlInsert = productAttributeSqlInsertValuesInitial + productAttributeSqlInsertValues + ';';
