@@ -1,13 +1,13 @@
 import { CriteriaError } from "@/app/shared/domain/errors/criteria.error";
 
+// AND, OR, NOT, EQUAL, NOT_EQUAL, LESS_THAN, GREATER_THAN, LESS_THAN_OR_EQUAL, GREATER_THAN_OR_EQUAL, 
+// IN, NOT_IN, BETWEEN, NOT_BETWEEN, LIKE, NOT_LIKE, IS_NULL, IS_NOT_NULL
+
 export type FiltersPrimitives = {
     field: string;
     operator: string;
     value: string[];
 };
-
-// AND, OR, NOT, EQUAL, NOT_EQUAL, LESS_THAN, GREATER_THAN, LESS_THAN_OR_EQUAL, GREATER_THAN_OR_EQUAL, 
-// IN, NOT_IN, BETWEEN, NOT_BETWEEN, LIKE, NOT_LIKE, IS_NULL, IS_NOT_NULL
 
 export enum Operator {
     EQUAL = "=",

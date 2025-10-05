@@ -1,16 +1,13 @@
-import { Request } from "express";
-
 import { Criteria } from "@/app/shared/domain/repository/criteria/criteria.criteria";
-import { Filter, FiltersPrimitives } from "@/app/shared/domain/repository/criteria/filter.criteria";
+import {
+    Filter,
+    FiltersPrimitives,
+} from "@/app/shared/domain/repository/criteria/filter.criteria";
 import { Order } from "@/app/shared/domain/repository/criteria/order.criteria";
 import { Pagination } from "@/app/shared/domain/repository/criteria/pagination.criteria";
 
-
-export class URLSearchParamsCriteriaParser {
-
-    public static parse(req: Request): Criteria {
-
-        const searchParams = new URLSearchParams(req.url);
+export class URLSearchToCriteria {
+    public static parse(searchParams: URLSearchParams): Criteria {
         const filters = this.getFilters(searchParams);
         const order = this.getOrder(searchParams);
         const pagination = this.pagination(searchParams);
@@ -20,12 +17,10 @@ export class URLSearchParamsCriteriaParser {
     }
 
     private static getFilters(searchParams: URLSearchParams): Filter[] {
-
         // index of filters / object with field, operator, value
         const filtersMap: Map<string, {}> = new Map();
 
         for (const [key, value] of searchParams.entries()) {
-
             const match = key.match(/\[(\d+)]\[(.+)]/);
 
             if (!match) continue;
@@ -42,24 +37,25 @@ export class URLSearchParamsCriteriaParser {
         }
 
         const rawFilters = Array.from(filtersMap.values());
-        const filters: Filter[] = rawFilters.map(rawFilter => Filter.fromPrimitives(rawFilter as FiltersPrimitives));
+        const filters: Filter[] = rawFilters.map((rawFilter) =>
+            Filter.fromPrimitives(rawFilter as FiltersPrimitives)
+        );
 
         return filters;
     }
 
     private static getOrder(searchParams: URLSearchParams): Order {
-        const orderBy = searchParams.get('orderBy') || '';
-        const order = searchParams.get('order') || 'NONE';
+        const orderBy = searchParams.get("orderBy") || "";
+        const order = searchParams.get("order") || "NONE";
         return Order.fromPrimitives({ orderBy, order });
     }
 
     private static pagination(searchParams: URLSearchParams): Pagination {
-
-        const page = searchParams.get('page');
-        const pageSize = searchParams.get('pageSize');
+        const page = searchParams.get("page");
+        const pageSize = searchParams.get("pageSize");
 
         if (!page && !pageSize) return new Pagination();
 
-        return Pagination.fromPrimitives(page || 'NaN', pageSize || 'NaN');
+        return Pagination.fromPrimitives(page || "NaN", pageSize || "NaN");
     }
 }

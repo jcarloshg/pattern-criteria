@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 
 import { GetAllProductsApplication } from "@/app/products/application/get-all-products.application";
-import { URLSearchParamsCriteriaParser } from "@/app/shared/infrastructure/criteria/urlsearchparams-criteria-parser";
+import { URLSearchToCriteria } from "@/app/shared/infrastructure/criteria/urlsearch-to-criteria";
 import { GetAllProductsPostgres } from "@/app/products/infra/postgres/get-all-products.postgres";
 import { postgresManager } from "@/app/shared/infrastructure/database/postgres/postgress-manager";
 import { CriteriaError } from "@/app/shared/domain/errors/criteria.error";
@@ -13,7 +13,7 @@ export const getProductsByFilters = async (req: Request, res: Response) => {
     try {
 
         // init services
-        const criteria = URLSearchParamsCriteriaParser.parse(req);
+        const criteria = URLSearchToCriteria.parse(req);
         const getAllProductsRepo = new GetAllProductsPostgres(postgresManager);
         const getTotalOfProductsRepo = new GetTotalOfProductsPostgres(postgresManager);
 
