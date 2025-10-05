@@ -12,8 +12,11 @@ import { GetTotalOfProductsPostgres } from "@/app/products/infra/postgres/get-to
 export const getProductsByFilters = async (req: Request, res: Response) => {
     try {
 
+        // parse criteria from url
+        const searchParams = new URLSearchParams(req.url);
+        const criteria = URLSearchToCriteria.parse(searchParams);
+
         // init services
-        const criteria = URLSearchToCriteria.parse(req);
         const getAllProductsRepo = new GetAllProductsPostgres(postgresManager);
         const getTotalOfProductsRepo = new GetTotalOfProductsPostgres(postgresManager);
 
