@@ -37,9 +37,9 @@ export class URLSearchToCriteria {
         }
 
         const rawFilters = Array.from(filtersMap.values());
-        const filters: Filter[] = rawFilters.map((rawFilter) =>
-            Filter.fromPrimitives(rawFilter as FiltersPrimitives)
-        );
+        const filters: Filter[] = rawFilters.map((rawFilter) => {
+            return Filter.fromPrimitives(rawFilter as FiltersPrimitives);
+        });
 
         return filters;
     }

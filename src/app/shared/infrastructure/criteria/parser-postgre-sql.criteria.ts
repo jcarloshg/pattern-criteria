@@ -26,13 +26,13 @@ export class ParserPostgreSql {
                 const sqlOperator = this.mapOperatorToSQL(filter.operator);
 
                 if (filter.operator === Operator.CONTAINS) {
-                    parameters.push(`%${filter.value}%`);
+                    parameters.push(`%${filter.values}%`);
                     return `lower(${column}) LIKE lower($${parameterIndex++})`;
                 } else if (filter.operator === Operator.NOT_CONTAINS) {
-                    parameters.push(`%${filter.value}%`);
+                    parameters.push(`%${filter.values}%`);
                     return `lower(${column}) NOT LIKE lower($${parameterIndex++})`;
                 } else {
-                    parameters.push(filter.value);
+                    parameters.push(filter.values);
                     return `${column} ${sqlOperator} $${parameterIndex++}`;
                 }
             })
