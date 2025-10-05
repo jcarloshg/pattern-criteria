@@ -2,6 +2,20 @@ import { Filter } from "./filter.criteria";
 import { Order } from "./order.criteria";
 import { Pagination } from "./pagination.criteria";
 
+interface CriteriaA {
+    filtersOr: {
+        firstPart: Filter,
+        secondPart: Filter
+    }[];
+    filtersAnd: {
+        firstPart: Filter,
+        secondPart: Filter
+    }[];
+    order: Order;
+    pagination: Pagination;
+}
+
+
 export class Criteria {
 
     public filters: Filter[];
