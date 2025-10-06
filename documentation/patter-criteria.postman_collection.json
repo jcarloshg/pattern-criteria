@@ -1,0 +1,33 @@
+{
+	"info": {
+		"_postman_id": "af76e678-f4a3-4b66-8711-5173f69a6e44",
+		"name": "patter-criteria",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9874211"
+	},
+	"item": [
+		{
+			"name": "products",
+			"item": []
+		},
+		{
+			"name": "/api",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
