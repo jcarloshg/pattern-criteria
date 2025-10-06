@@ -10,7 +10,11 @@ export enum Operator {
     EQUAL = "=",
     NOT_EQUAL = "!=",
     GT = ">",
+    GET = ">=",
     LT = "<",
+    LET = "<=",
+    IN = "IN",
+    NOT_IN = "NOT IN",
     CONTAINS = "CONTAINS",
     NOT_CONTAINS = "NOT_CONTAINS",
 }
