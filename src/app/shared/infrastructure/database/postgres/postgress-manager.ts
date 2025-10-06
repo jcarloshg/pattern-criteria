@@ -42,8 +42,6 @@ class PostgresManager {
             return result;
         } catch (error) {
             console.error("Error executing parameterized query", error);
-            console.error("Query:", query);
-            console.error("Parameters:", parameters);
             throw error;
         } finally {
             if (client) client.release();

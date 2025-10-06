@@ -192,7 +192,7 @@ describe("criteria-to-sql.test", () => {
 
         expect(parameterizedQuery).toBeDefined();
         expect(parameterizedQuery.parameters.length).toBeGreaterThan(0);
-        expect(parameterizedQuery.parameters).toEqual(["%Puma%"]);
+        expect(parameterizedQuery.parameters).toEqual(["Puma"]);
         let queryFormatted = parameterizedQuery.query;
         parameterizedQuery.parameters.forEach((param, index) => {
             queryFormatted = queryFormatted.replace(`$${index + 1}`, `${param}`);
@@ -255,7 +255,7 @@ describe("criteria-to-sql.test", () => {
 
         expect(parameterizedQuery).toBeDefined();
         expect(parameterizedQuery.parameters.length).toBeGreaterThan(0);
-        expect(parameterizedQuery.parameters).toEqual(["%Puma%", "50"]);
+        expect(parameterizedQuery.parameters).toEqual(["Puma", "50"]);
         let queryFormatted = parameterizedQuery.query;
         parameterizedQuery.parameters.forEach((param, index) => {
             queryFormatted = queryFormatted.replace(`$${index + 1}`, `${param}`);
