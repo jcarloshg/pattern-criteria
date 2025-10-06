@@ -165,12 +165,12 @@ describe("criteria-to-sql.test", () => {
         const pagination = new Pagination(1, 10);
         const filters: Filter[] = [
             new Filter("brandName", Operator.CONTAINS, ["Puma"]),
-        ]
+        ];
         const criteria = new Criteria(filters, order, pagination);
 
         const propertiesMap: Map<string, string> = new Map([
             ["brandName", "brand.name"],
-        ])
+        ]);
 
         const parameterizedQuery = new CriteriaToSql()
             .buildSelect([
@@ -227,13 +227,13 @@ describe("criteria-to-sql.test", () => {
         const filters: Filter[] = [
             new Filter("brandName", Operator.CONTAINS, ["Puma"]),
             new Filter("price", Operator.GET, ["50"]),
-        ]
+        ];
         const criteria = new Criteria(filters, order, pagination);
 
         const propertiesMap: Map<string, string> = new Map([
             ["brandName", "brand.name"],
             ["price", "product.price"],
-        ])
+        ]);
 
         const parameterizedQuery = new CriteriaToSql()
             .buildSelect([
@@ -256,6 +256,71 @@ describe("criteria-to-sql.test", () => {
         expect(parameterizedQuery).toBeDefined();
         expect(parameterizedQuery.parameters.length).toBeGreaterThan(0);
         expect(parameterizedQuery.parameters).toEqual(["%Puma%", "50"]);
+        let queryFormatted = parameterizedQuery.query;
+        parameterizedQuery.parameters.forEach((param, index) => {
+            queryFormatted = queryFormatted.replace(`$${index + 1}`, `${param}`);
+        });
+        expect(queryFormatted).toBe(expectedQuery);
+    });
+
+    it("should get query with nested filters", () => {
+        const expectedQuery = `
+            SELECT product.uuid, product.price, brand.name, category.name, product.rating, COUNT(product.uuid) AS product_count
+            FROM product
+                LEFT JOIN brand ON product.brand_id = brand.uuid
+                RIGHT JOIN category ON product.category_id = category.uuid
+            WHERE 
+                (lower(brand.name) LIKE lower('%Puma%') OR lower(brand.name) LIKE lower('%Adidas%'))
+                AND (lower(category.name) LIKE lower('%Elec%') OR lower(category.name) LIKE lower('%Toys%'))
+                AND product.price >= 10
+            GROUP BY
+                product.uuid,
+                brand.uuid,
+                category.uuid
+            ORDER BY product.price ASC
+            LIMIT 15
+            OFFSET
+                0;
+        `
+            .trim()
+            .replace(/\n+/g, " ")
+            .replace(/\t+/g, "")
+            .replace(/\s+/g, " ");
+        const order = new Order("product.price", OrderType.ASC);
+        const pagination = new Pagination(1, 15);
+        const filters: Filter[] = [
+            new Filter("brandName", Operator.CONTAINS, ["Puma", "Adidas"]),
+            new Filter("categoryName", Operator.CONTAINS, ["Elec", "Toys"]),
+            new Filter("price", Operator.GET, ["10"]),
+        ];
+        const criteria = new Criteria(filters, order, pagination);
+
+        const propertiesMap: Map<string, string> = new Map([
+            ["brandName", "brand.name"],
+            ["price", "product.price"],
+            ["categoryName", "category.name"],
+        ]);
+
+        const parameterizedQuery = new CriteriaToSql()
+            .buildSelect([
+                "product.uuid",
+                "product.price",
+                "brand.name",
+                "category.name",
+                "product.rating",
+                "COUNT(product.uuid) AS product_count",
+            ])
+            .buildFrom("product")
+            .addJoin("LEFT JOIN", "brand", "product.brand_id", "brand.uuid")
+            .addJoin("RIGHT JOIN", "category", "product.category_id", "category.uuid")
+            .buildWhere(criteria, propertiesMap)
+            .buildOrderBy(criteria)
+            .buildPagination(criteria)
+            .addGroupBy(["product.uuid", "brand.uuid", "category.uuid"])
+            .getResult();
+
+        expect(parameterizedQuery).toBeDefined();
+        expect(parameterizedQuery.parameters.length).toBeGreaterThan(0);
         let queryFormatted = parameterizedQuery.query;
         parameterizedQuery.parameters.forEach((param, index) => {
             queryFormatted = queryFormatted.replace(`$${index + 1}`, `${param}`);
