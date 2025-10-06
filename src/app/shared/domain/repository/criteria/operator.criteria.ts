@@ -1,6 +1,6 @@
 import { CriteriaError } from "../../errors/criteria.error";
 
-export const OrdersPrimitivesArray = [
+export const OperatorPrimitivesArray = [
     "EQUAL",
     "NOT_EQUAL",
     "GT",
@@ -12,26 +12,33 @@ export const OrdersPrimitivesArray = [
     "CONTAINS",
     "NOT_CONTAINS",
 ] as const;
-export type OrdersPrimitives = (typeof OrdersPrimitivesArray)[number];
+export type OperatorType = (typeof OperatorPrimitivesArray)[number];
 
 export class Operator {
-    public value: OrdersPrimitives;
-    public static OrdersPrimitivesArray = OrdersPrimitivesArray;
+    public value: OperatorType;
+    public static OrdersPrimitivesArray = OperatorPrimitivesArray;
 
-    constructor(value: OrdersPrimitives) {
+    constructor(value: OperatorType) {
         this.value = value;
     }
 
-    public fromPrimitives(value: string): Operator {
-        const isValid = OrdersPrimitivesArray.includes(value as OrdersPrimitives);
+    public static fromType(value: OperatorType): Operator {
+        return new Operator(value);
+    }
+
+    public static fromPrimitives(value: string): Operator {
+        if (value.length === 0) {
+            throw new CriteriaError("[operator] is required");
+        }
+        const isValid = OperatorPrimitivesArray.includes(value as OperatorType);
         if (!isValid) {
             throw new CriteriaError("[operator] is invalid");
         }
-        return new Operator(value as OrdersPrimitives);
+        return new Operator(value as OperatorType);
     }
 
-    public static getSqlOperator(value: OrdersPrimitives): string {
-        const map: Record<OrdersPrimitives, string> = {
+    public static getSqlOperator(value: OperatorType): string {
+        const map: Record<OperatorType, string> = {
             EQUAL: "=",
             NOT_EQUAL: "!=",
             GT: ">",

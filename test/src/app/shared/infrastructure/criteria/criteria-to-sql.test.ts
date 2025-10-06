@@ -1,8 +1,6 @@
 import { Criteria } from "@/app/shared/domain/repository/criteria/criteria.criteria";
-import {
-    Filter,
-    Operator,
-} from "@/app/shared/domain/repository/criteria/filter.criteria";
+import { Filter } from "@/app/shared/domain/repository/criteria/filter.criteria";
+import { Operator } from "@/app/shared/domain/repository/criteria/operator.criteria";
 import {
     Order,
     OrderType,
@@ -164,7 +162,7 @@ describe("criteria-to-sql.test", () => {
         const order = new Order("product.price", OrderType.ASC);
         const pagination = new Pagination(1, 10);
         const filters: Filter[] = [
-            new Filter("brandName", Operator.CONTAINS, ["Puma"]),
+            new Filter("brandName", Operator.fromType("CONTAINS"), ["Puma"]),
         ];
         const criteria = new Criteria(filters, order, pagination);
 
@@ -224,8 +222,8 @@ describe("criteria-to-sql.test", () => {
         const order = new Order("product.price", OrderType.ASC);
         const pagination = new Pagination(1, 10);
         const filters: Filter[] = [
-            new Filter("brandName", Operator.CONTAINS, ["Puma"]),
-            new Filter("price", Operator.GTOE, ["50"]),
+            new Filter("brandName", Operator.fromType("CONTAINS"), ["Puma"]),
+            new Filter("price", Operator.fromType("GTOE"), ["50"]),
         ];
         const criteria = new Criteria(filters, order, pagination);
 
@@ -287,9 +285,9 @@ describe("criteria-to-sql.test", () => {
         const order = new Order("product.price", OrderType.ASC);
         const pagination = new Pagination(1, 15);
         const filters: Filter[] = [
-            new Filter("brandName", Operator.CONTAINS, ["Puma", "Adidas"]),
-            new Filter("categoryName", Operator.CONTAINS, ["Elec", "Toys"]),
-            new Filter("price", Operator.GT, ["10"]),
+            new Filter("brandName", Operator.fromType("CONTAINS"), ["Puma", "Adidas"]),
+            new Filter("categoryName", Operator.fromType("CONTAINS"), ["Elec", "Toys"]),
+            new Filter("price", Operator.fromType("GT"), ["10"]),
         ];
         const criteria = new Criteria(filters, order, pagination);
 
