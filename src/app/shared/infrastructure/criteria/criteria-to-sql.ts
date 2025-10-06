@@ -1,5 +1,5 @@
 import { Criteria } from "@/app/shared/domain/repository/criteria/criteria.criteria";
-import { Operator } from "@/app/shared/domain/repository/criteria/filter.criteria";
+import { Operator } from "@/app/shared/domain/repository/criteria/operator.criteria";
 import { OrderType } from "../../domain/repository/criteria/order.criteria";
 
 export interface ParameterizedQuery {
@@ -53,7 +53,7 @@ export class CriteriaToSql {
 
             const fieldMapped = propertiesMap.get(filter.field);
 
-            if (filter.operator === Operator.CONTAINS) {
+            if (Operator.isEqual("CONTAINS", filter.operator)) {
                 const sectionsTemp: string[] = filter.values.map((value) => {
                     this.parameters.push(`%${value}%`);
                     return `lower(${fieldMapped}) LIKE lower($${parameterIndex++})`;
@@ -63,7 +63,8 @@ export class CriteriaToSql {
                     : sectionsTemp[0];
             }
 
-            if (filter.operator === Operator.NOT_CONTAINS) {
+            // if (filter.operator === Operator.NOT_CONTAINS) {
+            if (Operator.isEqual("NOT_CONTAINS", filter.operator)) {
                 const sectionsTemp: string[] = filter.values.map((value) => {
                     this.parameters.push(`%${value}%`);
                     return `lower(${fieldMapped}) NOT LIKE lower($${parameterIndex++})`;
@@ -75,7 +76,7 @@ export class CriteriaToSql {
 
             const sectionsTemp: string[] = filter.values.map((value) => {
                 this.parameters.push(value);
-                return `${fieldMapped} ${this._getOperatorSql(filter.operator)} $${parameterIndex++}`;
+                return `${fieldMapped} ${filter.operator.toSqlOperator()} $${parameterIndex++}`;
             });
 
             return sectionsTemp.length > 1
@@ -86,16 +87,6 @@ export class CriteriaToSql {
         this.whereBody = whereFilters.join(" AND ");
 
         return this;
-    }
-
-    private _getOperatorSql(operator: Operator): string {
-        const entries = Object.entries(Operator);
-        const operatorEntry = entries.find(([key, value]) => key === operator);
-        if (!operatorEntry) {
-            throw new Error(`Operator ${operator} not found`);
-        }
-        const [, value] = operatorEntry;
-        return value;
     }
 
     public addGroupBy(value: string[]): CriteriaToSql {

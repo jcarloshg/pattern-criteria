@@ -1,14 +1,17 @@
-import { postgresManager, PostgresManagerType } from "@/app/shared/infrastructure/database/postgres/postgress-manager";
+import {
+    postgresManager,
+    PostgresManagerType,
+} from "@/app/shared/infrastructure/database/postgres/postgress-manager";
 import { ProductToRead } from "@/app/products/domain/models/product.model";
 import { GetAllProductsRepository } from "@/app/products/domain/repository/get-all-products.repository";
 import { Criteria } from "@/app/shared/domain/repository/criteria/criteria.criteria";
-import { CriteriaToSql, ParameterizedQuery } from "@/app/shared/infrastructure/criteria/criteria-to-sql";
+import {
+    CriteriaToSql,
+    ParameterizedQuery,
+} from "@/app/shared/infrastructure/criteria/criteria-to-sql";
 
 export class GetAllProductsPostgres implements GetAllProductsRepository {
-
-    constructor(
-        private readonly PostgresManager: PostgresManagerType
-    ) { }
+    constructor(private readonly PostgresManager: PostgresManagerType) { }
 
     // ─────────────────────────────────────
     // main method
@@ -22,7 +25,33 @@ export class GetAllProductsPostgres implements GetAllProductsRepository {
                 parameterizedQuery.query,
                 parameterizedQuery.parameters
             );
-            return result.rows;
+            const productsParsed: ProductToRead[] = result.rows.map((row: any) => {
+                const product: ProductToRead = {
+                    uuid: String(row.uuid),
+                    name: String(row.name),
+                    description: String(row.description),
+                    price: Number(row.price),
+                    rating: Number(row.rating),
+                    availability: Boolean(row.availability),
+                    brand: {
+                        uuid: String(row.brand?.uuid ?? ""),
+                        name: String(row.brand?.name ?? ""),
+                    },
+                    category: {
+                        uuid: String(row.category?.uuid ?? ""),
+                        name: String(row.category?.name ?? ""),
+                    },
+                    attributes: Array.isArray(row.attributes)
+                        ? row.attributes.map((attr: any) => ({
+                            uuid: String(attr?.uuid ?? ""),
+                            name: String(attr?.name ?? ""),
+                            value: String(attr?.value ?? ""),
+                        }))
+                        : [],
+                };
+                return product;
+            });
+            return productsParsed;
         } catch (error) {
             throw error;
         }
@@ -33,7 +62,6 @@ export class GetAllProductsPostgres implements GetAllProductsRepository {
     // ─────────────────────────────────────
 
     private buildParameterizedQuery(criteria: Criteria): ParameterizedQuery {
-
         const propertiesMap: Map<string, string> = new Map<string, string>([
             ["uuid", "product.uuid"],
             ["name", "product.name"],
@@ -56,11 +84,21 @@ export class GetAllProductsPostgres implements GetAllProductsRepository {
                 "product.rating as rating",
                 "array_agg(jsonb_build_object( 'uuid', attribute.uuid, 'value', product_attribute.value, 'name', attribute.name)) AS attributes",
                 "jsonb_build_object('uuid', brand.uuid, 'name', brand.name) AS brand",
-                "jsonb_build_object('uuid', category.uuid, 'name', category.name) AS category"
+                "jsonb_build_object('uuid', category.uuid, 'name', category.name) AS category",
             ])
             .buildFrom("product")
-            .addJoin("JOIN", "product_attribute", "product.uuid", "product_attribute.product_id")
-            .addJoin("JOIN", "attribute", "product_attribute.attribute_id", "attribute.uuid")
+            .addJoin(
+                "JOIN",
+                "product_attribute",
+                "product.uuid",
+                "product_attribute.product_id"
+            )
+            .addJoin(
+                "JOIN",
+                "attribute",
+                "product_attribute.attribute_id",
+                "attribute.uuid"
+            )
             .addJoin("JOIN", "brand", "product.brand_id", "brand.uuid")
             .addJoin("JOIN", "category", "product.category_id", "category.uuid")
             .buildWhere(criteria, propertiesMap)
@@ -71,8 +109,7 @@ export class GetAllProductsPostgres implements GetAllProductsRepository {
 
         return {
             query: criteriaToSql.query,
-            parameters: criteriaToSql.parameters
+            parameters: criteriaToSql.parameters,
         };
     }
-
 }

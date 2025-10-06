@@ -37,6 +37,17 @@ export class Operator {
         return new Operator(value as OperatorType);
     }
 
+    public static isEqual(operator: OperatorType, operator2: Operator): boolean {
+        const existsOperator1 = OperatorPrimitivesArray.includes(
+            operator as OperatorType
+        );
+        return existsOperator1 && operator === operator2.value;
+    }
+
+    public toSqlOperator(): string {
+        return Operator.getSqlOperator(this.value);
+    }
+
     public static getSqlOperator(value: OperatorType): string {
         const map: Record<OperatorType, string> = {
             EQUAL: "=",

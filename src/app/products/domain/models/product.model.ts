@@ -48,6 +48,13 @@ export const SchemaToReadProduct = z.object({
         uuid: z.string().uuid(),
         name: z.string().max(255),
     },
+    attributes: z.array(
+        z.object({
+            name: z.string().max(255),
+            uuid: z.string().uuid(),
+            value: z.string().max(255),
+        })
+    ),
 });
 
 export type ProductToRead = z.infer<typeof SchemaToReadProduct>;

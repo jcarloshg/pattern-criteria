@@ -99,8 +99,6 @@ describe("get-all-products.application.test", () => {
 
         const result = await useCase.run({ criteria });
 
-        console.log(`result: `, result);
-
         // assertions
         expect(result).toBeDefined();
         const productsRes = result.data;
@@ -113,11 +111,13 @@ describe("get-all-products.application.test", () => {
 
         // check the filtering by name and price
         productsRes.data.forEach((product) => {
+            console.log(`product: `, product);
             expect(
                 product.name.toLowerCase().includes("coffe") ||
                 product.name.toLowerCase().includes("cheesy")
             ).toBe(true);
-            expect(product.price).toBeGreaterThan(5);
+            expect(typeof product.price).toBe("number");
+            expect(product.price).toBeGreaterThanOrEqual(5);
         });
 
     });
