@@ -68,8 +68,6 @@ export class GetAllProductsPostgres implements GetAllProductsRepository {
             .addGroupBy(["product.uuid", "brand.uuid", "category.uuid"])
             .getResult();
 
-        console.log(`criteriaToSql: `, criteriaToSql);
-
         return {
             query: criteriaToSql.query,
             parameters: criteriaToSql.parameters

@@ -57,7 +57,7 @@ export class CriteriaToSql {
             if (operator === Operator.CONTAINS) {
                 const sectionsTemp: string[] = values.map((value) => {
                     this.parameters.push(`%${value}%`);
-                    return `lower(${fieldMapped}) LIKE lower('$${parameterIndex++}')`;
+                    return `lower(${fieldMapped}) LIKE lower($${parameterIndex++})`;
                 });
                 return sectionsTemp.length > 1
                     ? `(${sectionsTemp.join(" OR ")})`
@@ -67,7 +67,7 @@ export class CriteriaToSql {
             if (operator === Operator.NOT_CONTAINS) {
                 const sectionsTemp: string[] = values.map((value) => {
                     this.parameters.push(`%${value}%`);
-                    return `lower(${fieldMapped}) NOT LIKE lower('$${parameterIndex++}')`;
+                    return `lower(${fieldMapped}) NOT LIKE lower($${parameterIndex++})`;
                 });
                 return sectionsTemp.length > 1
                     ? `(${sectionsTemp.join(" OR ")})`

@@ -228,11 +228,7 @@ const productsPath_02 = path.join(__dirname, 'products_02.json');
 const productsData_02 = fs.readFileSync(productsPath_02, 'utf-8');
 const products_02 = JSON.parse(productsData_02);
 
-console.log(`productsPath_01: ${productsPath_01}`);
-console.log(`productsPath_02: ${productsPath_02}`);
-
 const allProducts = [...products_01, ...products_02];
-console.log(`allProducts: `, allProducts.length);
 
 allProducts.forEach((product: any) => {
     product.availability = "TRUE"; // all products are unavailable
@@ -329,7 +325,6 @@ ${productAttributeSqlInsert}
 `;
 
 // write to file
-console.log(`__dirname: ${__dirname}`);
 // database/
 const outputPath = path.join(__dirname, '../migrations/2025-09-30/02.insert-products.UP.sql');
 // const outputPath = path.join(__dirname, './insert.sql');

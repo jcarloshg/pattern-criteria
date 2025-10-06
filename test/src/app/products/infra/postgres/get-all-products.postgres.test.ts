@@ -1,13 +1,18 @@
-import { GetAllProductsPostgres } from "@/app/products/infra/postgres/get-all-products.postgres"
+import { GetAllProductsPostgres } from "@/app/products/infra/postgres/get-all-products.postgres";
 import { Criteria } from "@/app/shared/domain/repository/criteria/criteria.criteria";
-import { Filter, Operator } from "@/app/shared/domain/repository/criteria/filter.criteria";
-import { Order, OrderType } from "@/app/shared/domain/repository/criteria/order.criteria";
+import {
+    Filter,
+    Operator,
+} from "@/app/shared/domain/repository/criteria/filter.criteria";
+import {
+    Order,
+    OrderType,
+} from "@/app/shared/domain/repository/criteria/order.criteria";
 import { Pagination } from "@/app/shared/domain/repository/criteria/pagination.criteria";
-import { postgresManager } from "@/app/shared/infrastructure/database/postgres/postgress-manager"
+import { postgresManager } from "@/app/shared/infrastructure/database/postgres/postgress-manager";
 
-describe('get-all-products.postgres.test', () => {
-    it('should do something', async () => {
-
+describe("get-all-products.postgres.test", () => {
+    it("should do something", async () => {
         // ─────────────────────────────────────
         // criteria specification
         // ─────────────────────────────────────
@@ -26,9 +31,9 @@ describe('get-all-products.postgres.test', () => {
         const getAllProductsPostgres = new GetAllProductsPostgres(postgresManager);
         const res = await getAllProductsPostgres.run(criteria);
 
+        expect(getAllProductsPostgres).toBeDefined();
         expect(res).toBeDefined();
         expect(res.length).toBeGreaterThan(0);
-        expect(getAllProductsPostgres).toBeDefined();
-
-    })
-})
+        expect(res.length).toBeLessThanOrEqual(15);
+    });
+});
