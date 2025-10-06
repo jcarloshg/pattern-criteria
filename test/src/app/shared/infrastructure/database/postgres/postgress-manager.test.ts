@@ -51,13 +51,11 @@ describe("postgress-manager.test", () => {
             .addGroupBy(["product.uuid", "brand.uuid", "category.uuid"])
             .getResult();
 
-        console.log(`criteriaToSql: `, criteriaToSql);
-
         const res = await postgresManager.runParameterizedQuery(
             criteriaToSql.query,
             criteriaToSql.parameters
         );
-        console.log(res);
+
         expect(res).toBeDefined();
     });
 });

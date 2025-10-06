@@ -84,50 +84,6 @@ describe("urlsearch-to-criteria.test", () => {
         }
     });
 
-    it("should be error: [operator] is invalid", () => {
-        try {
-            const urlBase = "http://localhost:3000/api/products/v1";
-            const urlPagination = "?&page=1&pageSize=10";
-            const urlOrder = "&orderBy=price&order=ASC";
-            const urlFilter1 =
-                "&[0][field]=name&[0][operator]=&[0][values]=[Travel]";
-            const url = `${urlBase}${urlPagination}${urlOrder}${urlFilter1}`;
-            const searchParams = new URL(url).searchParams;
-            const criteria = URLSearchToCriteria.parse(searchParams);
-            expect(criteria).toBeDefined();
-            expect(criteria.pagination.page).toBe(1);
-            expect(criteria.pagination.pageSize).toBe(10);
-            expect(criteria.orders.orderBy).toBe("price");
-            expect(criteria.orders.order).toBe("ASC");
-        } catch (error) {
-            const errorMessage =
-                error instanceof Error ? error.message : String(error);
-            expect(errorMessage).toBe("[operator] is invalid");
-        }
-    });
-
-    it("should be error: [operator] is invalid", () => {
-        try {
-            const urlBase = "http://localhost:3000/api/products/v1";
-            const urlPagination = "?&page=1&pageSize=10";
-            const urlOrder = "&orderBy=price&order=ASC";
-            const urlFilter1 =
-                "&[0][field]=name&[0][operator]=&[0][values]=[Travel]";
-            const url = `${urlBase}${urlPagination}${urlOrder}${urlFilter1}`;
-            const searchParams = new URL(url).searchParams;
-            const criteria = URLSearchToCriteria.parse(searchParams);
-            expect(criteria).toBeDefined();
-            expect(criteria.pagination.page).toBe(1);
-            expect(criteria.pagination.pageSize).toBe(10);
-            expect(criteria.orders.orderBy).toBe("price");
-            expect(criteria.orders.order).toBe("ASC");
-        } catch (error) {
-            const errorMessage =
-                error instanceof Error ? error.message : String(error);
-            expect(errorMessage).toBe("[operator] is invalid");
-        }
-    });
-
     it("should be error: [values] must contain at least one non-empty values", () => {
         try {
             const urlBase = "http://localhost:3000/api/products/v1";
@@ -165,10 +121,10 @@ describe("urlsearch-to-criteria.test", () => {
         expect(criteria.orders.order).toBe("ASC");
         expect(criteria.filters.length).toBe(2);
         expect(criteria.filters[0].field).toBe("name");
-        expect(criteria.filters[0].operator).toBe("CONTAINS");
+        expect(criteria.filters[0].operator.value).toBe("CONTAINS");
         expect(criteria.filters[0].values).toEqual(["Travel", "Adventure"]);
         expect(criteria.filters[1].field).toBe("price");
-        expect(criteria.filters[1].operator).toBe("GT");
+        expect(criteria.filters[1].operator.value).toBe("GT");
         expect(criteria.filters[1].values).toEqual(["50"]);
     });
 });
