@@ -17,12 +17,11 @@ export class Pagination {
             const isNotNumberPage = isNaN(pageNumber);
             const isNotNumberPageSize = isNaN(pageSizeNumber);
 
-            if (isNotNumberPage) throw new Error("Page must be a number");
-            if (isNotNumberPageSize) throw new Error("Page size must be a number");
+            if (isNotNumberPage) throw new Error("[page] must be a number");
+            if (pageNumber < 1) throw new Error("[page] must be greater than 0");
 
-            if (pageSizeNumber && !pageNumber) throw new Error("Page is required when page size is provided");
-            if (pageNumber < 1) throw new Error("Page must be greater than 0");
-            if (pageSizeNumber < 1) throw new Error("Page size must be greater than 0");
+            if (isNotNumberPageSize) throw new Error("[pageSize] must be a number");
+            if (pageSizeNumber < 1) throw new Error("[pageSize] must be greater than 0");
 
             return new Pagination(pageNumber, pageSizeNumber);
         } catch (error) {

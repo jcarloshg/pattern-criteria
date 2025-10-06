@@ -10,7 +10,6 @@ export class GetTotalOfProductsPostgres implements GetTotalOfProductsRepository 
         const query = `SELECT COUNT(DISTINCT product.uuid) AS product_count FROM product;`;
         try {
             const result = await this.PostgresManager.runQuery(query);
-            console.log(`result: `, result);
             return parseInt(result.rows[0].product_count, 10);
         } catch (error) {
             throw error;

@@ -12,7 +12,6 @@ export type OrderPrimitives = {
 };
 
 export class Order {
-
     public orderBy: string;
     public order: OrderType;
 
@@ -22,10 +21,10 @@ export class Order {
     }
 
     static fromPrimitives(primitives: OrderPrimitives): Order {
-        try {
-            return new Order(primitives.orderBy, primitives.order as OrderType);
-        } catch (error) {
-            throw new CriteriaError(error);
+        if (!Object.values(OrderType).includes(primitives.order as OrderType)) {
+            throw new CriteriaError(`[order] is invalid`);
         }
+
+        return new Order(primitives.orderBy, primitives.order as OrderType);
     }
 }

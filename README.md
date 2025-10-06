@@ -297,47 +297,72 @@ The project uses Docker Compose for easy development setup with three services:
 http://localhost:3000/api/products/v1
 ```
 
+**Sample response:**
+
+```json
+{
+  "message": "Welcome to the API"
+}
+```
+
 ### ❤️ Health Check
 
 ```http
 GET http://localhost:3000/api/health
 ```
 
+**Sample response:**
+
+```json
+{
+  "status": "OK",
+  "timestamp": "2025-10-06T06:12:36.117Z",
+  "environment": "development",
+  "version": "1.0.0"
+}
+```
+
 ### 📦 Basic Product Retrieval
 
-```http
-# Get all products (with default pagination)
-GET http://localhost:3000/api/products/v1
-
-# Get products with pagination
-GET http://localhost:3000/api/products/v1?page=1&pageSize=10
-```
-
-### 🔧 Advanced Filtering Examples
-
-#### 🏷️ 1. Filter by Brand
+#### Get products with pagination
 
 ```http
-GET http://localhost:3000/api/products/v1?[0][field]=brandName&[0][operator]=EQUAL&[0][value]=Puma
+GET http://localhost:3000/api/products/v1?&page=1&pageSize=5
 ```
 
-#### 💰 2. Filter by Price Range
+#### Get products with pagination and order
 
 ```http
-GET http://localhost:3000/api/products/v1?[0][field]=price&[0][operator]=GT&[0][value]=50&[1][field]=price&[1][operator]=LT&[1][value]=200
+GET http://localhost:3000/api/products/v1?&page=4&pageSize=5&orderBy=price&order=DESC
 ```
 
-#### 🔍 3. Text Search with Sorting
+### 🔧 Structure of Advanced Filtering Example
 
 ```http
-GET http://localhost:3000/api/products/v1?[0][field]=name&[0][operator]=CONTAINS&[0][value]=Travel&orderBy=price&order=ASC
+http://localhost:3000/api/products/v1?&page=4&pageSize=5&orderBy=price&order=DESC&[0][field]=brandName&[0][operator]=CONTAINS&[0][values]=[adi, ap]&[1][field]=price&[1][operator]=GT&[1][values]=[5]
 ```
 
-#### ⚙️ 4. Complex Multi-Filter Query
+#### ⚙️ Pagination
 
-```http
-GET http://localhost:3000/api/products/v1?[0][field]=brandName&[0][operator]=EQUAL&[0][value]=Nike&[1][field]=price&[1][operator]=GT&[1][value]=100&[2][field]=availability&[2][operator]=EQUAL&[2][value]=true&orderBy=rating&order=DESC&page=1&pageSize=5
-```
+- page=4
+- pageSize=5
+
+#### 🔍 Ordering
+
+- orderBy=price
+- order=DESC
+
+#### 🏷️ Filter by Brand
+
+- [0][field]=brandName
+- [0][operator]=CONTAINS
+- [0][values]=[adi, ap]
+
+#### 💰 2. Filter by Price
+
+- [1][field]=price
+- [1][operator]=GT
+- [1][values]=[5]
 
 ### 📄 Cursor-Based Pagination
 
@@ -355,14 +380,18 @@ GET http://localhost:3000/api/products/v1/cursor?value=<cursor_value>&cursor=nam
 
 ### 🔤 Available Operators
 
-| Operator       | Description          | Example                                   | Icon |
-| -------------- | -------------------- | ----------------------------------------- | ---- |
-| `EQUAL`        | Exact match          | `brandName = "Nike"`                      | ✅   |
-| `NOT_EQUAL`    | Not equal            | `availability != false`                   | ❌   |
-| `GT`           | Greater than         | `price > 100`                             | ⬆️   |
-| `LT`           | Less than            | `rating < 4.0`                            | ⬇️   |
-| `CONTAINS`     | Text contains        | `name CONTAINS "Travel"`                  | 🔍   |
-| `NOT_CONTAINS` | Text doesn't contain | `description NOT_CONTAINS "discontinued"` | 🚫   |
+| Operator       | Description           | Example                                   | Icon |
+| -------------- | --------------------- | ----------------------------------------- | ---- |
+| `EQUAL`        | Exact match           | `brandName = "Nike"`                      | ✅   |
+| `NOT_EQUAL`    | Not equal             | `availability != false`                   | ❌   |
+| `GT`           | Greater than          | `price > 100`                             | ⬆️   |
+| `GTOE`         | Greater than or equal | `price >= 100`                            | ⬆️✅ |
+| `LT`           | Less than             | `rating < 4.0`                            | ⬇️   |
+| `LET`          | Less than or equal    | `rating <= 4.0`                           | ⬇️✅ |
+| `IN`           | Value in list         | `category IN ["electronics", "clothing"]` | 📋   |
+| `NOT_IN`       | Value not in list     | `brand NOT_IN ["discontinued", "old"]`    | 📋❌ |
+| `CONTAINS`     | Text contains         | `name CONTAINS "Travel"`                  | 🔍   |
+| `NOT_CONTAINS` | Text doesn't contain  | `description NOT_CONTAINS "discontinued"` | 🚫   |
 
 ### 📋 Response Format
 
@@ -373,20 +402,32 @@ GET http://localhost:3000/api/products/v1/cursor?value=<cursor_value>&cursor=nam
   "data": {
     "data": [
       {
-        "uuid": "product-uuid",
-        "name": "Product Name",
-        "description": "Product Description",
-        "price": 99.99,
-        "rating": 4.5,
+        "uuid": "b98df9f1-885d-47cf-afe0-528d508ab96f",
+        "name": "Electric Hot Pot",
+        "description": "Compact electric pot for hot pot dining at home.",
+        "price": 49.99,
+        "rating": 4.52,
         "availability": true,
         "brand": {
-          "uuid": "brand-uuid",
-          "name": "Brand Name"
+          "uuid": "3f8fb1fe-ba6a-4aef-9dc4-daca61469898",
+          "name": "Adidas"
         },
         "category": {
-          "uuid": "category-uuid",
-          "name": "Category Name"
-        }
+          "uuid": "91cec3b8-cacd-4e57-8814-34a64de70978",
+          "name": "Books"
+        },
+        "attributes": [
+          {
+            "uuid": "68ab9649-6f7a-4512-8feb-fd7f3fce28ec",
+            "name": "Color",
+            "value": "Green"
+          },
+          {
+            "uuid": "f6d99980-6890-4c68-a6b3-cb36afa914ee",
+            "name": "Quantity",
+            "value": "6"
+          }
+        ]
       }
     ],
     "total": 150,

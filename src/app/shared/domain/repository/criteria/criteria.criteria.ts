@@ -3,7 +3,6 @@ import { Order } from "./order.criteria";
 import { Pagination } from "./pagination.criteria";
 
 export class Criteria {
-
     public filters: Filter[];
     public orders: Order;
     public pagination: Pagination;

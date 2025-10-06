@@ -2,6 +2,19 @@ import { CriteriaCursor } from "../../domain/repository/criteria-cursor/criteria
 import { Operator } from "@/app/shared/domain/repository/criteria-cursor/filter-cursor.criteria-cursor";
 import { OrderCursorType } from "../../domain/repository/criteria-cursor/order-cursor.criteria-cursor";
 
+export const operatorSql: Record<Operator, string> = {
+    [Operator.EQUAL]: "=",
+    [Operator.NOT_EQUAL]: "!=",
+    [Operator.GT]: ">",
+    [Operator.GET]: ">=",
+    [Operator.LT]: "<",
+    [Operator.LET]: "<=",
+    [Operator.IN]: "IN",
+    [Operator.NOT_IN]: "NOT IN",
+    [Operator.CONTAINS]: "LIKE", // This will be handled specially
+    [Operator.NOT_CONTAINS]: "NOT LIKE", // This will be handled specially
+};
+
 export interface ParameterizedQuery {
     query: string;
     parameters: any[];
@@ -12,7 +25,6 @@ export class CriteriaCursorToSql {
     private _selectBody: string;
     private _fromBody: string;
     private _groupByBody: string | undefined;
-    private _operatorSql: Record<Operator, string>;
 
     constructor(
         criteria: CriteriaCursor,
@@ -24,15 +36,6 @@ export class CriteriaCursorToSql {
         this._selectBody = select_body;
         this._fromBody = from_body;
         this._groupByBody = group_by_body;
-
-        this._operatorSql = {
-            [Operator.EQUAL]: "=",
-            [Operator.NOT_EQUAL]: "!=",
-            [Operator.GT]: ">",
-            [Operator.LT]: "<",
-            [Operator.CONTAINS]: "LIKE", // This will be handled specially
-            [Operator.NOT_CONTAINS]: "NOT LIKE", // This will be handled specially
-        };
     }
 
     public toSql(propertiesMap: Map<string, string>): ParameterizedQuery {
@@ -41,9 +44,11 @@ export class CriteriaCursorToSql {
         const limitBody: string = this._criteria.pagination.pageSize.toString();
 
         const queryArray: string[] = [
-            "SELECT", this._selectBody,
-            "FROM", this._fromBody,
-        ]
+            "SELECT",
+            this._selectBody,
+            "FROM",
+            this._fromBody,
+        ];
 
         queryArray.push("WHERE", whereBody.query);
 
@@ -75,7 +80,7 @@ export class CriteriaCursorToSql {
                 const column = propertiesMap.get(filter.field);
                 if (!column) return undefined;
 
-                const sqlOperator = this._operatorSql[filter.operator];
+                const sqlOperator = operatorSql[filter.operator];
 
                 if (filter.operator === Operator.CONTAINS) {
                     parameters.push(`%${filter.value}%`);
