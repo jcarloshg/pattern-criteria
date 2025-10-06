@@ -136,18 +136,18 @@ class OrderCursor {
 
 ### 🧩 About Criteria Pattern
 
-- 🔗 Connection to _ElasticSearch_
-- 🛠️ _CriteriaParseSql_ enhancement to work with _join_ in _SQL_
+- [ ] 🔗 Connection to _ElasticSearch_
+- [x] 🛠️ _CriteriaParseSql_ enhancement to work with _join_ in _SQL_
   - ⚙️ for the moment there are simple implementations
     - 📝 [CriteriaCursorToSql](src/app/shared/infrastructure/criteria/criteria-cursor-to-sql.ts)
     - 📝 [ParserPostgreSql](src/app/shared/infrastructure/criteria/parser-postgre-sql.criteria.ts)
 
 ### 🏛️ About Hexagonal Architecture
 
-- 🔄 Adding Cross-Cutting Concerns
-- 📦 Adding _EvenBust Service_ as _AmazomSQS_
-- 📊 Adding _Architecture Documentation_
-  - ADR (Architecture Decision Records): Document architectural decisions
+- [ ] 🔄 Adding Cross-Cutting Concerns
+- [ ] 📦 Adding _EvenBust Service_ as _AmazomSQS_
+- [ ] 📊 Adding _Architecture Documentation_
+  - [ ] ADR (Architecture Decision Records): Document architectural decisions
 
 ## 🗄️ Database Structure
 
