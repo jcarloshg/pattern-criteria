@@ -89,30 +89,13 @@ export class CriteriaToSql {
     }
 
     private _getOperatorSql(operator: Operator): string {
-        switch (operator) {
-            case Operator.EQUAL:
-                return "=";
-            case Operator.NOT_EQUAL:
-                return "!=";
-            case Operator.GT:
-                return ">";
-            case Operator.GET:
-                return ">=";
-            case Operator.LT:
-                return "<";
-            case Operator.LET:
-                return "<=";
-            case Operator.IN:
-                return "IN";
-            case Operator.NOT_IN:
-                return "NOT IN";
-            case Operator.CONTAINS:
-                return "LIKE";
-            case Operator.NOT_CONTAINS:
-                return "NOT LIKE";
-            default:
-                throw new Error(`Unsupported operator: ${operator}`);
+        const entries = Object.entries(Operator);
+        const operatorEntry = entries.find(([key, value]) => key === operator);
+        if (!operatorEntry) {
+            throw new Error(`Operator ${operator} not found`);
         }
+        const [, value] = operatorEntry;
+        return value;
     }
 
     public addGroupBy(value: string[]): CriteriaToSql {

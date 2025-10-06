@@ -13,7 +13,7 @@ export enum Operator {
     EQUAL = "=",
     NOT_EQUAL = "!=",
     GT = ">",
-    GET = ">=",
+    GTOE = ">=",
     LT = "<",
     LET = "<=",
     IN = "IN",
@@ -42,8 +42,9 @@ export class Filter {
 
         // Validate operator
         const operator = primitives.operator as Operator;
-        if (!Object.keys(Operator).includes(operator)) {
-            throw new CriteriaError("[operator] is invalid");
+        const isValid = Object.keys(Operator).includes(operator);
+        if (!isValid) {
+            throw new CriteriaError(`[operator] must be a valid OrdersPrimitives value`);
         }
 
         // Parse and validate values

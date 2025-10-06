@@ -225,7 +225,7 @@ describe("criteria-to-sql.test", () => {
         const pagination = new Pagination(1, 10);
         const filters: Filter[] = [
             new Filter("brandName", Operator.CONTAINS, ["Puma"]),
-            new Filter("price", Operator.GET, ["50"]),
+            new Filter("price", Operator.GTOE, ["50"]),
         ];
         const criteria = new Criteria(filters, order, pagination);
 

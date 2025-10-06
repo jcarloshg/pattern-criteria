@@ -80,8 +80,7 @@ describe("get-all-products.application.test", () => {
         const urlPagination = "?&page=1&pageSize=10";
         const urlOrder = "&orderBy=price&order=ASC";
         const urlFilter1 = "&[0][field]=name&[0][operator]=CONTAINS&[0][values]=[coffe, cheesy]";
-        const urlFilter2 = "&[1][field]=price&[1][operator]=GET&[1][values]=[5]";
-
+        const urlFilter2 = "&[1][field]=price&[1][operator]=GTOE&[1][values]=[5]";
         const url = `${urlBase}${urlPagination}${urlOrder}${urlFilter1}${urlFilter2}`;
         const searchParams = new URL(url).searchParams;
         const criteria = URLSearchToCriteria.parse(searchParams);

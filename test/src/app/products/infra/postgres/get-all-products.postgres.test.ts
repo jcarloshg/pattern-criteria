@@ -19,7 +19,7 @@ describe("get-all-products.postgres.test", () => {
         const filters: Filter[] = [
             new Filter("brandName", Operator.CONTAINS, ["Puma", "Adidas"]),
             new Filter("categoryName", Operator.CONTAINS, ["Elec", "Toys"]),
-            new Filter("price", Operator.GET, ["10"]),
+            new Filter("price", Operator.GTOE, ["10"]),
         ];
         const order = new Order("product.price", OrderType.ASC);
         const pagination = new Pagination(1, 15);
