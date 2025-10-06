@@ -147,7 +147,7 @@ describe("criteria-to-sql.test", () => {
                 LEFT JOIN brand ON product.brand_id = brand.uuid
                 RIGHT JOIN category ON product.category_id = category.uuid
             WHERE
-                lower(brand.name) LIKE lower('%Puma%')
+                lower(brand.name) LIKE lower(%Puma%)
             GROUP BY
                 product.uuid,
                 brand.uuid,
@@ -206,7 +206,7 @@ describe("criteria-to-sql.test", () => {
                 LEFT JOIN brand ON product.brand_id = brand.uuid
                 RIGHT JOIN category ON product.category_id = category.uuid
             WHERE
-                lower(brand.name) LIKE lower('%Puma%')
+                lower(brand.name) LIKE lower(%Puma%)
                 AND product.price >= 50
             GROUP BY
                 product.uuid,
@@ -268,9 +268,9 @@ describe("criteria-to-sql.test", () => {
                 LEFT JOIN brand ON product.brand_id = brand.uuid
                 RIGHT JOIN category ON product.category_id = category.uuid
             WHERE 
-                (lower(brand.name) LIKE lower('%Puma%') OR lower(brand.name) LIKE lower('%Adidas%'))
-                AND (lower(category.name) LIKE lower('%Elec%') OR lower(category.name) LIKE lower('%Toys%'))
-                AND product.price >= 10
+                (lower(brand.name) LIKE lower(%Puma%) OR lower(brand.name) LIKE lower(%Adidas%))
+                AND (lower(category.name) LIKE lower(%Elec%) OR lower(category.name) LIKE lower(%Toys%))
+                AND product.price > 10
             GROUP BY
                 product.uuid,
                 brand.uuid,
@@ -289,7 +289,7 @@ describe("criteria-to-sql.test", () => {
         const filters: Filter[] = [
             new Filter("brandName", Operator.CONTAINS, ["Puma", "Adidas"]),
             new Filter("categoryName", Operator.CONTAINS, ["Elec", "Toys"]),
-            new Filter("price", Operator.GET, ["10"]),
+            new Filter("price", Operator.GT, ["10"]),
         ];
         const criteria = new Criteria(filters, order, pagination);
 

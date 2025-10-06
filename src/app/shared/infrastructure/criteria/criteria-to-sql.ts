@@ -2,6 +2,19 @@ import { Criteria } from "@/app/shared/domain/repository/criteria/criteria.crite
 import { Operator } from "@/app/shared/domain/repository/criteria/filter.criteria";
 import { OrderType } from "../../domain/repository/criteria/order.criteria";
 
+export const operatorSql: Record<Operator, string> = {
+    [Operator.EQUAL]: "=",
+    [Operator.NOT_EQUAL]: "!=",
+    [Operator.GT]: ">",
+    [Operator.GET]: ">=",
+    [Operator.LT]: "<",
+    [Operator.LET]: "<=",
+    [Operator.IN]: "IN",
+    [Operator.NOT_IN]: "NOT IN",
+    [Operator.CONTAINS]: "LIKE", // This will be handled specially
+    [Operator.NOT_CONTAINS]: "NOT LIKE", // This will be handled specially
+};
+
 export interface ParameterizedQuery {
     query: string;
     parameters: any[];
@@ -76,8 +89,9 @@ export class CriteriaToSql {
 
             const sectionsTemp: string[] = values.map((value) => {
                 this.parameters.push(value);
-                return `${fieldMapped} ${operator} $${parameterIndex++}`;
+                return `${fieldMapped} ${operatorSql[operator]} $${parameterIndex++}`;
             });
+
             return sectionsTemp.length > 1
                 ? `(${sectionsTemp.join(" OR ")})`
                 : sectionsTemp[0];
