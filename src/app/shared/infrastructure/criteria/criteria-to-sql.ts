@@ -2,19 +2,6 @@ import { Criteria } from "@/app/shared/domain/repository/criteria/criteria.crite
 import { Operator } from "@/app/shared/domain/repository/criteria/filter.criteria";
 import { OrderType } from "../../domain/repository/criteria/order.criteria";
 
-export const operatorSql: Record<Operator, string> = {
-    [Operator.EQUAL]: "=",
-    [Operator.NOT_EQUAL]: "!=",
-    [Operator.GT]: ">",
-    [Operator.GET]: ">=",
-    [Operator.LT]: "<",
-    [Operator.LET]: "<=",
-    [Operator.IN]: "IN",
-    [Operator.NOT_IN]: "NOT IN",
-    [Operator.CONTAINS]: "LIKE", // This will be handled specially
-    [Operator.NOT_CONTAINS]: "NOT LIKE", // This will be handled specially
-};
-
 export interface ParameterizedQuery {
     query: string;
     parameters: any[];
@@ -63,12 +50,11 @@ export class CriteriaToSql {
         let parameterIndex = 1;
 
         const whereFilters: string[] = filters.map((filter) => {
-            const { field, operator, values } = filter;
 
-            const fieldMapped = propertiesMap.get(field);
+            const fieldMapped = propertiesMap.get(filter.field);
 
-            if (operator === Operator.CONTAINS) {
-                const sectionsTemp: string[] = values.map((value) => {
+            if (filter.operator === Operator.CONTAINS) {
+                const sectionsTemp: string[] = filter.values.map((value) => {
                     this.parameters.push(`%${value}%`);
                     return `lower(${fieldMapped}) LIKE lower($${parameterIndex++})`;
                 });
@@ -77,8 +63,8 @@ export class CriteriaToSql {
                     : sectionsTemp[0];
             }
 
-            if (operator === Operator.NOT_CONTAINS) {
-                const sectionsTemp: string[] = values.map((value) => {
+            if (filter.operator === Operator.NOT_CONTAINS) {
+                const sectionsTemp: string[] = filter.values.map((value) => {
                     this.parameters.push(`%${value}%`);
                     return `lower(${fieldMapped}) NOT LIKE lower($${parameterIndex++})`;
                 });
@@ -87,9 +73,9 @@ export class CriteriaToSql {
                     : sectionsTemp[0];
             }
 
-            const sectionsTemp: string[] = values.map((value) => {
+            const sectionsTemp: string[] = filter.values.map((value) => {
                 this.parameters.push(value);
-                return `${fieldMapped} ${operatorSql[operator]} $${parameterIndex++}`;
+                return `${fieldMapped} ${this._getOperatorSql(filter.operator)} $${parameterIndex++}`;
             });
 
             return sectionsTemp.length > 1
@@ -100,6 +86,33 @@ export class CriteriaToSql {
         this.whereBody = whereFilters.join(" AND ");
 
         return this;
+    }
+
+    private _getOperatorSql(operator: Operator): string {
+        switch (operator) {
+            case Operator.EQUAL:
+                return "=";
+            case Operator.NOT_EQUAL:
+                return "!=";
+            case Operator.GT:
+                return ">";
+            case Operator.GET:
+                return ">=";
+            case Operator.LT:
+                return "<";
+            case Operator.LET:
+                return "<=";
+            case Operator.IN:
+                return "IN";
+            case Operator.NOT_IN:
+                return "NOT IN";
+            case Operator.CONTAINS:
+                return "LIKE";
+            case Operator.NOT_CONTAINS:
+                return "NOT LIKE";
+            default:
+                throw new Error(`Unsupported operator: ${operator}`);
+        }
     }
 
     public addGroupBy(value: string[]): CriteriaToSql {

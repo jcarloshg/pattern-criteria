@@ -16,6 +16,7 @@ export class GetAllProductsPostgres implements GetAllProductsRepository {
 
     public async run(criteria: Criteria): Promise<ProductToRead[]> {
         const parameterizedQuery = this.buildParameterizedQuery(criteria);
+        console.log(`parameterizedQuery: `, parameterizedQuery);
         try {
             const result = await this.PostgresManager.runParameterizedQuery(
                 parameterizedQuery.query,

@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1759724773270" clover="3.2.0">
+  <project timestamp="1759724773270" name="All files">
+    <metrics statements="421" coveredstatements="368" conditionals="154" coveredconditionals="106" methods="78" coveredmethods="72" elements="653" coveredelements="546" complexity="0" loc="421" ncloc="421" packages="9" files="23" classes="23"/>
+    <package name="products.application">
+      <metrics statements="38" coveredstatements="26" conditionals="10" coveredconditionals="4" methods="4" coveredmethods="4"/>
+      <file name="get-all-products.application.ts" path="/home/jose/Documents/school/architectures/pattern-criteria/src/app/products/application/get-all-products.application.ts">
+        <metrics statements="15" coveredstatements="8" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="30" count="1" type="stmt"/>
+        <line num="31" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="36" count="0" type="stmt"/>
+        <line num="37" count="0" type="stmt"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="43" count="0" type="stmt"/>
+        <line num="45" count="1" type="stmt"/>
+      </file>
+      <file name="get-products-by-cursor.application.ts" path="/home/jose/Documents/school/architectures/pattern-criteria/src/app/products/application/get-products-by-cursor.application.ts">
+        <metrics statements="23" coveredstatements="18" conditionals="8" coveredconditionals="4" methods="2" coveredmethods="2"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="38" count="2" type="stmt"/>
+        <line num="39" count="2" type="stmt"/>
+        <line num="40" count="2" type="stmt"/>
+        <line num="41" count="2" type="stmt"/>
+        <line num="43" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="44" count="1" type="stmt"/>
+        <line num="48" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
+        <line num="54" count="2" type="stmt"/>
+        <line num="55" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="56" count="0" type="stmt"/>
+        <line num="59" count="2" type="stmt"/>
+        <line num="60" count="2" type="stmt"/>
+        <line num="62" count="2" type="stmt"/>
+        <line num="71" count="2" type="stmt"/>
+        <line num="74" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="75" count="0" type="stmt"/>
+        <line num="76" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="products.infra.postgres">
+      <metrics statements="44" coveredstatements="35" conditionals="2" coveredconditionals="1" methods="10" coveredmethods="9"/>
+      <file name="get-all-products.postgres.ts" path="/home/jose/Documents/school/architectures/pattern-criteria/src/app/products/infra/postgres/get-all-products.postgres.ts">
+        <metrics statements="12" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="18" count="2" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="37" count="2" type="stmt"/>
+        <line num="49" count="2" type="stmt"/>
+        <line num="72" count="1" type="stmt"/>
+      </file>
+      <file name="get-products-by-cursor.postgres.ts" path="/home/jose/Documents/school/architectures/pattern-criteria/src/app/products/infra/postgres/get-products-by-cursor.postgres.ts">
+        <metrics statements="15" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="16" count="2" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
+        <line num="21" count="2" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="28" count="2" type="stmt"/>
+        <line num="40" count="2" type="stmt"/>
+        <line num="71" count="2" type="stmt"/>
+        <line num="79" count="2" type="stmt"/>
+        <line num="85" count="2" type="stmt"/>
+        <line num="92" count="2" type="stmt"/>
+        <line num="94" count="2" type="stmt"/>
+      </file>
+      <file name="get-total-of-products.postgress.ts" path="/home/jose/Documents/school/architectures/pattern-criteria/src/app/products/infra/postgres/get-total-of-products.postgress.ts">
+        <metrics statements="7" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+      </file>
+      <file name="get-value.postgres.ts" path="/home/jose/Documents/school/architectures/pattern-criteria/src/app/products/infra/postgres/get-value.postgres.ts">
+        <metrics statements="10" coveredstatements="8" conditionals="2" coveredconditionals="1" methods="2" coveredmethods="2"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="13" count="2" type="stmt"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="15" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="16" count="2" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="shared.domain.errors">
+      <metrics statements="12" coveredstatements="10" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="2"/>
+      <file name="criteria.error.ts" path="/home/jose/Documents/school/architectures/pattern-criteria/src/app/shared/domain/errors/criteria.error.ts">
+        <metrics statements="7" coveredstatements="7" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
+        <line num="1" count="7" type="stmt"/>
+        <line num="3" count="7" type="stmt"/>
+        <line num="6" count="14" type="stmt"/>
+        <line num="7" count="14" type="cond" truecount="2" falsecount="0"/>
+        <line num="8" count="14" type="cond" truecount="2" falsecount="0"/>
+        <line num="10" count="14" type="stmt"/>
+        <line num="11" count="14" type="stmt"/>
+      </file>
+      <file name="custom-error.error.ts" path="/home/jose/Documents/school/architectures/pattern-criteria/src/app/shared/domain/errors/custom-error.error.ts">
+        <metrics statements="5" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
+        <line num="1" count="7" type="stmt"/>
+        <line num="3" count="7" type="stmt"/>
+        <line num="5" count="14" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="shared.domain.model">
+      <metrics statements="9" coveredstatements="6" conditionals="2" coveredconditionals="0" methods="6" coveredmethods="3"/>
+      <file name="custom-response.model.ts" path="/home/jose/Documents/school/architectures/pattern-criteria/src/app/shared/domain/model/custom-response.model.ts">
+        <metrics statements="9" coveredstatements="6" conditionals="2" coveredconditionals="0" methods="6" coveredmethods="3"/>
+        <line num="2" count="7" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="30" count="1" type="stmt"/>
+        <line num="34" count="0" type="stmt"/>
+        <line num="42" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="shared.domain.repository.criteria">
+      <metrics statements="58" coveredstatements="56" conditionals="22" coveredconditionals="18" methods="11" coveredmethods="11"/>
+      <file name="criteria.criteria.ts" path="/home/jose/Documents/school/architectures/pattern-criteria/src/app/shared/domain/repository/criteria/criteria.criteria.ts">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="5" count="4" type="stmt"/>
+        <line num="11" count="14" type="stmt"/>
+        <line num="12" count="14" type="stmt"/>
+        <line num="13" count="14" type="stmt"/>
+      </file>
+      <file name="filter.criteria.ts" path="/home/jose/Documents/school/architectures/pattern-criteria/src/app/shared/domain/repository/criteria/filter.criteria.ts">
+        <metrics statements="28" coveredstatements="26" conditionals="8" coveredconditionals="6" methods="5" coveredmethods="5"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="12" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="13" count="4" type="stmt"/>
+        <line num="14" count="4" type="stmt"/>
+        <line num="15" count="4" type="stmt"/>
+        <line num="16" count="4" type="stmt"/>
+        <line num="17" count="4" type="stmt"/>
+        <line num="18" count="4" type="stmt"/>
+        <line num="19" count="4" type="stmt"/>
+        <line num="20" count="4" type="stmt"/>
+        <line num="21" count="4" type="stmt"/>
+        <line num="22" count="4" type="stmt"/>
+        <line num="25" count="4" type="stmt"/>
+        <line num="31" count="14" type="stmt"/>
+        <line num="32" count="14" type="stmt"/>
+        <line num="33" count="14" type="stmt"/>
+        <line num="38" count="8" type="stmt"/>
+        <line num="39" count="8" type="cond" truecount="1" falsecount="1"/>
+        <line num="40" count="0" type="stmt"/>
+        <line num="44" count="8" type="stmt"/>
+        <line num="45" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="46" count="3" type="stmt"/>
+        <line num="50" count="5" type="stmt"/>
+        <line num="53" count="7" type="stmt"/>
+        <line num="54" count="7" type="stmt"/>
+        <line num="56" count="5" type="cond" truecount="1" falsecount="1"/>
+        <line num="57" count="0" type="stmt"/>
+        <line num="62" count="5" type="stmt"/>
+      </file>
+      <file name="order.criteria.ts" path="/home/jose/Documents/school/architectures/pattern-criteria/src/app/shared/domain/repository/criteria/order.criteria.ts">
+        <metrics statements="11" coveredstatements="11" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="3" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="4" count="4" type="stmt"/>
+        <line num="5" count="4" type="stmt"/>
+        <line num="6" count="4" type="stmt"/>
+        <line num="14" count="4" type="stmt"/>
+        <line num="19" count="18" type="stmt"/>
+        <line num="20" count="18" type="stmt"/>
+        <line num="24" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="28" count="7" type="stmt"/>
+      </file>
+      <file name="pagination.criteria.ts" path="/home/jose/Documents/school/architectures/pattern-criteria/src/app/shared/domain/repository/criteria/pagination.criteria.ts">
+        <metrics statements="15" coveredstatements="15" conditionals="10" coveredconditionals="8" methods="2" coveredmethods="2"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="3" count="4" type="stmt"/>
+        <line num="8" count="14" type="stmt"/>
+        <line num="9" count="14" type="stmt"/>
+        <line num="13" count="7" type="stmt"/>
+        <line num="14" count="7" type="stmt"/>
+        <line num="15" count="7" type="stmt"/>
+        <line num="17" count="7" type="stmt"/>
+        <line num="18" count="7" type="stmt"/>
+        <line num="20" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="21" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="23" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="24" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="26" count="3" type="stmt"/>
+        <line num="28" count="4" type="stmt"/>
+      </file>
+    </package>
+    <package name="shared.domain.repository.criteria-cursor">
+      <metrics statements="54" coveredstatements="51" conditionals="17" coveredconditionals="14" methods="9" coveredmethods="9"/>
+      <file name="criteria-cursor.criteria-cursor.ts" path="/home/jose/Documents/school/architectures/pattern-criteria/src/app/shared/domain/repository/criteria-cursor/criteria-cursor.criteria-cursor.ts">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="15" count="11" type="stmt"/>
+        <line num="16" count="11" type="stmt"/>
+        <line num="17" count="11" type="stmt"/>
+      </file>
+      <file name="filter-cursor.criteria-cursor.ts" path="/home/jose/Documents/school/architectures/pattern-criteria/src/app/shared/domain/repository/criteria-cursor/filter-cursor.criteria-cursor.ts">
+        <metrics statements="23" coveredstatements="21" conditionals="4" coveredconditionals="3" methods="3" coveredmethods="3"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="9" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
+        <line num="13" count="3" type="stmt"/>
+        <line num="14" count="3" type="stmt"/>
+        <line num="15" count="3" type="stmt"/>
+        <line num="16" count="3" type="stmt"/>
+        <line num="17" count="3" type="stmt"/>
+        <line num="18" count="3" type="stmt"/>
+        <line num="19" count="3" type="stmt"/>
+        <line num="22" count="3" type="stmt"/>
+        <line num="28" count="6" type="stmt"/>
+        <line num="29" count="6" type="stmt"/>
+        <line num="30" count="6" type="stmt"/>
+        <line num="34" count="4" type="stmt"/>
+        <line num="35" count="4" type="stmt"/>
+        <line num="36" count="4" type="stmt"/>
+        <line num="37" count="4" type="cond" truecount="1" falsecount="1"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="40" count="4" type="stmt"/>
+        <line num="42" count="0" type="stmt"/>
+      </file>
+      <file name="order-cursor.criteria-cursor.ts" path="/home/jose/Documents/school/architectures/pattern-criteria/src/app/shared/domain/repository/criteria-cursor/order-cursor.criteria-cursor.ts">
+        <metrics statements="17" coveredstatements="17" conditionals="8" coveredconditionals="8" methods="3" coveredmethods="3"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="3" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="10" count="11" type="stmt"/>
+        <line num="11" count="11" type="stmt"/>
+        <line num="12" count="11" type="stmt"/>
+        <line num="20" count="9" type="stmt"/>
+        <line num="22" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="26" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="30" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="34" count="6" type="stmt"/>
+        <line num="36" count="3" type="stmt"/>
+      </file>
+      <file name="pagination-cursor.criteria-cursor.ts" path="/home/jose/Documents/school/architectures/pattern-criteria/src/app/shared/domain/repository/criteria-cursor/pagination-cursor.criteria-cursor.ts">
+        <metrics statements="10" coveredstatements="9" conditionals="5" coveredconditionals="3" methods="2" coveredmethods="2"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="9" count="14" type="stmt"/>
+        <line num="15" count="3" type="stmt"/>
+        <line num="17" count="3" type="stmt"/>
+        <line num="18" count="3" type="stmt"/>
+        <line num="19" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="20" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="22" count="3" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="shared.infrastructure.criteria">
+      <metrics statements="177" coveredstatements="159" conditionals="71" coveredconditionals="53" methods="30" coveredmethods="29"/>
+      <file name="criteria-cursor-to-sql.ts" path="/home/jose/Documents/school/architectures/pattern-criteria/src/app/shared/infrastructure/criteria/criteria-cursor-to-sql.ts">
+        <metrics statements="41" coveredstatements="37" conditionals="10" coveredconditionals="7" methods="6" coveredmethods="6"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="23" count="2" type="stmt"/>
+        <line num="35" count="7" type="stmt"/>
+        <line num="36" count="7" type="stmt"/>
+        <line num="37" count="7" type="stmt"/>
+        <line num="38" count="7" type="stmt"/>
+        <line num="42" count="7" type="stmt"/>
+        <line num="43" count="7" type="stmt"/>
+        <line num="44" count="7" type="stmt"/>
+        <line num="46" count="7" type="stmt"/>
+        <line num="53" count="7" type="stmt"/>
+        <line num="55" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="57" count="7" type="stmt"/>
+        <line num="58" count="7" type="stmt"/>
+        <line num="60" count="7" type="stmt"/>
+        <line num="62" count="7" type="stmt"/>
+        <line num="71" count="7" type="stmt"/>
+        <line num="72" count="7" type="stmt"/>
+        <line num="73" count="7" type="stmt"/>
+        <line num="78" count="7" type="stmt"/>
+        <line num="80" count="2" type="stmt"/>
+        <line num="81" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="83" count="2" type="stmt"/>
+        <line num="85" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="86" count="0" type="stmt"/>
+        <line num="87" count="0" type="stmt"/>
+        <line num="88" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="89" count="0" type="stmt"/>
+        <line num="90" count="0" type="stmt"/>
+        <line num="92" count="2" type="stmt"/>
+        <line num="93" count="2" type="stmt"/>
+        <line num="96" count="2" type="stmt"/>
+        <line num="101" count="7" type="stmt"/>
+        <line num="103" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="110" count="7" type="stmt"/>
+        <line num="112" count="7" type="stmt"/>
+        <line num="119" count="7" type="stmt"/>
+        <line num="120" count="7" type="stmt"/>
+        <line num="122" count="7" type="stmt"/>
+      </file>
+      <file name="criteria-to-sql.ts" path="/home/jose/Documents/school/architectures/pattern-criteria/src/app/shared/infrastructure/criteria/criteria-to-sql.ts">
+        <metrics statements="75" coveredstatements="61" conditionals="37" coveredconditionals="22" methods="14" coveredmethods="13"/>
+        <line num="2" count="3" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="11" count="12" type="stmt"/>
+        <line num="13" count="12" type="stmt"/>
+        <line num="14" count="12" type="stmt"/>
+        <line num="16" count="12" type="stmt"/>
+        <line num="17" count="12" type="stmt"/>
+        <line num="19" count="12" type="stmt"/>
+        <line num="20" count="12" type="stmt"/>
+        <line num="21" count="12" type="stmt"/>
+        <line num="26" count="12" type="stmt"/>
+        <line num="27" count="12" type="stmt"/>
+        <line num="31" count="12" type="stmt"/>
+        <line num="32" count="12" type="stmt"/>
+        <line num="41" count="16" type="stmt"/>
+        <line num="42" count="16" type="stmt"/>
+        <line num="49" count="5" type="stmt"/>
+        <line num="50" count="5" type="stmt"/>
+        <line num="52" count="5" type="stmt"/>
+        <line num="54" count="11" type="stmt"/>
+        <line num="56" count="11" type="cond" truecount="2" falsecount="0"/>
+        <line num="57" count="7" type="stmt"/>
+        <line num="58" count="12" type="stmt"/>
+        <line num="59" count="12" type="stmt"/>
+        <line num="61" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="66" count="4" type="cond" truecount="1" falsecount="1"/>
+        <line num="67" count="0" type="stmt"/>
+        <line num="68" count="0" type="stmt"/>
+        <line num="69" count="0" type="stmt"/>
+        <line num="71" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="76" count="4" type="stmt"/>
+        <line num="77" count="4" type="stmt"/>
+        <line num="78" count="4" type="stmt"/>
+        <line num="81" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="86" count="4" type="stmt"/>
+        <line num="88" count="4" type="stmt"/>
+        <line num="92" count="4" type="cond" truecount="3" falsecount="8"/>
+        <line num="94" count="0" type="stmt"/>
+        <line num="96" count="0" type="stmt"/>
+        <line num="98" count="1" type="stmt"/>
+        <line num="100" count="2" type="stmt"/>
+        <line num="102" count="0" type="stmt"/>
+        <line num="104" count="0" type="stmt"/>
+        <line num="106" count="0" type="stmt"/>
+        <line num="108" count="0" type="stmt"/>
+        <line num="110" count="0" type="stmt"/>
+        <line num="112" count="0" type="stmt"/>
+        <line num="114" count="1" type="stmt"/>
+        <line num="119" count="4" type="stmt"/>
+        <line num="120" count="4" type="stmt"/>
+        <line num="124" count="4" type="stmt"/>
+        <line num="125" count="4" type="cond" truecount="1" falsecount="1"/>
+        <line num="126" count="0" type="stmt"/>
+        <line num="127" count="0" type="stmt"/>
+        <line num="129" count="4" type="stmt"/>
+        <line num="130" count="4" type="stmt"/>
+        <line num="134" count="8" type="stmt"/>
+        <line num="135" count="8" type="stmt"/>
+        <line num="136" count="8" type="stmt"/>
+        <line num="137" count="8" type="stmt"/>
+        <line num="141" count="11" type="stmt"/>
+        <line num="142" count="11" type="cond" truecount="1" falsecount="1"/>
+        <line num="143" count="11" type="stmt"/>
+        <line num="145" count="11" type="cond" truecount="1" falsecount="1"/>
+        <line num="146" count="11" type="cond" truecount="2" falsecount="0"/>
+        <line num="147" count="5" type="stmt"/>
+        <line num="149" count="11" type="cond" truecount="2" falsecount="0"/>
+        <line num="150" count="11" type="cond" truecount="2" falsecount="0"/>
+        <line num="151" count="4" type="stmt"/>
+        <line num="152" count="4" type="stmt"/>
+        <line num="154" count="11" type="cond" truecount="2" falsecount="0"/>
+        <line num="155" count="11" type="cond" truecount="2" falsecount="0"/>
+        <line num="157" count="11" type="stmt"/>
+        <line num="158" count="11" type="stmt"/>
+      </file>
+      <file name="urlsearch-to-criteria-cursor.ts" path="/home/jose/Documents/school/architectures/pattern-criteria/src/app/shared/infrastructure/criteria/urlsearch-to-criteria-cursor.ts">
+        <metrics statements="31" coveredstatements="31" conditionals="12" coveredconditionals="12" methods="5" coveredmethods="5"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="12" count="9" type="stmt"/>
+        <line num="13" count="9" type="stmt"/>
+        <line num="14" count="9" type="stmt"/>
+        <line num="16" count="6" type="stmt"/>
+        <line num="17" count="6" type="stmt"/>
+        <line num="21" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="22" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="23" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="24" count="9" type="stmt"/>
+        <line num="29" count="9" type="stmt"/>
+        <line num="31" count="9" type="stmt"/>
+        <line num="32" count="39" type="stmt"/>
+        <line num="34" count="39" type="cond" truecount="2" falsecount="0"/>
+        <line num="36" count="12" type="stmt"/>
+        <line num="37" count="12" type="stmt"/>
+        <line num="39" count="12" type="cond" truecount="2" falsecount="0"/>
+        <line num="41" count="12" type="stmt"/>
+        <line num="42" count="12" type="stmt"/>
+        <line num="44" count="12" type="stmt"/>
+        <line num="47" count="9" type="stmt"/>
+        <line num="48" count="9" type="stmt"/>
+        <line num="49" count="4" type="stmt"/>
+        <line num="52" count="9" type="stmt"/>
+        <line num="56" count="9" type="stmt"/>
+        <line num="57" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="58" count="3" type="stmt"/>
+      </file>
+      <file name="urlsearch-to-criteria.ts" path="/home/jose/Documents/school/architectures/pattern-criteria/src/app/shared/infrastructure/criteria/urlsearch-to-criteria.ts">
+        <metrics statements="30" coveredstatements="30" conditionals="12" coveredconditionals="12" methods="5" coveredmethods="5"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="11" count="11" type="stmt"/>
+        <line num="12" count="8" type="stmt"/>
+        <line num="13" count="7" type="stmt"/>
+        <line num="15" count="3" type="stmt"/>
+        <line num="16" count="3" type="stmt"/>
+        <line num="21" count="11" type="stmt"/>
+        <line num="23" count="11" type="stmt"/>
+        <line num="24" count="57" type="stmt"/>
+        <line num="26" count="57" type="cond" truecount="2" falsecount="0"/>
+        <line num="28" count="24" type="stmt"/>
+        <line num="29" count="24" type="stmt"/>
+        <line num="31" count="24" type="cond" truecount="2" falsecount="0"/>
+        <line num="33" count="24" type="stmt"/>
+        <line num="34" count="24" type="stmt"/>
+        <line num="36" count="24" type="stmt"/>
+        <line num="39" count="11" type="stmt"/>
+        <line num="40" count="11" type="stmt"/>
+        <line num="41" count="8" type="stmt"/>
+        <line num="44" count="8" type="stmt"/>
+        <line num="48" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="49" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="50" count="8" type="stmt"/>
+        <line num="54" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="55" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="56" count="7" type="stmt"/>
+      </file>
+    </package>
+    <package name="shared.infrastructure.database.postgres">
+      <metrics statements="23" coveredstatements="19" conditionals="4" coveredconditionals="2" methods="4" coveredmethods="4"/>
+      <file name="postgress-manager.ts" path="/home/jose/Documents/school/architectures/pattern-criteria/src/app/shared/infrastructure/database/postgres/postgress-manager.ts">
+        <metrics statements="23" coveredstatements="19" conditionals="4" coveredconditionals="2" methods="4" coveredmethods="4"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="2" count="4" type="stmt"/>
+        <line num="9" count="4" type="stmt"/>
+        <line num="13" count="4" type="stmt"/>
+        <line num="14" count="4" type="stmt"/>
+        <line num="20" count="4" type="stmt"/>
+        <line num="24" count="2" type="stmt"/>
+        <line num="25" count="2" type="stmt"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="27" count="2" type="stmt"/>
+        <line num="28" count="2" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="33" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="38" count="3" type="stmt"/>
+        <line num="39" count="3" type="stmt"/>
+        <line num="40" count="3" type="stmt"/>
+        <line num="41" count="3" type="stmt"/>
+        <line num="42" count="3" type="stmt"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="45" count="0" type="stmt"/>
+        <line num="47" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="52" count="4" type="stmt"/>
+      </file>
+    </package>
+    <package name="shared.infrastructure.utils">
+      <metrics statements="6" coveredstatements="6" conditionals="22" coveredconditionals="10" methods="1" coveredmethods="1"/>
+      <file name="enviroment-variables.ts" path="/home/jose/Documents/school/architectures/pattern-criteria/src/app/shared/infrastructure/utils/enviroment-variables.ts">
+        <metrics statements="6" coveredstatements="6" conditionals="22" coveredconditionals="10" methods="1" coveredmethods="1"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="2" count="4" type="stmt"/>
+        <line num="41" count="4" type="cond" truecount="1" falsecount="1"/>
+        <line num="42" count="4" type="stmt"/>
+        <line num="67" count="4" type="stmt"/>
+        <line num="71" count="4" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
