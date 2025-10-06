@@ -23,7 +23,7 @@ describe('get-all-products.postgres.test', () => {
         // ─────────────────────────────────────
         // execution
         // ─────────────────────────────────────
-        const getAllProductsPostgres = new GetAllProductsPostgres(postgresManager)
+        const getAllProductsPostgres = new GetAllProductsPostgres(postgresManager);
         const res = await getAllProductsPostgres.run(criteria);
 
         expect(res).toBeDefined();
