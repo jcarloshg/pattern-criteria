@@ -42,18 +42,22 @@ export class CriteriaToSql {
         return this;
     }
 
-    public buildWhere(criteria: Criteria): CriteriaToSql {
+    public buildWhere(
+        criteria: Criteria,
+        propertiesMap: Map<string, string>
+    ): CriteriaToSql {
         const { filters, orders } = criteria;
         let parameterIndex = 1;
 
         const whereFilters: string[] = filters.map((filter) => {
             const { field, operator, values } = filter;
 
+            const fieldMapped = propertiesMap.get(field);
+
             if (operator === Operator.CONTAINS) {
                 const sectionsTemp: string[] = values.map((value) => {
                     this.parameters.push(`%${value}%`);
-                    parameterIndex++;
-                    return `lower(${field}) LIKE ($${parameterIndex})`;
+                    return `lower(${fieldMapped}) LIKE lower('$${parameterIndex++}')`;
                 });
                 return sectionsTemp.length > 1
                     ? `(${sectionsTemp.join(" OR ")})`
@@ -63,8 +67,7 @@ export class CriteriaToSql {
             if (operator === Operator.NOT_CONTAINS) {
                 const sectionsTemp: string[] = values.map((value) => {
                     this.parameters.push(`%${value}%`);
-                    parameterIndex++;
-                    return `lower(${field}) NOT LIKE ($${parameterIndex})`;
+                    return `lower(${fieldMapped}) NOT LIKE lower('$${parameterIndex++}')`;
                 });
                 return sectionsTemp.length > 1
                     ? `(${sectionsTemp.join(" OR ")})`
@@ -73,8 +76,7 @@ export class CriteriaToSql {
 
             const sectionsTemp: string[] = values.map((value) => {
                 this.parameters.push(value);
-                parameterIndex++;
-                return `${field} ${operator} $${parameterIndex}`;
+                return `${fieldMapped} ${operator} $${parameterIndex++}`;
             });
             return sectionsTemp.length > 1
                 ? `(${sectionsTemp.join(" OR ")})`
