@@ -380,14 +380,18 @@ GET http://localhost:3000/api/products/v1/cursor?value=<cursor_value>&cursor=nam
 
 ### 🔤 Available Operators
 
-| Operator       | Description          | Example                                   | Icon |
-| -------------- | -------------------- | ----------------------------------------- | ---- |
-| `EQUAL`        | Exact match          | `brandName = "Nike"`                      | ✅   |
-| `NOT_EQUAL`    | Not equal            | `availability != false`                   | ❌   |
-| `GT`           | Greater than         | `price > 100`                             | ⬆️   |
-| `LT`           | Less than            | `rating < 4.0`                            | ⬇️   |
-| `CONTAINS`     | Text contains        | `name CONTAINS "Travel"`                  | 🔍   |
-| `NOT_CONTAINS` | Text doesn't contain | `description NOT_CONTAINS "discontinued"` | 🚫   |
+| Operator       | Description           | Example                                   | Icon |
+| -------------- | --------------------- | ----------------------------------------- | ---- |
+| `EQUAL`        | Exact match           | `brandName = "Nike"`                      | ✅   |
+| `NOT_EQUAL`    | Not equal             | `availability != false`                   | ❌   |
+| `GT`           | Greater than          | `price > 100`                             | ⬆️   |
+| `GTOE`         | Greater than or equal | `price >= 100`                            | ⬆️✅ |
+| `LT`           | Less than             | `rating < 4.0`                            | ⬇️   |
+| `LET`          | Less than or equal    | `rating <= 4.0`                           | ⬇️✅ |
+| `IN`           | Value in list         | `category IN ["electronics", "clothing"]` | 📋   |
+| `NOT_IN`       | Value not in list     | `brand NOT_IN ["discontinued", "old"]`    | 📋❌ |
+| `CONTAINS`     | Text contains         | `name CONTAINS "Travel"`                  | 🔍   |
+| `NOT_CONTAINS` | Text doesn't contain  | `description NOT_CONTAINS "discontinued"` | 🚫   |
 
 ### 📋 Response Format
 
@@ -398,20 +402,32 @@ GET http://localhost:3000/api/products/v1/cursor?value=<cursor_value>&cursor=nam
   "data": {
     "data": [
       {
-        "uuid": "product-uuid",
-        "name": "Product Name",
-        "description": "Product Description",
-        "price": 99.99,
-        "rating": 4.5,
+        "uuid": "b98df9f1-885d-47cf-afe0-528d508ab96f",
+        "name": "Electric Hot Pot",
+        "description": "Compact electric pot for hot pot dining at home.",
+        "price": 49.99,
+        "rating": 4.52,
         "availability": true,
         "brand": {
-          "uuid": "brand-uuid",
-          "name": "Brand Name"
+          "uuid": "3f8fb1fe-ba6a-4aef-9dc4-daca61469898",
+          "name": "Adidas"
         },
         "category": {
-          "uuid": "category-uuid",
-          "name": "Category Name"
-        }
+          "uuid": "91cec3b8-cacd-4e57-8814-34a64de70978",
+          "name": "Books"
+        },
+        "attributes": [
+          {
+            "uuid": "68ab9649-6f7a-4512-8feb-fd7f3fce28ec",
+            "name": "Color",
+            "value": "Green"
+          },
+          {
+            "uuid": "f6d99980-6890-4c68-a6b3-cb36afa914ee",
+            "name": "Quantity",
+            "value": "6"
+          }
+        ]
       }
     ],
     "total": 150,
