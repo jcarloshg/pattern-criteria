@@ -137,10 +137,12 @@ class OrderCursor {
 ### 🧩 About Criteria Pattern
 
 - [ ] 🔗 Connection to _ElasticSearch_
+- [x] 🎁 SQL Injection Protection
+  - [x] 📝 Returns objects with a parameterized query with the query as string and the array with values used by the query.
 - [x] 🛠️ _CriteriaParseSql_ enhancement to work with _join_ in _SQL_
   - ⚙️ for the moment there are simple implementations
-    - 📝 [CriteriaCursorToSql](src/app/shared/infrastructure/criteria/criteria-cursor-to-sql.ts)
-    - 📝 [ParserPostgreSql](src/app/shared/infrastructure/criteria/parser-postgre-sql.criteria.ts)
+    - [x] 📝 [CriteriaCursorToSql](src/app/shared/infrastructure/criteria/criteria-cursor-to-sql.ts)
+    - [x] 📝 [ParserPostgreSql](src/app/shared/infrastructure/criteria/parser-postgre-sql.criteria.ts)
 
 ### 🏛️ About Hexagonal Architecture
 
